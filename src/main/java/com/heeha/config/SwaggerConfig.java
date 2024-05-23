@@ -11,6 +11,18 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class SwaggerConfig {
 
+//    @Bean
+//    public OpenAPI openAPI(){
+//        SecurityScheme securityScheme = new SecurityScheme()
+//                .type(SecurityScheme.Type.HTTP).scheme("bearer").bearerFormat("JWT")
+//                .in(SecurityScheme.In.HEADER).name("Authorization");
+//        SecurityRequirement securityRequirement = new SecurityRequirement().addList("bearerAuth");
+//
+//        return new OpenAPI()
+//                .components(new Components().addSecuritySchemes("bearerAuth", securityScheme))
+//                .security(Arrays.asList(securityRequirement));
+//    }
+
     @Bean
     public GroupedOpenApi chatOpenApi() {
         String[] paths = {"/**"}; // 해당 path인경우에만 스웨거에 추가되도록 설정
@@ -23,7 +35,7 @@ public class SwaggerConfig {
                         openApi -> openApi.setInfo(
                                 new Info()
                                         .title("Hana Heritage Api") // API 제목
-                                        .description("게시판 업무 처리를 위한 API") // API 설명
+                                        .description("👨🏻‍🦳 시니어용 노후관리 및 유산상속을 위한 유언대용신탁 및 개인뱅킹 시스템") // API 설명
                                         .version("1.0.0") // API 버전
                         )
                 )
