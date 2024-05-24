@@ -1,7 +1,7 @@
 package com.heeha.domain.postBeneficiary.entity;
 
 import com.heeha.domain.base.entity.BaseEntity;
-import com.heeha.domain.livingtrust.entity.LivingTrust;
+import com.heeha.domain.livingTrust.entity.LivingTrust;
 import jakarta.persistence.*;
 import lombok.*;
 

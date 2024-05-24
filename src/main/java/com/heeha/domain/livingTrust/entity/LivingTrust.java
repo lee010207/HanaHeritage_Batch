@@ -1,4 +1,4 @@
-package com.heeha.domain.livingtrust.entity;
+package com.heeha.domain.livingTrust.entity;
 
 import com.heeha.domain.base.entity.BaseEntity;
 import com.heeha.domain.customer.entity.Customer;
