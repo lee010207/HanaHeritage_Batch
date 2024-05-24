@@ -1,4 +1,4 @@
-package com.heeha.config;
+package com.heeha.global.config;
 
 import io.swagger.v3.oas.models.info.Info;
 import lombok.RequiredArgsConstructor;
