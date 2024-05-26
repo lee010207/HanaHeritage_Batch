@@ -3,6 +3,8 @@ package com.heeha.domain.postBeneficiary.controller;
 
 import com.heeha.global.config.BaseException;
 import com.heeha.global.config.BaseResponse;
+import com.heeha.global.config.BaseResponse.ErrorResult;
+import com.heeha.global.config.BaseResponse.SuccessResult;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -25,17 +27,17 @@ public class PostBeneficiaryController {
     @Operation(summary = "입력한 숫자 확인", description = "Long no 입력 후 결과 문자열 리턴 ")
     @Parameter(name = "no", description = "no 입력")
     @GetMapping(value = "/{no}")
-    public BaseResponse<String> main(@RequestParam("no") Long no) {
-        return new BaseResponse<>("입력한 숫자는 " + no + "입니다.");
+    public SuccessResult<String> main(@RequestParam("no") Long no) {
+        return BaseResponse.success("입력한 숫자는 " + no + "입니다.");
     }
 
     @Operation(summary = "exception 발생", description = "exception 리턴 ")
     @GetMapping(value = "/exception")
-    public BaseResponse<String> main2() {
+    public ErrorResult main2() {
         try{
             throw new BaseException(REQUEST_ERROR);
         } catch (BaseException e){
-            return new BaseResponse<>(e.getStatus());
+            return BaseResponse.fail(REQUEST_ERROR);
         }
     }
 }
