@@ -29,15 +29,17 @@ public enum BaseResponseStatus {
     EMPTY_JWT(false, 2001, "JWT를 입력해주세요."),
     INVALID_JWT(false, 2002, "유효하지 않은 JWT입니다."),
     INVALID_USER_JWT(false,2003,"권한이 없는 유저의 접근입니다."),
+    SYSTEM_ERROR(false,2004, "알 수 없는 오류 서버팀에 문의주세요."),
 
     // users
-    USERS_EMPTY_USER_ID(false, 2010, "유저 아이디 값을 확인해주세요.");
+    USERS_EMPTY_USER_ID(false, 2010, "유저 아이디 값을 확인해주세요."),
 
     // account (3000 ~ 3999)
 
     // autoTransfer (4000 ~ 4999)
 
     // customer (5000 ~ 5999)
+    DUPLICATE_CUSTOMER(false, 5000, "동일한 휴대폰 또는 주민번호로 가입된 고객입니다.");
 
     // deathNotifier (6000 ~ 6999)
 
