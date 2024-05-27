@@ -10,6 +10,7 @@ import java.time.LocalDateTime;
 
 @Getter
 @MappedSuperclass
+@EntityListeners(AuditingEntityListener.class)
 public class BaseEntity {
 
     @CreatedDate
@@ -20,5 +21,5 @@ public class BaseEntity {
     private LocalDateTime updated_at;
 
     @Enumerated(EnumType.ORDINAL)
-    private Status status;
+    private Status status = Status.ACTIVE;
 }
