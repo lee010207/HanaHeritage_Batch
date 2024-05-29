@@ -4,8 +4,11 @@ import com.heeha.domain.account.entity.Account;
 import com.heeha.domain.base.entity.BaseEntity;
 import com.heeha.domain.customer.entity.Customer;
 import com.heeha.domain.depositProduct.entity.DepositProduct;
+import com.heeha.domain.depositsProduct.entity.DepositsProduct;
 import jakarta.persistence.*;
 import lombok.*;
+
+import java.util.Date;
 
 @Entity(name = "sign_deposit")
 @Table(name = "sign_deposit")
@@ -25,28 +28,22 @@ public class SignDeposit extends BaseEntity {
     @JoinColumn(name = "withdrawal_account")
     private Account account;
 
+    @ManyToOne
     @JoinColumn(name = "customer_id")
-    @OneToOne
     private Customer customer;
 
-    @OneToOne
-    @JoinColumn(name = "fin_prdt_cd")
-    private DepositProduct deposit;
+    @ManyToOne
+    @JoinColumn(name = "deposit_prdt_id")
+    private DepositsProduct deposit;
 
-    private int first_deposit;
+    private String password;
+    private String accountNumber;
+    private Integer firstDeposit;
+    private String installmentMethod;
 
-    private int installment_method;
+    private Integer contractPeriod;
+    private String snsNotice;
 
-    private int contract_period;
-
-    private int auto_transfer_apply;
-
-    private int auto_redeopsit;
-
-    private String maturity_classification;
-
-    private int auto_cancellation_point;
-
-    private String maturity_notice;
+    private Double interestRate;
 
 }

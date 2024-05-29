@@ -1,4 +1,4 @@
-package com.heeha.domain.savingProduct.entity;
+package com.heeha.domain.depositsProduct.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -26,12 +26,13 @@ import lombok.*;
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
 @Builder
 @Getter
-public class SavingProduct {
+public class DepositsProduct {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "saving_product_id")
     private Long id;
 
+    private String type;
     private String finPrdtCd;
     private String dclsMonth;
     private String finCoNo;
