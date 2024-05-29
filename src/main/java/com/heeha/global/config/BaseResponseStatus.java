@@ -39,7 +39,7 @@ public enum BaseResponseStatus {
     // autoTransfer (4000 ~ 4999)
 
     // customer (5000 ~ 5999)
-    DUPLICATE_CUSTOMER(false, 5000, "동일한 휴대폰 또는 주민번호로 가입된 고객입니다.");
+    DUPLICATE_CUSTOMER(false, 5000, "동일한 휴대폰 또는 주민번호로 가입된 고객입니다."),
 
     // deathNotifier (6000 ~ 6999)
 
@@ -58,6 +58,10 @@ public enum BaseResponseStatus {
     // signDeposit (13000 ~ 13999)
 
     // signSaving (14000 ~ 14999)
+
+    // reservation (15000 ~ 15999)
+    INVALID_WORK_TYPE(false, 15001, "사용할 수 없는 상담 유형입니다.");
+
 
 
     private final boolean isSuccess;
