@@ -2,7 +2,15 @@ package com.heeha.domain.account.entity;
 
 import com.heeha.domain.base.entity.BaseEntity;
 import com.heeha.domain.customer.entity.Customer;
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 import lombok.*;
 
 @Entity(name="account")
@@ -10,7 +18,6 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
 @Builder
-@ToString
 @Getter
 public class Account extends BaseEntity {
 
@@ -26,7 +33,7 @@ public class Account extends BaseEntity {
     private Customer customer;
 
     // 계좌번호
-    private String account_number;
+    private Long accountNumber;
 
     // 계좌 비밀번호
     private String password;
@@ -35,6 +42,7 @@ public class Account extends BaseEntity {
     private String name;
 
     // 잔액
+    @Setter
     private long balance;
 
 }

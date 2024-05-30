@@ -14,6 +14,8 @@ import lombok.ToString;
 @ToString
 public class SignUpRequest {
     @NotEmpty
+    private Long id;
+    @NotEmpty
     private String name;
     @NotEmpty
     private String password;
@@ -24,6 +26,7 @@ public class SignUpRequest {
 
     public Customer toEntity() {
         return Customer.builder()
+                .id(id)
                 .name(name)
                 .password(password)
                 .phoneNumber(phoneNumber)
