@@ -12,12 +12,11 @@ import java.time.LocalDateTime;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @ToString
 public class ConsultingReservationRequest {
-    private Long customerId;
     private String workTypeName;
     private String phoneNumber;
     private LocalDateTime reservationDatetime;
 
-    public Consulting toEntity() {
+    public Consulting toEntity(Long customerId) {
         return Consulting.builder()
                 .customer(Customer.builder().id(customerId).build())
                 .workType(WorkType.of(workTypeName))

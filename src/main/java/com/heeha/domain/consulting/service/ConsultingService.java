@@ -17,9 +17,9 @@ public class ConsultingService {
     private final ConsultingRepository consultingRepository;
 
     @Transactional
-    public Long save(ConsultingReservationRequest request) {
+    public Long save(Long customerId, ConsultingReservationRequest request) {
         try {
-            Consulting saved = consultingRepository.save(request.toEntity());
+            Consulting saved = consultingRepository.save(request.toEntity(customerId));
             return saved.getId();
         } catch (NullPointerException e) {
             throw new BaseException(BaseResponseStatus.INVALID_WORK_TYPE);

@@ -3,6 +3,7 @@ package com.heeha.domain.consulting.entity;
 import com.heeha.domain.base.entity.BaseEntity;
 import com.heeha.domain.customer.entity.Customer;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Pattern;
 import lombok.*;
 
 import java.time.LocalDateTime;
