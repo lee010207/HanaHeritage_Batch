@@ -29,24 +29,55 @@ import lombok.*;
 public class DepositsProduct {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "saving_product_id")
+    @Column(name = "id")
     private Long id;
 
+    @Column(name = "type")
     private String type;
+
+    @Column(name = "fin_prdt_cd")
     private String finPrdtCd;
+
+    @Column(name = "dcls_month")
     private String dclsMonth;
+
+    @Column(name = "fin_co_no")
     private String finCoNo;
+
+    @Column(name = "korCoNm")
     private String korCoNm;
+
+    @Column(name = "saving_product_id")
     private String finPrdtNm;
+
+    @Column(name = "saving_product_id")
     private String joinWay;
+
+    @Column(name = "saving_product_id")
     private String mtrtInt;
+
+    @Column(name = "saving_product_id")
     private String spclCnd;
+
+    @Column(name = "saving_product_id")
     private String joinDeny;
+
+    @Column(name = "saving_product_id")
     private String joinMember;
+
+    @Column(name = "saving_product_id")
     private String etcNote;
+
+    @Column(name = "saving_product_id")
     private String maxLimit;
+
+    @Column(name = "saving_product_id")
     private String dclsStartDay;
+
+    @Column(name = "saving_product_id")
     private String dclsEndDay;
+
+    @Column(name = "saving_product_id")
     private String finCoSubmDay;
 }
 

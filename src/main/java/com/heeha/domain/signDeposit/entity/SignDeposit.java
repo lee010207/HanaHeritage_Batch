@@ -36,14 +36,39 @@ public class SignDeposit extends BaseEntity {
     @JoinColumn(name = "deposit_prdt_id")
     private DepositsProduct deposit;
 
+    @Column(name = "password")
     private String password;
+
+    @Column(name = "account_number")
     private String accountNumber;
+
+    @Column(name = "first_deposit")
     private Integer firstDeposit;
-    private String installmentMethod;
 
-    private Integer contractPeriod;
-    private String snsNotice;
+    @Column(name = "installment_method")
+    @Enumerated(EnumType.STRING)
+    private InstallmentMethod installmentMethod;
 
+    @Column(name = "contract_years")
+    @Enumerated(EnumType.STRING)
+    private ContractYears contractYears;
+
+    @Column(name = "sns_notice")
+    @Enumerated(EnumType.STRING)
+    private SnsNotice snsNotice;
+
+    @Column(name = "interest_rate")
     private Double interestRate;
+
+    public enum InstallmentMethod {
+        정액적립식, 자유적립식
+    }
+    public enum ContractYears {
+        one, two, three
+    }
+
+    public enum SnsNotice {
+        Y, N
+    }
 
 }
