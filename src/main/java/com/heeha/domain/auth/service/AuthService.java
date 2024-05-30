@@ -17,7 +17,6 @@ public class AuthService {
     private final CustomerRepository customerRepository;
     private final JwtTokenProvider jwtTokenProvider;
 
-
     public Customer loadUserByPhoneNumber(CustomerUserInfoDto customerUserInfoDto) {
         // 해당하는 유저를 찾을 수 없는 경우
         return customerRepository.findByPhoneNumber(customerUserInfoDto.getPhoneNumber()).orElseThrow(
@@ -32,24 +31,3 @@ public class AuthService {
         return new JwtToken(accessToken, refreshToken);
     }
 }
-//
-//
-//@Service
-//@RequiredArgsConstructor
-//public class AuthService {
-//    private final CustomerRepository customerRepository;
-//    private final JwtTokenProvider jwtTokenProvider;
-//
-//    public JwtToken loadUserByPhoneNumber(@NotEmpty(message = "전화번호는 필수 입력값입니다.") CustomerUserInfoDto customerUserInfoDto) {
-//        //해당하는 유저를 찾을 수 없는 경우
-//        Customer customer = customerRepository.findByPhoneNumber(customerUserInfoDto.getPhoneNumber()).orElseThrow(
-//                () -> new BaseException(BaseResponseStatus.USERS_EMPTY_USER_ID)
-//        );
-//        if(!customer.getPassword().equals(customerUserInfoDto.getPassword())) {
-//            // 고쳐야 함
-//            throw new BaseException(BaseResponseStatus.INVALID_JWT);
-//        }
-//
-//        return new JwtToken(jwtTokenProvider.createAccessToken(customer.getId(),customer.getRoleType()), jwtTokenProvider.createRefreshToken(customer.getId(), customer.getRoleType()));
-//    }
-//}
