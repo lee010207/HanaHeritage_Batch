@@ -44,6 +44,8 @@ public enum BaseResponseStatus {
     // deathNotifier (6000 ~ 6999)
 
     // depositProduct (7000 ~ 7999)
+    INVALID_DEPOSIT_PRODUCT_ID(false, 7600, "존재하지 않는 deposit product id입니다."),
+
 
     // history (8000 ~ 8999)
 
