@@ -3,12 +3,13 @@ package com.heeha.domain.depositsProduct.entity;
 
 import com.heeha.domain.base.entity.BaseEntity;
 import com.heeha.domain.customer.entity.RoleType;
+import com.heeha.domain.depositsProduct.entity.DepositsType;
 import jakarta.persistence.*;
 import lombok.*;
 
 
-@Entity(name = "deposit_product")
-@Table(name = "deposit_product")
+@Entity(name = "deposits_product")
+@Table(name = "deposits_product")
 @NoArgsConstructor
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
 @Builder
@@ -22,49 +23,49 @@ public class DepositsProduct extends BaseEntity {
     @Column(nullable = false)
     private DepositsType type;
 
-    @Column(name = "fin_prdt_cd", length = 20)
+    @Column(name = "fin_prdt_cd")
     private String finPrdtCd;
 
-    @Column(name = "dcls_month", length = 10, nullable = false)
+    @Column(name = "dcls_month")
     private String dclsMonth;
 
-    @Column(name = "fin_co_no", length = 20, nullable = false)
+    @Column(name = "fin_co_no")
     private String finCoNo;
 
-    @Column(name = "kor_co_nm", length = 20, nullable = false)
+    @Column(name = "kor_co_nm")
     private String korCoNm;
 
-    @Column(name = "fin_prdt_nm", length = 20, nullable = false)
+    @Column(name = "fin_prdt_nm")
     private String finPrdtNm;
 
-    @Column(name = "join_way", length = 20, nullable = false)
+    @Column(name = "join_way")
     private String joinWay;
 
-    @Column(name = "mtrt_int", length = 20, nullable = false)
+    @Column(name = "mtrt_int")
     private String mtrtInt;
 
-    @Column(name = "spcl_cnd", length = 20, nullable = false)
+    @Column(name = "spcl_cnd")
     private String spclCnd;
 
-    @Column(name = "join_deny", length = 20, nullable = false)
+    @Column(name = "join_deny")
     private String joinDeny;
 
-    @Column(name = "join_member", length = 20, nullable = false)
+    @Column(name = "join_member")
     private String joinMember;
 
-    @Column(name = "etc_note", length = 20, nullable = false)
+    @Column(name = "etc_note")
     private String etcNote;
 
-    @Column(name = "max_limit", length = 20, nullable = false)
+    @Column(name = "max_limit")
     private String maxLimit;
 
-    @Column(name = "dcls_strt_day", length = 20, nullable = false)
+    @Column(name = "dcls_strt_day")
     private String dclsStrtDay;
 
-    @Column(name = "dcls_end_day", length = 20, nullable = false)
+    @Column(name = "dcls_end_day")
     private String dclsEndDay;
 
-    @Column(name = "fin_co_subm_day", length = 20, nullable = false)
+    @Column(name = "fin_co_subm_day")
     private String finCoSubmDay;
 
 }
