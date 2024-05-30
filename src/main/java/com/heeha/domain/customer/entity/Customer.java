@@ -16,12 +16,19 @@ public class Customer extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(nullable = false)
+    private RoleType role = RoleType.USER;
+
     @Column(nullable = false)
     private String name;
+
     @Column(nullable = false)
     private String password;
+
     @Column(unique = true, nullable = false)
     private String phoneNumber;
+
     @Column(unique = true, nullable = false)
     private String identificationNumber;
 }

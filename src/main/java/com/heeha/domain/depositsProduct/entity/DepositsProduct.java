@@ -1,83 +1,70 @@
 package com.heeha.domain.depositsProduct.entity;
 
+
+import com.heeha.domain.base.entity.BaseEntity;
+import com.heeha.domain.customer.entity.RoleType;
 import jakarta.persistence.*;
 import lombok.*;
 
-/**
- * finPrdtCd : 금융상품 코드
- * dclsMonth : 공시제출월
- * finCoNo : 금융회사코드
- * korCoNm : 금융회사명
- * finPrdtNm : 금융상품명
- * joinWay : 가입방법
- * mtrtInt : 만기 후 이자율(설명)
- * spclCnd : 우대조건
- * joinDeny : 가입제한
- * joinMember : 가입대상
- * etcNote : 기타 유의사항
- * maxLimit : 최고한도
- * dclsStartDay : 공시시작일
- * dclsEndDay : 공시종료일
- * finCoSubmDay : 금융회사 제출일
- */
-@Entity(name = "saving_product")
-@Table(name = "saving_product")
+
+@Entity(name = "deposit_product")
+@Table(name = "deposit_product")
 @NoArgsConstructor
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
 @Builder
 @Getter
-public class DepositsProduct {
+public class DepositsProduct extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "type")
-    private String type;
+    @Column(nullable = false)
+    private DepositsType type;
 
-    @Column(name = "fin_prdt_cd")
+    @Column(name = "fin_prdt_cd", length = 20)
     private String finPrdtCd;
 
-    @Column(name = "dcls_month")
+    @Column(name = "dcls_month", length = 10, nullable = false)
     private String dclsMonth;
 
-    @Column(name = "fin_co_no")
+    @Column(name = "fin_co_no", length = 20, nullable = false)
     private String finCoNo;
 
-    @Column(name = "korCoNm")
+    @Column(name = "kor_co_nm", length = 20, nullable = false)
     private String korCoNm;
 
-    @Column(name = "saving_product_id")
+    @Column(name = "fin_prdt_nm", length = 20, nullable = false)
     private String finPrdtNm;
 
-    @Column(name = "saving_product_id")
+    @Column(name = "join_way", length = 20, nullable = false)
     private String joinWay;
 
-    @Column(name = "saving_product_id")
+    @Column(name = "mtrt_int", length = 20, nullable = false)
     private String mtrtInt;
 
-    @Column(name = "saving_product_id")
+    @Column(name = "spcl_cnd", length = 20, nullable = false)
     private String spclCnd;
 
-    @Column(name = "saving_product_id")
+    @Column(name = "join_deny", length = 20, nullable = false)
     private String joinDeny;
 
-    @Column(name = "saving_product_id")
+    @Column(name = "join_member", length = 20, nullable = false)
     private String joinMember;
 
-    @Column(name = "saving_product_id")
+    @Column(name = "etc_note", length = 20, nullable = false)
     private String etcNote;
 
-    @Column(name = "saving_product_id")
+    @Column(name = "max_limit", length = 20, nullable = false)
     private String maxLimit;
 
-    @Column(name = "saving_product_id")
-    private String dclsStartDay;
+    @Column(name = "dcls_strt_day", length = 20, nullable = false)
+    private String dclsStrtDay;
 
-    @Column(name = "saving_product_id")
+    @Column(name = "dcls_end_day", length = 20, nullable = false)
     private String dclsEndDay;
 
-    @Column(name = "saving_product_id")
+    @Column(name = "fin_co_subm_day", length = 20, nullable = false)
     private String finCoSubmDay;
-}
 
+}

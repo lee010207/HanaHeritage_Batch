@@ -26,7 +26,7 @@ public class Account extends BaseEntity {
     private Customer customer;
 
     // 계좌번호
-    private String account_number;
+    private Long account_number;
 
     // 계좌 비밀번호
     private String password;
