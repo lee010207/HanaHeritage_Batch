@@ -1,7 +1,8 @@
-package com.heeha.domain.depositProduct.entity;
+package com.heeha.domain.depositsProduct.entity;
 
 
 import com.heeha.domain.base.entity.BaseEntity;
+import com.heeha.domain.customer.entity.RoleType;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -12,11 +13,14 @@ import lombok.*;
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
 @Builder
 @Getter
-public class DepositProduct extends BaseEntity {
+public class DepositsProduct extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "deposit_product_id")
+    @Column(name = "id")
     private Long id;
+
+    @Column(nullable = false)
+    private DepositsType type;
 
     @Column(name = "fin_prdt_cd", length = 20)
     private String finPrdtCd;
@@ -50,12 +54,16 @@ public class DepositProduct extends BaseEntity {
 
     @Column(name = "etc_note", length = 20, nullable = false)
     private String etcNote;
+
     @Column(name = "max_limit", length = 20, nullable = false)
     private String maxLimit;
+
     @Column(name = "dcls_strt_day", length = 20, nullable = false)
     private String dclsStrtDay;
+
     @Column(name = "dcls_end_day", length = 20, nullable = false)
     private String dclsEndDay;
+
     @Column(name = "fin_co_subm_day", length = 20, nullable = false)
     private String finCoSubmDay;
 
