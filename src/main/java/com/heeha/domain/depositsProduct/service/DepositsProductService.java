@@ -1,9 +1,10 @@
-package com.heeha.domain.depositProduct.yma.service;
+package com.heeha.domain.depositsProduct.service;
 
-import com.heeha.domain.depositProduct.entity.DepositProduct;
-import com.heeha.domain.depositProduct.yma.dto.DepositsProductResponse;
-import com.heeha.domain.depositProduct.yma.repository.DepositsProductRepository;
-import com.heeha.domain.depositProduct.yma.util.ProductUtil;
+import com.heeha.domain.depositsProduct.entity.DepositsProduct;
+import com.heeha.domain.depositsProduct.dto.DepositsProductResponse;
+import com.heeha.domain.depositsProduct.entity.DepositsProduct;
+import com.heeha.domain.depositsProduct.repository.DepositsProductRepository;
+import com.heeha.domain.depositsProduct.util.ProductUtil;
 import com.heeha.global.config.BaseException;
 import com.heeha.global.config.BaseResponseStatus;
 import lombok.RequiredArgsConstructor;
@@ -25,7 +26,7 @@ public class DepositsProductService {
     public void save() {
         List<DepositsProductResponse> depositsList = productUtil.getSavingList();
         try {
-            List<DepositProduct> depositsProducts = repository.saveAll(depositsList
+            List<DepositsProduct> depositsProducts = repository.saveAll(depositsList
                     .stream()
                     .map(DepositsProductResponse::toEntity)
                     .toList());

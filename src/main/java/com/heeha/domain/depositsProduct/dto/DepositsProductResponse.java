@@ -1,7 +1,7 @@
-package com.heeha.domain.depositProduct.yma.dto;
+package com.heeha.domain.depositsProduct.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.heeha.domain.depositProduct.entity.DepositProduct;
+import com.heeha.domain.depositsProduct.entity.DepositsProduct;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -58,8 +58,8 @@ public class DepositsProductResponse {
     @JsonProperty("fin_co_subm_day")
     private String finCoSubmDay;
 
-    public DepositProduct toEntity() {
-        return DepositProduct.builder()
+    public DepositsProduct toEntity() {
+        return DepositsProduct.builder()
                 .finPrdtCd(finPrdtCd)
                 .dclsMonth(dclsMonth)
                 .finCoNo(finCoNo)

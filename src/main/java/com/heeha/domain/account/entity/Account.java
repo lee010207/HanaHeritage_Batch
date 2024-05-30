@@ -18,6 +18,7 @@ public class Account extends BaseEntity {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name = "id")
+
     private Long id;
 
     // 고객 아이디
@@ -26,7 +27,7 @@ public class Account extends BaseEntity {
     private Customer customer;
 
     // 계좌번호
-    private String account_number;
+    private Long account_number;
 
     // 계좌 비밀번호
     private String password;

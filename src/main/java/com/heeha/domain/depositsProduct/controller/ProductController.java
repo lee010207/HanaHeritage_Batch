@@ -1,7 +1,7 @@
-package com.heeha.domain.depositProduct.yma.controller;
+package com.heeha.domain.depositsProduct.controller;
 
 
-import com.heeha.domain.depositProduct.yma.service.DepositsProductService;
+import com.heeha.domain.depositsProduct.service.DepositsProductService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;

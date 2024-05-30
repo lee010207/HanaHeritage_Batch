@@ -1,7 +1,7 @@
-package com.heeha.domain.depositProduct.yma.util;
+package com.heeha.domain.depositsProduct.util;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.heeha.domain.depositProduct.yma.dto.DepositsProductResponse;
+import com.heeha.domain.depositsProduct.dto.DepositsProductResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.json.simple.JSONArray;
