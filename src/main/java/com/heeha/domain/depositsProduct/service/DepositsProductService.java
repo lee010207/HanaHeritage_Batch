@@ -1,8 +1,6 @@
 package com.heeha.domain.depositsProduct.service;
 
-import com.heeha.domain.depositsProduct.entity.DepositsProduct;
-import com.heeha.domain.depositsProduct.dto.DepositsProductResponse;
-import com.heeha.domain.depositsProduct.entity.DepositsProduct;
+import com.heeha.domain.depositsProduct.dto.ProductResponse;
 import com.heeha.domain.depositsProduct.repository.DepositsProductRepository;
 import com.heeha.domain.depositsProduct.util.ProductUtil;
 import com.heeha.global.config.BaseException;
@@ -14,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 @Slf4j
@@ -23,15 +22,20 @@ public class DepositsProductService {
     private final ProductUtil productUtil;
 
     @Transactional
-    public void save() {
-        List<DepositsProductResponse> depositsList = productUtil.getSavingList();
-        try {
-            List<DepositsProduct> depositsProducts = repository.saveAll(depositsList
-                    .stream()
-                    .map(DepositsProductResponse::toEntity)
-                    .toList());
-        } catch (DataIntegrityViolationException e) {
-            throw new BaseException(BaseResponseStatus.DUPLICATE_CUSTOMER);
-        }
+    public void saveSavingProduct() {
+        List<ProductResponse> savingList = productUtil.getSavingList();
+        repository.saveAll(savingList
+                .stream()
+                .map(ProductResponse::toSavingEntity)
+                .toList());
+    }
+
+    @Transactional
+    public void saveDepositProduct() {
+        List<ProductResponse> depositList = productUtil.getDepositList();
+        repository.saveAll(depositList
+                .stream()
+                .map(ProductResponse::toDepositEntity)
+                .toList());
     }
 }
