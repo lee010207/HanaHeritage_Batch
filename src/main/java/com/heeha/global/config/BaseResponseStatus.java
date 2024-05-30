@@ -15,6 +15,11 @@ import lombok.Getter;
  */
 @Getter
 public enum BaseResponseStatus {
+    // 추가 에러코드(변정흠)
+    EXPIRED_TOKEN(false, 120, "만료된 Token입니다."),
+    INVALID_REFRESH_TOKEN(false, 121, "유효하지 않은 Refresh Token입니다."),
+    INVALID_ACCESS_TOKEN(false, 122, "유효하지 않은 Access Token입니다."),
+    WRONG_PASSWORD(false, 123, "유효하지 않은 비밀번호 또는 아이디 입니다."),
     /**
      * 1000 : 요청 성공
      */
