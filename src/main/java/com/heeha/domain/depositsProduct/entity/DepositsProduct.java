@@ -8,8 +8,8 @@ import jakarta.persistence.*;
 import lombok.*;
 
 
-@Entity(name = "deposit_product")
-@Table(name = "deposit_product")
+@Entity(name = "deposits_product")
+@Table(name = "deposits_product")
 @NoArgsConstructor
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
 @Builder

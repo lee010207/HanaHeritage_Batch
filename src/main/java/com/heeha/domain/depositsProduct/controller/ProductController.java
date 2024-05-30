@@ -12,11 +12,4 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/v1/product")
 public class ProductController {
 
-    private final DepositsProductService depositProductService;
-
-    @PostMapping("/save")
-    public Long saveall() {
-        depositProductService.save();
-        return 1L;
-    }
 }
