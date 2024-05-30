@@ -2,6 +2,7 @@ package com.heeha.domain.depositsProduct.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.heeha.domain.depositsProduct.entity.DepositsProduct;
+import com.heeha.domain.depositsProduct.entity.DepositsType;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -12,7 +13,7 @@ import lombok.ToString;
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @ToString
-public class DepositsProductResponse {
+public class ProductResponse {
     @JsonProperty("join_member")
     private String joinMember;
 
@@ -58,8 +59,29 @@ public class DepositsProductResponse {
     @JsonProperty("fin_co_subm_day")
     private String finCoSubmDay;
 
-    public DepositsProduct toEntity() {
+    public DepositsProduct toDepositEntity() {
         return DepositsProduct.builder()
+                .type(DepositsType.DEPOSIT)
+                .finPrdtCd(finPrdtCd)
+                .dclsMonth(dclsMonth)
+                .finCoNo(finCoNo)
+                .korCoNm(korCoNm)
+                .finPrdtNm(finPrdtNm)
+                .joinWay(joinWay)
+                .mtrtInt(mtrtInt)
+                .spclCnd(spclCnd)
+                .joinDeny(joinDeny)
+                .joinMember(joinMember)
+                .etcNote(etcNote)
+                .maxLimit(maxLimit)
+                .dclsStrtDay(dclsStrtDay)
+                .dclsEndDay(dclsEndDay)
+                .finCoSubmDay(finCoSubmDay)
+                .build();
+    }
+    public DepositsProduct toSavingEntity() {
+        return DepositsProduct.builder()
+                .type(DepositsType.SAVING)
                 .finPrdtCd(finPrdtCd)
                 .dclsMonth(dclsMonth)
                 .finCoNo(finCoNo)
