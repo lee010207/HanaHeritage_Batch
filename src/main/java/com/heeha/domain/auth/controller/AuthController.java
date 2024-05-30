@@ -38,8 +38,4 @@ public class AuthController {
     @PostMapping("/logout")
     public void logout(HttpServletRequest request) {
     }
-    @GetMapping("/test-token")
-    public String testToken(HttpServletRequest request) {
-        return "OK";
-    }
 }
