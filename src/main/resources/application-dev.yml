@@ -24,4 +24,3 @@ spring:
 logging:
   level:
     root: info
-
