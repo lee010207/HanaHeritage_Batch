@@ -1,4 +1,4 @@
-package com.heeha.domain.signDeposit.dto;
+package com.heeha.domain.account.dto;
 
 import com.heeha.domain.signDeposit.entity.InstallmentMethodType;
 import com.heeha.domain.signDeposit.entity.SignDeposit;
@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 @Builder
 @AllArgsConstructor
 @RequiredArgsConstructor
-public class DepositResponse {
+public class AccountInfoResponse {
 
     private Long accountNumber; // 계좌번호
 
@@ -31,8 +31,8 @@ public class DepositResponse {
 
     private Double interestRate; // 금리
 
-    public static DepositResponse todto(SignDeposit signDeposit) {
-        return DepositResponse.builder()
+    public static AccountInfoResponse todto(SignDeposit signDeposit) {
+        return AccountInfoResponse.builder()
                 .accountNumber(signDeposit.getAccount().getAccount_number())
                 .finPrditNm(signDeposit.getDepositsProduct().getFinPrdtNm())
                 .type(String.valueOf(signDeposit.getDepositsProduct().getType()))

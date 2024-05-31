@@ -13,7 +13,7 @@ import lombok.ToString;
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @ToString
-public class ProductResponse {
+public class DepositsProductResponse {
     @JsonProperty("join_member")
     private String joinMember;
 

@@ -2,7 +2,7 @@ package com.heeha.domain.depositsProduct.util;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.heeha.domain.depositsProduct.dto.ProductResponse;
+import com.heeha.domain.depositsProduct.dto.DepositsProductResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.json.simple.JSONArray;
@@ -20,7 +20,7 @@ import java.util.List;
 @Component
 @Slf4j
 @RequiredArgsConstructor
-public class ProductUtil {
+public class DepositsProductUtil {
 
     @Value(value = "${app.key}")
     private String API_KEY;
@@ -29,7 +29,7 @@ public class ProductUtil {
 
     private final ObjectMapper mapper = new ObjectMapper();
 
-    public List<ProductResponse> getSavingList() {
+    public List<DepositsProductResponse> getSavingList() {
         String savingUrl = "https://finlife.fss.or.kr:443/finlifeapi/savingProductsSearch.json?"
                 + "auth=" + API_KEY
                 + "&topFinGrpNo=" + topFinGrpNo
@@ -37,7 +37,7 @@ public class ProductUtil {
         return callApi(savingUrl);
     }
 
-    public List<ProductResponse> getDepositList() {
+    public List<DepositsProductResponse> getDepositList() {
         String depositUrl = "https://finlife.fss.or.kr:443/finlifeapi/depositProductsSearch.json?"
                 + "auth=" + API_KEY
                 + "&topFinGrpNo=" + topFinGrpNo
@@ -45,7 +45,7 @@ public class ProductUtil {
         return callApi(depositUrl);
     }
 
-    private List<ProductResponse> callApi(String url) {
+    private List<DepositsProductResponse> callApi(String url) {
         RestTemplate restTemplate = new RestTemplate();
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
@@ -60,13 +60,13 @@ public class ProductUtil {
         return parseResponses(apiResponse);
     }
 
-    private List<ProductResponse> parseResponses(ResponseEntity<String> response) {
+    private List<DepositsProductResponse> parseResponses(ResponseEntity<String> response) {
         JSONParser parser = new JSONParser();
         try {
             JSONObject jsonData = (JSONObject) parser.parse(response.getBody());
             JSONObject result = (JSONObject) jsonData.get("result");
             JSONArray products = (JSONArray) result.get("baseList");
-            return Arrays.asList(mapper.readValue(products.toJSONString(), ProductResponse[].class));
+            return Arrays.asList(mapper.readValue(products.toJSONString(), DepositsProductResponse[].class));
         } catch (ParseException | JsonProcessingException e) {
             throw new RuntimeException(e);
         }

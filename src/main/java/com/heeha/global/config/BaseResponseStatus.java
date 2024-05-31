@@ -35,6 +35,7 @@ public enum BaseResponseStatus {
     USERS_EMPTY_USER_ID(false, 2010, "유저 아이디 값을 확인해주세요."),
 
     // account (3000 ~ 3999)
+    ACCOUNTS_EMPTY_ACCOUNT_ID(false,  3200, "계좌 아이디 값을 확인해주세요."),
 
     // autoTransfer (4000 ~ 4999)
 

@@ -1,13 +1,10 @@
 package com.heeha.domain.depositsProduct.service;
 
-import com.heeha.domain.depositsProduct.dto.ProductResponse;
+import com.heeha.domain.depositsProduct.dto.DepositsProductResponse;
 import com.heeha.domain.depositsProduct.repository.DepositsProductRepository;
-import com.heeha.domain.depositsProduct.util.ProductUtil;
-import com.heeha.global.config.BaseException;
-import com.heeha.global.config.BaseResponseStatus;
+import com.heeha.domain.depositsProduct.util.DepositsProductUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,23 +16,23 @@ import java.util.List;
 public class DepositsProductService {
 
     private final DepositsProductRepository repository;
-    private final ProductUtil productUtil;
+    private final DepositsProductUtil depositsProductUtil;
 
     @Transactional
     public void saveSavingProduct() {
-        List<ProductResponse> savingList = productUtil.getSavingList();
+        List<DepositsProductResponse> savingList = depositsProductUtil.getSavingList();
         repository.saveAll(savingList
                 .stream()
-                .map(ProductResponse::toSavingEntity)
+                .map(DepositsProductResponse::toSavingEntity)
                 .toList());
     }
 
     @Transactional
     public void saveDepositProduct() {
-        List<ProductResponse> depositList = productUtil.getDepositList();
+        List<DepositsProductResponse> depositList = depositsProductUtil.getDepositList();
         repository.saveAll(depositList
                 .stream()
-                .map(ProductResponse::toDepositEntity)
+                .map(DepositsProductResponse::toDepositEntity)
                 .toList());
     }
 }
