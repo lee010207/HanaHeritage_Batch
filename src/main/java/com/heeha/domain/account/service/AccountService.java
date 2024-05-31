@@ -1,10 +1,10 @@
-package com.heeha.domain.account.JCS.service;
+package com.heeha.domain.account.service;
 
-import com.heeha.domain.account.JCS.dto.AccountCheckResponse;
-import com.heeha.domain.account.JCS.dto.AccountCreateDto;
-import com.heeha.domain.account.JCS.dto.AccountValidationRequest;
-import com.heeha.domain.account.JCS.entity.AccountFix;
-import com.heeha.domain.account.JCS.repository.AccountRepository;
+import com.heeha.domain.account.dto.AccountCheckResponse;
+import com.heeha.domain.account.dto.AccountCreateDto;
+import com.heeha.domain.account.dto.AccountValidationRequest;
+import com.heeha.domain.account.repository.AccountRepository;
+import com.heeha.domain.account.entity.Account;
 import com.heeha.domain.customer.entity.Customer;
 import com.heeha.domain.customer.repository.CustomerRepository;
 import com.heeha.global.config.BaseException;
@@ -32,18 +32,18 @@ public class AccountService {
         } while (accountRepository.existsAccountByAccountNumber(accountNumber));
 
         Customer customer = customerRepository.findById(customerId).get();
-        AccountFix account = accountCreateDto.toEntity(accountNumber, customer);
+        Account account = accountCreateDto.toEntity(accountNumber, customer);
 
         return accountRepository.save(account).getId();
     }
 
     public List<AccountCheckResponse> myAccounts(Long customerId) {
-        List<AccountFix> accountFixes = accountRepository.findAccountFixByCustomerId(customerId);
+        List<Account> accountFixes = accountRepository.findAccountFixByCustomerId(customerId);
         return accountFixes.stream().map(AccountCheckResponse::new).toList();
     }
 
     public Boolean validateAccount(AccountValidationRequest validationRequest) {
-        AccountFix account = accountRepository.findById(validationRequest.getAccountId())
+        Account account = accountRepository.findById(validationRequest.getAccountId())
                 .orElseThrow(() -> new BaseException(BaseResponseStatus.SYSTEM_ERROR));
 
         if (!account.getPassword().equals(validationRequest.getAccountPassword())) {

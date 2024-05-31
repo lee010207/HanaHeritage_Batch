@@ -3,15 +3,8 @@ package com.heeha.global.config;
 import lombok.Getter;
 
 /**
- * [주의] 응답 코드 관리
- * 작성 요령 : 3000번대 이후부터는 코드가 겹칠 수 있으니, 아래 본인에게 맞는 영역만 사용할 것!!
- * 100~199 : 변정흠
- * 200~299 : 유민아
- * 300~399 : 이지후
- * 400~499 : 정찬수
- * 500~599 : 황유진
- * 600~699 : 황혜림
- * 예) 변정흠이 deathNotifier 관련 에러를 추가하고 싶다면? 6100 ~ 6199 내의 코드만 사용
+ * [주의] 응답 코드 관리 작성 요령 : 3000번대 이후부터는 코드가 겹칠 수 있으니, 아래 본인에게 맞는 영역만 사용할 것!! 100~199 : 변정흠 200~299 : 유민아 300~399 : 이지후
+ * 400~499 : 정찬수 500~599 : 황유진 600~699 : 황혜림 예) 변정흠이 deathNotifier 관련 에러를 추가하고 싶다면? 6100 ~ 6199 내의 코드만 사용
  */
 @Getter
 public enum BaseResponseStatus {
@@ -20,7 +13,6 @@ public enum BaseResponseStatus {
      */
     SUCCESS(true, 1000, "요청에 성공하였습니다."),
 
-
     /**
      * 2000 : Request 오류
      */
@@ -28,14 +20,14 @@ public enum BaseResponseStatus {
     REQUEST_ERROR(false, 2000, "입력값을 확인해주세요."),
     EMPTY_JWT(false, 2001, "JWT를 입력해주세요."),
     INVALID_JWT(false, 2002, "유효하지 않은 JWT입니다."),
-    INVALID_USER_JWT(false,2003,"권한이 없는 유저의 접근입니다."),
-    SYSTEM_ERROR(false,2004, "알 수 없는 오류 서버팀에 문의주세요."),
+    INVALID_USER_JWT(false, 2003, "권한이 없는 유저의 접근입니다."),
+    SYSTEM_ERROR(false, 2004, "알 수 없는 오류 서버팀에 문의주세요."),
 
     // users
     USERS_EMPTY_USER_ID(false, 2010, "유저 아이디 값을 확인해주세요."),
 
     // account (3000 ~ 3999)
-
+    INVALID_ACCOUNT_PASSWORD(false, 3000, "계좌 비밀번호가 일치하지 않습니다."),
     // autoTransfer (4000 ~ 4999)
 
     // customer (5000 ~ 5999)
@@ -61,8 +53,6 @@ public enum BaseResponseStatus {
 
     // reservation (15000 ~ 15999)
     INVALID_WORK_TYPE(false, 15001, "사용할 수 없는 상담 유형입니다.");
-
-
 
     private final boolean isSuccess;
     private final int code;

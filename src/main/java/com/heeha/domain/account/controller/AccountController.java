@@ -1,9 +1,9 @@
-package com.heeha.domain.account.JCS.controller;
+package com.heeha.domain.account.controller;
 
-import com.heeha.domain.account.JCS.dto.AccountCheckResponse;
-import com.heeha.domain.account.JCS.dto.AccountValidationRequest;
-import com.heeha.domain.account.JCS.dto.NormalAccountCreateDto;
-import com.heeha.domain.account.JCS.service.AccountService;
+import com.heeha.domain.account.dto.AccountCheckResponse;
+import com.heeha.domain.account.dto.AccountValidationRequest;
+import com.heeha.domain.account.dto.NormalAccountCreateDto;
+import com.heeha.domain.account.service.AccountService;
 import com.heeha.domain.auth.Auth;
 import com.heeha.global.config.BaseResponse;
 import com.heeha.global.config.BaseResponse.SuccessResult;

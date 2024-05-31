@@ -1,4 +1,4 @@
-package com.heeha.domain.account.JCS.dto;
+package com.heeha.domain.account.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

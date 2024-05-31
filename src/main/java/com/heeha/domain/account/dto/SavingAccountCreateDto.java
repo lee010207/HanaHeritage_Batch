@@ -1,6 +1,5 @@
-package com.heeha.domain.account.JCS.dto;
+package com.heeha.domain.account.dto;
 
-import com.heeha.domain.account.JCS.entity.AccountFix;
 import com.heeha.domain.account.entity.Account;
 import com.heeha.domain.customer.entity.Customer;
 import jakarta.validation.constraints.NotEmpty;
@@ -16,8 +15,8 @@ public class SavingAccountCreateDto extends AccountCreateDto {
     }
 
     @Override
-    public AccountFix toEntity(Long accountNumber, Customer customer) {
-        return AccountFix.builder().accountNumber(accountNumber)
+    public Account toEntity(Long accountNumber, Customer customer) {
+        return Account.builder().accountNumber(accountNumber)
                 .name(super.getAccountName())
                 .balance(super.getBalance())
                 .password(super.getAccountPassword())
