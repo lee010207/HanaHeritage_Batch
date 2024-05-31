@@ -1,6 +1,5 @@
 package com.heeha.domain.history.service;
 
-import com.heeha.domain.history.dto.HistoryRequest;
 import com.heeha.domain.history.entity.History;
 import com.heeha.domain.history.repository.HistoryRepository;
 import com.heeha.global.config.BaseException;
@@ -18,29 +17,14 @@ public class HistoryService {
     private static final Logger log = LoggerFactory.getLogger(HistoryService.class);
     private final HistoryRepository historyRepository;
 
-//    @Transactional
-//    public int transfer(HistoryRequest historyRequest){
-//        int check = 0;
-//
-//        return historySave(historyRequest);
-//    }
-//
-//    public Long historySave(HistoryRequest historyRequest){
-//        try {
-//            History saved = historyRepository.save(historyRequest.toEntity());
-//            return saved.getId();
-//        } catch (DataIntegrityViolationException e) {
-//            throw new BaseException(BaseResponseStatus.INVALID_RECIEPIENT);
-//        }
-//
-//    }
-//    public Long balanceUpdate(HistoryRequest historyRequest){
-//        try {
-//            History saved = historyRepository.save(historyRequest.toEntity());
-//            return saved.getId();
-//        } catch (DataIntegrityViolationException e) {
-//            throw new BaseException(BaseResponseStatus.INVALID_RECIEPIENT);
-//        }
+    @Transactional
+    public void historySave(History history){
+        try {
+            historyRepository.save(history);
+        } catch (DataIntegrityViolationException e) {
+            throw new BaseException(BaseResponseStatus.FAIL_TRANSFER);
+        }
 
-//    }
+    }
+
 }

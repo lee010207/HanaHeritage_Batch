@@ -1,18 +1,17 @@
 package com.heeha.domain.history.dto;
 
 import com.heeha.domain.account.entity.Account;
-import com.heeha.domain.customer.entity.Customer;
 import com.heeha.domain.history.entity.History;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.*;
-
-import java.sql.Timestamp;
 
 @Getter
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @ToString
-public class HistoryRequest {
+@Builder
+public class CreateHistoryDto {
+
     @NotEmpty
     private String dealClassification;
     @NotEmpty
@@ -31,10 +30,12 @@ public class HistoryRequest {
     private String recipientRemarks;
     @NotEmpty
     private String senderRemarks;
+    @NotEmpty
+    private String password;
+    @NotEmpty
+    private Long accountId;
 
-    private Account account;
-
-    public History toEntity() {
+    public History toEntity(Account account) {
         return History.builder()
                 .dealClassification(dealClassification)
                 .deposit(deposit)

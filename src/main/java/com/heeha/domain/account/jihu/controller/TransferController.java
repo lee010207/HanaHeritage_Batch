@@ -1,7 +1,7 @@
 package com.heeha.domain.account.jihu.controller;
 
 import com.heeha.domain.account.jihu.service.AccountService;
-import com.heeha.domain.history.dto.HistoryRequest;
+import com.heeha.domain.history.dto.CreateHistoryDto;
 import com.heeha.global.config.BaseResponse.ErrorResult;
 import com.heeha.global.config.BaseResponse.SuccessResult;
 import io.swagger.v3.oas.annotations.Operation;
@@ -28,8 +28,8 @@ public class TransferController {
             @ApiResponse(responseCode = "3300", description = "계좌이체 실패", content = @Content(schema = @Schema(implementation = ErrorResult.class))),
     })
     @PostMapping("/simple")
-    public void simpleTransfer(@RequestBody HistoryRequest historyRequest) {
-            log.info("계좌이체 시도 : {}", historyRequest.toString());
-            accountService.transfer(historyRequest);
+    public void simpleTransfer(@RequestBody CreateHistoryDto createHistoryDto) {
+            log.info("계좌이체 시도 : {}", createHistoryDto.toString());
+            accountService.transfer(createHistoryDto);
     }
 }
