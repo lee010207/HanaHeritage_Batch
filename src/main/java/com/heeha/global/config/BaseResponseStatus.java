@@ -20,6 +20,9 @@ public enum BaseResponseStatus {
     INVALID_REFRESH_TOKEN(false, 121, "유효하지 않은 Refresh Token입니다."),
     INVALID_ACCESS_TOKEN(false, 122, "유효하지 않은 Access Token입니다."),
     WRONG_PASSWORD(false, 123, "유효하지 않은 비밀번호 또는 아이디 입니다."),
+    LOGIN_SUCCESS(true, 100, "로그인에 성공하였습니다."),
+    LOGOUT_SUCCESS(true, 101, "로그아웃에 성공하였습니다."),
+
     /**
      * 1000 : 요청 성공
      */
