@@ -24,14 +24,6 @@ public class DepositsProductService {
 
     @Transactional
     public void save() {
-        List<DepositsProductResponse> depositsList = productUtil.getSavingList();
-        try {
-            List<DepositsProduct> depositsProducts = repository.saveAll(depositsList
-                    .stream()
-                    .map(DepositsProductResponse::toEntity)
-                    .toList());
-        } catch (DataIntegrityViolationException e) {
-            throw new BaseException(BaseResponseStatus.DUPLICATE_CUSTOMER);
-        }
+            List<DepositsProduct> depositsProducts = repository.saveAll(productUtil.getSavingList());
     }
 }

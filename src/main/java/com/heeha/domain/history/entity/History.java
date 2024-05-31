@@ -29,7 +29,7 @@ public class History extends BaseEntity {
     @CreatedDate
     private Timestamp dealdate;
 
-    @ColumnDefault("이체")
+    //@ColumnDefault("이체")
     private String dealClassification;
 
     // 입금액 : 받는 사람 계좌 +

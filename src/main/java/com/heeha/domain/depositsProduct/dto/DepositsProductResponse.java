@@ -2,25 +2,36 @@ package com.heeha.domain.depositsProduct.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.heeha.domain.depositsProduct.entity.DepositsProduct;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import com.heeha.domain.depositsProduct.entity.DepositsType;
+import lombok.*;
 
-@Getter
-@AllArgsConstructor(access = AccessLevel.PROTECTED)
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
-@ToString
+
+@Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class DepositsProductResponse {
+
     @JsonProperty("join_member")
     private String joinMember;
+
+    @JsonProperty("max_limit")
+    private String maxLimit;
 
     @JsonProperty("join_way")
     private String joinWay;
 
-    @JsonProperty("mtrt_int")
-    private String mtrtInt;
+    @JsonProperty("dcls_month")
+    private String dclsMonth;
+
+    @JsonProperty("join_deny")
+    private String joinDeny;
+
+    @JsonProperty("kor_co_nm")
+    private String korCoNm;
+
+    @JsonProperty("dcls_strt_day")
+    private String dclsStrtDay;
 
     @JsonProperty("dcls_end_day")
     private String dclsEndDay;
@@ -28,53 +39,21 @@ public class DepositsProductResponse {
     @JsonProperty("spcl_cnd")
     private String spclCnd;
 
-    @JsonProperty("join_deny")
-    private String joinDeny;
-
-    @JsonProperty("max_limit")
-    private String maxLimit;
-
     @JsonProperty("fin_co_no")
     private String finCoNo;
 
-    @JsonProperty("kor_co_nm")
-    private String korCoNm;
-
-    @JsonProperty("dcls_month")
-    private String dclsMonth;
-
-    @JsonProperty("fin_prdt_nm")
-    private String finPrdtNm;
+    @JsonProperty("mtrt_int")
+    private String mtrtInt;
 
     @JsonProperty("fin_prdt_cd")
     private String finPrdtCd;
 
+    @JsonProperty("fin_prdt_nm")
+    private String finPrdtNm;
+
     @JsonProperty("etc_note")
     private String etcNote;
 
-    @JsonProperty("dcls_strt_day")
-    private String dclsStrtDay;
-
     @JsonProperty("fin_co_subm_day")
     private String finCoSubmDay;
-
-    public DepositsProduct toEntity() {
-        return DepositsProduct.builder()
-                .finPrdtCd(finPrdtCd)
-                .dclsMonth(dclsMonth)
-                .finCoNo(finCoNo)
-                .korCoNm(korCoNm)
-                .finPrdtNm(finPrdtNm)
-                .joinWay(joinWay)
-                .mtrtInt(mtrtInt)
-                .spclCnd(spclCnd)
-                .joinDeny(joinDeny)
-                .joinMember(joinMember)
-                .etcNote(etcNote)
-                .maxLimit(maxLimit)
-                .dclsStrtDay(dclsStrtDay)
-                .dclsEndDay(dclsEndDay)
-                .finCoSubmDay(finCoSubmDay)
-                .build();
-    }
 }

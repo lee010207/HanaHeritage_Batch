@@ -8,8 +8,8 @@ import jakarta.persistence.*;
 import lombok.*;
 
 
-@Entity(name = "deposit_product")
-@Table(name = "deposit_product")
+@Entity(name = "deposits_product")
+@Table(name = "deposits_product")
 @NoArgsConstructor
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
 @Builder
@@ -21,6 +21,7 @@ public class DepositsProduct extends BaseEntity {
     private Long id;
 
     @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
     private DepositsType type;
 
     @Column(name = "fin_prdt_cd")
