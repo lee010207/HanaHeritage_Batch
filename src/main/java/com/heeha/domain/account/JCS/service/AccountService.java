@@ -2,10 +2,13 @@ package com.heeha.domain.account.JCS.service;
 
 import com.heeha.domain.account.JCS.dto.AccountCheckResponse;
 import com.heeha.domain.account.JCS.dto.AccountCreateDto;
+import com.heeha.domain.account.JCS.dto.AccountValidationRequest;
 import com.heeha.domain.account.JCS.entity.AccountFix;
 import com.heeha.domain.account.JCS.repository.AccountRepository;
 import com.heeha.domain.customer.entity.Customer;
 import com.heeha.domain.customer.repository.CustomerRepository;
+import com.heeha.global.config.BaseException;
+import com.heeha.global.config.BaseResponseStatus;
 import java.util.List;
 import java.util.Random;
 import lombok.RequiredArgsConstructor;
@@ -37,6 +40,16 @@ public class AccountService {
     public List<AccountCheckResponse> myAccounts(Long customerId) {
         List<AccountFix> accountFixes = accountRepository.findAccountFixByCustomerId(customerId);
         return accountFixes.stream().map(AccountCheckResponse::new).toList();
+    }
+
+    public Boolean validateAccount(AccountValidationRequest validationRequest) {
+        AccountFix account = accountRepository.findById(validationRequest.getAccountId())
+                .orElseThrow(() -> new BaseException(BaseResponseStatus.SYSTEM_ERROR));
+
+        if (!account.getPassword().equals(validationRequest.getAccountPassword())) {
+            throw new BaseException(BaseResponseStatus.INVALID_ACCOUNT_PASSWORD);
+        }
+        return Boolean.TRUE;
     }
 
     private Long generateAccountNumber(String branchCode, String accountCode) {

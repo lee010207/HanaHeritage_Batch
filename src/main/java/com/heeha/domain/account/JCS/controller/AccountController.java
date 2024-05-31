@@ -1,6 +1,7 @@
 package com.heeha.domain.account.JCS.controller;
 
 import com.heeha.domain.account.JCS.dto.AccountCheckResponse;
+import com.heeha.domain.account.JCS.dto.AccountValidationRequest;
 import com.heeha.domain.account.JCS.dto.NormalAccountCreateDto;
 import com.heeha.domain.account.JCS.service.AccountService;
 import com.heeha.domain.auth.Auth;
@@ -44,6 +45,15 @@ public class AccountController {
     @GetMapping("/my")
     public SuccessResult<List<AccountCheckResponse>> getMyAccounts() {
         return BaseResponse.success(accountService.myAccounts(1L));
+    }
+
+    @Operation(summary = "계좌 비밀번호 검증")
+    @ApiResponses({
+            @ApiResponse(responseCode = "1000", description = "비밀번호 일치", content = @Content(schema = @Schema(implementation = SuccessResult.class))),
+    })
+    @GetMapping("/validate")
+    public SuccessResult<Boolean> validateAccount(AccountValidationRequest validationRequest) {
+        return BaseResponse.success(accountService.validateAccount(validationRequest));
     }
 
 
