@@ -16,19 +16,6 @@ public class SignDepositService {
     public DepositResponse getAccountInfo(Long accountId) {
         SignDeposit signDeposit = signDepositRepository.findByAccountId(accountId);
 
-        return mapToDepositResponse(signDeposit);
-    }
-
-    private DepositResponse mapToDepositResponse(SignDeposit signDeposit) {
-        return new DepositResponse(
-                signDeposit.getAccount().getAccount_number(),
-                signDeposit.getDepositsProduct().getFinPrdtNm(),
-                signDeposit.getDepositsProduct().getType().getTitle(),
-                signDeposit.getAccount().getBalance(),
-                signDeposit.getCreated_at(),
-                signDeposit.getContractYears(),
-                signDeposit.getInstallmentMethod(),
-                signDeposit.getInterestRate()
-        );
+        return DepositResponse.todto(signDeposit);
     }
 }

@@ -1,16 +1,16 @@
 package com.heeha.domain.signDeposit.dto;
 
-import com.heeha.domain.account.entity.Account;
-import com.heeha.domain.depositsProduct.entity.DepositsProduct;
 import com.heeha.domain.signDeposit.entity.InstallmentMethodType;
 import com.heeha.domain.signDeposit.entity.SignDeposit;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
 import java.time.LocalDateTime;
 
 @Getter
+@Builder
 @AllArgsConstructor
 @RequiredArgsConstructor
 public class DepositResponse {
@@ -31,5 +31,16 @@ public class DepositResponse {
 
     private Double interestRate; // 금리
 
-
+    public static DepositResponse todto(SignDeposit signDeposit) {
+        return DepositResponse.builder()
+                .accountNumber(signDeposit.getAccount().getAccount_number())
+                .finPrditNm(signDeposit.getDepositsProduct().getFinPrdtNm())
+                .type(String.valueOf(signDeposit.getDepositsProduct().getType()))
+                .balance(signDeposit.getAccount().getBalance())
+                .creatdAt(signDeposit.getCreated_at())
+                .contractYears(signDeposit.getContractYears())
+                .installmentMethod(signDeposit.getInstallmentMethod())
+                .interestRate(signDeposit.getInterestRate())
+                .build();
+    }
 }

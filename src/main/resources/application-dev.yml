@@ -26,3 +26,6 @@ spring:
 logging:
   level:
     root: info
+
+app:
+  key: ebfd212c9fc8a2c8774d9dee8c034bd7

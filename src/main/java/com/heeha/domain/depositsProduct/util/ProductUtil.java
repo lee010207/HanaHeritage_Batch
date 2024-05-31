@@ -23,7 +23,7 @@ import java.util.List;
 public class ProductUtil {
 
     @Value(value = "${app.key}")
-    private final String API_KEY;
+    private String API_KEY;
     private final String topFinGrpNo = "020000";
     private final String pageNo = "1";
 
