@@ -1,6 +1,6 @@
-package com.heeha.domain.account.JCS.dto;
+package com.heeha.domain.account.dto;
 
-import com.heeha.domain.account.JCS.entity.AccountFix;
+import com.heeha.domain.account.entity.Account;
 import com.heeha.domain.customer.entity.Customer;
 import jakarta.validation.constraints.NotEmpty;
 
@@ -18,6 +18,6 @@ public abstract class AccountCreateDto {
     @NotEmpty
     private Long balance;
 
-    public abstract AccountFix toEntity(Long accountNumber, Customer customer);
+    public abstract Account toEntity(Long accountNumber, Customer customer);
     public abstract String getAccountCode();
 }

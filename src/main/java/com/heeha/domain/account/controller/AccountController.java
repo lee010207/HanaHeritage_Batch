@@ -1,8 +1,8 @@
-package com.heeha.domain.account.JCS.controller;
+package com.heeha.domain.account.controller;
 
-import com.heeha.domain.account.JCS.dto.AccountCheckResponse;
-import com.heeha.domain.account.JCS.dto.NormalAccountCreateDto;
-import com.heeha.domain.account.JCS.service.AccountService;
+import com.heeha.domain.account.dto.AccountCheckResponse;
+import com.heeha.domain.account.dto.NormalAccountCreateDto;
+import com.heeha.domain.account.service.AccountService;
 import com.heeha.domain.auth.Auth;
 import com.heeha.global.config.BaseResponse;
 import com.heeha.global.config.BaseResponse.SuccessResult;
@@ -37,7 +37,7 @@ public class AccountController {
         return BaseResponse.success(accountService.createAccount(customerId, accountCreateDto));
     }
 
-    @Operation(summary = "계좌 조회")
+    @Operation(summary = "내 계좌 전체 조회")
     @ApiResponses({
             @ApiResponse(responseCode = "1000", description = "계좌조회 성공", content = @Content(schema = @Schema(implementation = SuccessResult.class))),
     })
