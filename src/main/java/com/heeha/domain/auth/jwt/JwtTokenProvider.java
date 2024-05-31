@@ -1,26 +1,24 @@
 package com.heeha.domain.auth.jwt;
 
-import com.heeha.domain.auth.dto.RoleType;
+import com.heeha.domain.customer.entity.RoleType;
 import com.heeha.global.config.BaseException;
 import com.heeha.global.config.BaseResponseStatus;
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.ExpiredJwtException;
-import io.jsonwebtoken.JwtParser;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.MalformedJwtException;
-import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
 import java.nio.charset.StandardCharsets;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import javax.crypto.SecretKey;
+
+import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 @Slf4j
 @Component
+@Getter
 public class JwtTokenProvider {
 
     public static final String USER_TOKEN_NAME = "user_refresh_token";
@@ -89,18 +87,20 @@ public class JwtTokenProvider {
         return jwtParser.parseClaimsJws(token).getBody();
     }
 
-    public String isTokenValid(String token) {
+    // 토큰 정보를 검증하는 메서드
+    public boolean validateToken(String token) {
         try {
-            Claims claims = getValidClaim(token);
-            return "PASS";
-        } catch (BaseException e) {
-            if (e.getStatus().getCode() == BaseResponseStatus.INVALID_JWT.getCode()) {
-                return "INVALID_JWT";
-            } else if (e.getStatus().getCode() == BaseResponseStatus.EXPIRED_TOKEN.getCode()){
-                return "EXPIRED_TOKEN";
-            } else {
-                return "SYSTEM_ERROR";
-            }
+            Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token);
+            return true;
+        } catch (io.jsonwebtoken.security.SecurityException | MalformedJwtException e) {
+            log.info("Invalid JWT Token", e);
+        } catch (ExpiredJwtException e) {
+            log.info("Expired JWT Token", e);
+        } catch (UnsupportedJwtException e) {
+            log.info("Unsupported JWT Token", e);
+        } catch (IllegalArgumentException e) {
+            log.info("JWT claims string is empty.", e);
         }
+        return false;
     }
 }

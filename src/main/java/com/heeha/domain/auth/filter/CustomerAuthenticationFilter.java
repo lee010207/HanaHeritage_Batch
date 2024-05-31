@@ -1,8 +1,8 @@
 package com.heeha.domain.auth.filter;
 
-import com.heeha.domain.auth.dto.RoleType;
 import com.heeha.domain.auth.jwt.JwtTokenExtractor;
 import com.heeha.domain.auth.jwt.JwtTokenProvider;
+import com.heeha.domain.customer.entity.RoleType;
 import com.heeha.global.config.BaseException;
 import com.heeha.global.config.BaseResponseStatus;
 import jakarta.servlet.FilterChain;
@@ -22,7 +22,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 @Component
 public class CustomerAuthenticationFilter extends OncePerRequestFilter {
     private final JwtTokenProvider tokenProvider;
-    private final List<String> EXCLUDE_URL = List.of("/login","/api/v1/customer/signup", "/favicon", "/swagger", "/v3");
+    private final List<String> EXCLUDE_URL = List.of("/login","/logout","/api/v1/customer/signup", "/favicon", "/swagger", "/v3");
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
