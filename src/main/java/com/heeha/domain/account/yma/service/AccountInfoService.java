@@ -1,8 +1,8 @@
-package com.heeha.domain.account.service;
+package com.heeha.domain.account.yma.service;
 
-import com.heeha.domain.account.dto.AccountInfoResponse;
+import com.heeha.domain.account.yma.dto.AccountInfoResponse;
+import com.heeha.domain.account.yma.repository.AccountInfoRepository;
 import com.heeha.domain.signDeposit.entity.SignDeposit;
-import com.heeha.domain.account.repository.AccountInfoRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

@@ -1,4 +1,4 @@
-package com.heeha.domain.account.dto;
+package com.heeha.domain.account.yma.dto;
 
 import com.heeha.domain.signDeposit.entity.InstallmentMethodType;
 import com.heeha.domain.signDeposit.entity.SignDeposit;

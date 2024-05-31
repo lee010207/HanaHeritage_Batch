@@ -4,7 +4,6 @@ import com.heeha.domain.account.entity.Account;
 import com.heeha.domain.base.entity.BaseEntity;
 import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.annotations.ColumnDefault;
 import org.springframework.data.annotation.CreatedDate;
 
 import java.sql.Timestamp;

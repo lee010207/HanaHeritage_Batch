@@ -1,7 +1,7 @@
-package com.heeha.domain.account.controller;
+package com.heeha.domain.account.yma.controller;
 
-import com.heeha.domain.account.dto.AccountInfoResponse;
-import com.heeha.domain.account.service.AccountInfoService;
+import com.heeha.domain.account.yma.dto.AccountInfoResponse;
+import com.heeha.domain.account.yma.service.AccountInfoService;
 import com.heeha.global.config.BaseException;
 import com.heeha.global.config.BaseResponse;
 import com.heeha.global.config.BaseResponseStatus;

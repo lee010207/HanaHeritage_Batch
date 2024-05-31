@@ -3,11 +3,8 @@ package com.heeha.domain.signSaving.entity;
 
 import com.heeha.domain.account.entity.Account;
 import com.heeha.domain.base.entity.BaseEntity;
-import com.heeha.domain.customer.entity.Customer;
 import com.heeha.domain.depositsProduct.entity.DepositsProduct;
 import jakarta.persistence.*;
-
-import java.time.LocalDateTime;
 
 import lombok.*;
 

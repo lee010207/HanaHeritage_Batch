@@ -1,4 +1,4 @@
-package com.heeha.domain.account.repository;
+package com.heeha.domain.account.yma.repository;
 
 import com.heeha.domain.signDeposit.entity.SignDeposit;
 import org.springframework.data.jpa.repository.JpaRepository;
