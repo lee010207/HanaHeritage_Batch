@@ -3,6 +3,7 @@ package com.heeha.domain.auth.dto;
 import jakarta.annotation.Nullable;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.Getter;
+import lombok.Setter;
 
 @Getter
 public class CustomerUserInfoDto {
