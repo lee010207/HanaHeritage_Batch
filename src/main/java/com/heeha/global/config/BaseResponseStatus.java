@@ -40,11 +40,13 @@ public enum BaseResponseStatus {
     // autoTransfer (4000 ~ 4999)
 
     // customer (5000 ~ 5999)
-    DUPLICATE_CUSTOMER(false, 5000, "동일한 휴대폰 또는 주민번호로 가입된 고객입니다.");
+    DUPLICATE_CUSTOMER(false, 5000, "동일한 휴대폰 또는 주민번호로 가입된 고객입니다."),
 
     // deathNotifier (6000 ~ 6999)
 
-    // depositProduct (7000 ~ 7999)
+    // depositsProduct (7000 ~ 7999)
+    EMPTY_DEPOSITS_PRODUCT(false,  7200, "존재하지않는 상품입니다.");
+
 
     // history (8000 ~ 8999)
 

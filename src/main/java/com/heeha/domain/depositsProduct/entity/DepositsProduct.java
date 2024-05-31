@@ -69,4 +69,7 @@ public class DepositsProduct extends BaseEntity {
     @Column(name = "fin_co_subm_day")
     private String finCoSubmDay;
 
+    private String promotionalText; // 홍보문구
+    private String explanatoryText; // 설명문구
+
 }
