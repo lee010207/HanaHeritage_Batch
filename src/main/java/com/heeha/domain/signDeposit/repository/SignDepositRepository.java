@@ -1,4 +1,4 @@
-package com.heeha.domain.signDeposit.hyj.repository;
+package com.heeha.domain.signDeposit.repository;
 
 import com.heeha.domain.account.entity.Account;
 import com.heeha.domain.autoTransfer.entity.AutoTransfer;

@@ -1,6 +1,5 @@
 package com.heeha.domain.signDeposit.entity;
 
-import com.heeha.domain.consulting.entity.WorkType;
 import lombok.Getter;
 
 import java.util.Collections;

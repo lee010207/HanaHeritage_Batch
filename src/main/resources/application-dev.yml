@@ -32,3 +32,6 @@ logging:
 jwt:
   secret: 0mUet36qbTmKpG6lQPJJbij815G75KB2zwUim2U6Hjc=
   issuer: quswjdgma83@naver.com
+
+app:
+  key: ebfd212c9fc8a2c8774d9dee8c034bd7

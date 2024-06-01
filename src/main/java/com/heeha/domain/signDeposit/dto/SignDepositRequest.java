@@ -1,4 +1,4 @@
-package com.heeha.domain.signDeposit.hyj.dto;
+package com.heeha.domain.signDeposit.dto;
 
 import com.heeha.domain.account.entity.Account;
 import com.heeha.domain.autoTransfer.entity.AutoTransfer;

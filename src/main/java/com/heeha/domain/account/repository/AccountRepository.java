@@ -1,6 +1,5 @@
 package com.heeha.domain.account.repository;
 
-import com.heeha.domain.account.JCS.entity.AccountFix;
 import com.heeha.domain.account.entity.Account;
 import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
