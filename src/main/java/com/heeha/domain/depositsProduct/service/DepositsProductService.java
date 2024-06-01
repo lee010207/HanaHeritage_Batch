@@ -41,6 +41,11 @@ public class DepositsProductService {
                 .toList());
     }
 
+    public DepositsProduct getProduct(Long savingProductId) {
+        return repository.findById(savingProductId).orElseThrow(
+                () -> new BaseException(BaseResponseStatus.EMPTY_DEPOSITS_PRODUCT));
+    }
+
     @Transactional
     public List<GetListDepositsProductResponse> getList() {
         List<DepositsProduct> depositsProductList = repository.findAll();

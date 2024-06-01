@@ -29,12 +29,12 @@ public class JwtAuthorizationArgumentResolver implements HandlerMethodArgumentRe
     public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer,
                                   NativeWebRequest webRequest, WebDataBinderFactory binderFactory) throws Exception {
         HttpServletRequest request = webRequest.getNativeRequest(HttpServletRequest.class);
-
         try {
             if (request != null) {
                 String token = request.getHeader(AUTHORIZATION);
                 if (token != null && token.startsWith(BEARER)) {
                     // JWT 토큰에서 유저 ID 추출
+                    log.info("Argument Resolver Working");
                     return jwtTokenProvider.getCustomerIdFromToken(token.substring(BEARER.length()));
                 }
             }

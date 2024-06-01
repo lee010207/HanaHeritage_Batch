@@ -12,7 +12,6 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
 @Builder
-@ToString
 @Getter
 public class SignDeposit extends BaseEntity {
     @Id
