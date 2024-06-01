@@ -8,6 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
 import org.springframework.stereotype.Component;
@@ -21,9 +22,8 @@ import java.util.List;
 @Slf4j
 @RequiredArgsConstructor
 public class ProductUtil {
-
     @Value(value = "${app.key}")
-    private final String API_KEY;
+    private String API_KEY;
     private final String topFinGrpNo = "020000";
     private final String pageNo = "1";
 

@@ -1,6 +1,7 @@
 package com.heeha.global.config;
 
 import com.heeha.domain.auth.Auth;
+import com.heeha.domain.auth.jwt.JwtTokenProvider;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -17,6 +18,7 @@ import org.springframework.web.method.support.ModelAndViewContainer;
 public class JwtAuthorizationArgumentResolver implements HandlerMethodArgumentResolver {
     public static final String AUTHORIZATION = "Authorization";
     public static final String BEARER = "Bearer ";
+    private final JwtTokenProvider jwtTokenProvider;
 
     @Override
     public boolean supportsParameter(MethodParameter parameter) {
@@ -31,13 +33,16 @@ public class JwtAuthorizationArgumentResolver implements HandlerMethodArgumentRe
         try {
             if (request != null) {
                 String token = request.getHeader(AUTHORIZATION);
-                if (token != null && token.startsWith(BEARER )) {
-                    // 유저아이디 꺼내와서 반환
-                    return jwtProvider.getClaim(token);
+                if (token != null && token.startsWith(BEARER)) {
+                    // JWT 토큰에서 유저 ID 추출
+                    return jwtTokenProvider.getCustomerIdFromToken(token.substring(BEARER.length()));
                 }
             }
         } catch (Exception e) {
+            // 예외 발생 시 BaseException을 던짐
             throw new BaseException(BaseResponseStatus.INVALID_USER_JWT);
         }
+        // 토큰이 없거나 유효하지 않은 경우 null 반환
+        return null;
     }
 }
