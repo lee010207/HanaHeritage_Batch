@@ -21,6 +21,7 @@ public enum BaseResponseStatus {
      */
     SUCCESS(true, 1000, "요청에 성공하였습니다."),
 
+
     /**
      * 2000 : Request 오류
      */
@@ -36,6 +37,8 @@ public enum BaseResponseStatus {
 
     // account (3000 ~ 3999)
     INVALID_ACCOUNT_PASSWORD(false, 3000, "계좌 비밀번호가 일치하지 않습니다."),
+    ACCOUNTS_EMPTY_ACCOUNT_ID(false,  3200, "계좌 아이디 값을 확인해주세요."),
+
     // autoTransfer (4000 ~ 4999)
 
     // customer (5000 ~ 5999)
@@ -43,7 +46,9 @@ public enum BaseResponseStatus {
 
     // deathNotifier (6000 ~ 6999)
 
-    // depositProduct (7000 ~ 7999)
+    // depositsProduct (7000 ~ 7999)
+    EMPTY_DEPOSITS_PRODUCT(false,  7200, "존재하지않는 상품입니다."),
+
 
     // history (8000 ~ 8999)
 

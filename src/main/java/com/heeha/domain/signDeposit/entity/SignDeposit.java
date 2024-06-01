@@ -3,7 +3,6 @@ package com.heeha.domain.signDeposit.entity;
 import com.heeha.domain.account.entity.Account;
 import com.heeha.domain.autoTransfer.entity.AutoTransfer;
 import com.heeha.domain.base.entity.BaseEntity;
-import com.heeha.domain.customer.entity.Customer;
 import com.heeha.domain.depositsProduct.entity.DepositsProduct;
 import jakarta.persistence.*;
 import lombok.*;

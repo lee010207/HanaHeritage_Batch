@@ -4,7 +4,6 @@ import com.heeha.domain.account.entity.Account;
 import com.heeha.domain.base.entity.BaseEntity;
 import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.annotations.ColumnDefault;
 import org.springframework.data.annotation.CreatedDate;
 
 import java.sql.Timestamp;
@@ -29,7 +28,7 @@ public class History extends BaseEntity {
     @CreatedDate
     private Timestamp dealdate;
 
-    @ColumnDefault("이체")
+    //@ColumnDefault("이체")
     private String dealClassification;
 
     // 입금액 : 받는 사람 계좌 +

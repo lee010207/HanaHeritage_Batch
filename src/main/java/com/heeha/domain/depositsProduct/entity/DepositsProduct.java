@@ -21,6 +21,7 @@ public class DepositsProduct extends BaseEntity {
     private Long id;
 
     @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
     private DepositsType type;
 
     @Column(name = "fin_prdt_cd")
@@ -67,5 +68,8 @@ public class DepositsProduct extends BaseEntity {
 
     @Column(name = "fin_co_subm_day")
     private String finCoSubmDay;
+
+    private String promotionalText; // 홍보문구
+    private String explanatoryText; // 설명문구
 
 }
