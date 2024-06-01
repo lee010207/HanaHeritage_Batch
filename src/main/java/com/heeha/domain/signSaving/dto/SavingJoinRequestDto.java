@@ -1,4 +1,4 @@
-package com.heeha.domain.signDeposit.hyj.dto;
+package com.heeha.domain.signSaving.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

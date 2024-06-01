@@ -15,6 +15,7 @@ import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -25,7 +26,8 @@ public class AccountService {
     private final int LOW_BOUND = 10_000_000;
     private final int MAX_BOUND = 90_000_000;
 
-    public Long createAccount(Long customerId, AccountCreateDto accountCreateDto) {
+    @Transactional
+    public Account createAccount(Long customerId, AccountCreateDto accountCreateDto) {
         Long accountNumber;
         do {
             accountNumber = generateAccountNumber(accountCreateDto.getBranchCode(), accountCreateDto.getAccountCode());
@@ -34,7 +36,7 @@ public class AccountService {
         Customer customer = customerRepository.findById(customerId).get();
         Account account = accountCreateDto.toEntity(accountNumber, customer);
 
-        return accountRepository.save(account).getId();
+        return accountRepository.save(account);
     }
 
     public List<AccountCheckResponse> myAccounts(Long customerId) {
@@ -50,6 +52,12 @@ public class AccountService {
             throw new BaseException(BaseResponseStatus.INVALID_ACCOUNT_PASSWORD);
         }
         return Boolean.TRUE;
+    }
+
+    public Account getAccount(Long accountId) {
+        return accountRepository.findById(accountId).orElseThrow(
+                () -> new BaseException(BaseResponseStatus.SYSTEM_ERROR)
+        );
     }
 
     private Long generateAccountNumber(String branchCode, String accountCode) {
