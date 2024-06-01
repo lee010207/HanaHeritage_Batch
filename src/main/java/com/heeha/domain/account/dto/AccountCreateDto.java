@@ -1,5 +1,6 @@
 package com.heeha.domain.account.dto;
 
+import com.heeha.domain.account.JCS.entity.AccountFix;
 import com.heeha.domain.account.entity.Account;
 import com.heeha.domain.customer.entity.Customer;
 import jakarta.validation.constraints.NotEmpty;

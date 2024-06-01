@@ -38,7 +38,7 @@ public class SignDeposit extends BaseEntity {
     private AutoCancelType autoCancel; // 자동 해지 시점
     private Integer monthlyAmount; // 월 납입 금액
 
-    private Integer contractYears; // 계약 햇수
-    private Boolean snsNotice; // SNS 만기 알림
+    private Integer contractYears; // 계약 햇수 setSubscriptionPeriod
+    private Boolean snsNotice; // SNS 만기 알림 setSmsNotification
     private Double interestRate; // 금리
 }

@@ -1,6 +1,7 @@
 package com.heeha.domain.depositsProduct.service;
 
 import com.heeha.domain.depositsProduct.dto.ProductResponse;
+import com.heeha.domain.depositsProduct.entity.DepositsProduct;
 import com.heeha.domain.depositsProduct.repository.DepositsProductRepository;
 import com.heeha.domain.depositsProduct.util.ProductUtil;
 import com.heeha.global.config.BaseException;
@@ -37,5 +38,11 @@ public class DepositsProductService {
                 .stream()
                 .map(ProductResponse::toDepositEntity)
                 .toList());
+    }
+
+    public DepositsProduct getProduct(Long savingProductId) {
+        return repository.findById(savingProductId).orElseThrow(
+                /** TO-DO: 예외 바꿔야함 **/
+                () -> new BaseException(BaseResponseStatus.DUPLICATE_CUSTOMER));
     }
 }
