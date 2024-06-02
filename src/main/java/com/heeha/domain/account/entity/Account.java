@@ -15,6 +15,7 @@ import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.Setter;
 import lombok.NoArgsConstructor;
 
 @Entity(name="account")
@@ -46,5 +47,6 @@ public class Account extends BaseEntity {
     private String name;
 
     // 잔액
+    @Setter
     private long balance;
 }

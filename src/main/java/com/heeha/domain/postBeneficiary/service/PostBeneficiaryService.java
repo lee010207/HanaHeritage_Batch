@@ -1,6 +1,5 @@
 package com.heeha.domain.postBeneficiary.service;
 
-import com.heeha.domain.base.service.BaseService;
 import com.heeha.domain.postBeneficiary.entity.PostBeneficiary;
 import com.heeha.domain.postBeneficiary.repository.PostBeneficiaryRepository;
 import lombok.RequiredArgsConstructor;
@@ -11,32 +10,32 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
-public class PostBeneficiaryService implements BaseService<PostBeneficiary, Long> {
-
+public class PostBeneficiaryService{
+//implements BaseService<PostBeneficiary, Long>
     final PostBeneficiaryRepository repository;
 
-    @Override
+    //@Override
     public PostBeneficiary insert(PostBeneficiary entity) {
         return repository.save(entity);
     }
 
-    @Override
+    //@Override
     public Boolean delete(Long id) {
         repository.deleteById(id);
         return true;
     }
 
-    @Override
+   //@Override
     public PostBeneficiary update(PostBeneficiary entity) {
         return repository.save(entity);
     }
 
-    @Override
+    //@Override
     public Optional<PostBeneficiary> get(Long id) {
         return repository.findById(id);
     }
 
-    @Override
+    //@Override
     public List<PostBeneficiary> getAll() {
         return repository.findAll();
     }

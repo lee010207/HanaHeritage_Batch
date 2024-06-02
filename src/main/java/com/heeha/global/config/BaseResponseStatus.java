@@ -38,6 +38,10 @@ public enum BaseResponseStatus {
     // account (3000 ~ 3999)
     INVALID_ACCOUNT_PASSWORD(false, 3000, "계좌 비밀번호가 일치하지 않습니다."),
     ACCOUNTS_EMPTY_ACCOUNT_ID(false,  3200, "계좌 아이디 값을 확인해주세요."),
+    FAIL_TRANSFER(false, 3300, "계좌이체 실패"),
+    NO_FROM_ACCOUNT(false, 3301, "보내는 계좌가 없습니다"),
+    NO_TO_ACCOUNT(false, 3302, "받는 계좌가 없습니다"),
+    INVALID_BALANCE(false, 3303, "계좌 잔액이 부족합니다."),
 
     // autoTransfer (4000 ~ 4999)
 

@@ -6,7 +6,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 @Entity(name = "history")
 @Table(name = "history")
@@ -26,9 +26,8 @@ public class History extends BaseEntity {
     private Account account;
 
     @CreatedDate
-    private Timestamp dealdate;
+    private LocalDateTime dealdate;
 
-    //@ColumnDefault("이체")
     private String dealClassification;
 
     // 입금액 : 받는 사람 계좌 +
