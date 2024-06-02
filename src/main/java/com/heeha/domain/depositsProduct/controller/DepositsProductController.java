@@ -40,10 +40,12 @@ public class DepositsProductController {
             @ApiResponse(responseCode = "1000", description = "검색 완료", content = @Content(schema = @Schema(implementation = BaseResponse.SuccessResult.class))),
     })
     @GetMapping("/search")
-    public BaseResponse.SuccessResult<List<GetListDepositsProductResponse>> searchDepositsProducts(@RequestParam String searchword) {
+    public BaseResponse.SuccessResult<List<GetListDepositsProductResponse>> searchDepositsProducts(
+            @RequestParam String searchword) {
         List<GetListDepositsProductResponse> response = depositsProductService.searchList(searchword);
         return BaseResponse.success(response);
     }
+
     @Operation(summary = "예적금 상품 상세 조회")
     @Parameter(name = "id", description = "조회하고 싶은 deposits product id 입력")
     @ApiResponses({
@@ -51,8 +53,9 @@ public class DepositsProductController {
             @ApiResponse(responseCode = "7600", description = "존재하지 않는 deposit product id", content = @Content(schema = @Schema(implementation = BaseResponse.ErrorResult.class))),
     })
     @GetMapping("/detail")
-    public BaseResponse.SuccessResult<GetDetailDepositsProductResponse> signUp(@RequestParam("id") Long id) {
-        GetDetailDepositsProductResponse response = depositsProductService.getDetail(id);
+    public BaseResponse.SuccessResult<GetDetailDepositsProductResponse> getProductDetail(@RequestParam("id") Long id) {
+        GetDetailDepositsProductResponse response = new GetDetailDepositsProductResponse(
+                depositsProductService.getDetail(id));
         return BaseResponse.success(response);
     }
 

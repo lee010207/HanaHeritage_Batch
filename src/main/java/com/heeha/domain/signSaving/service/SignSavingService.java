@@ -36,7 +36,7 @@ public class SignSavingService {
     public SavingJoinResponseDto joinSavingAccount(Long customerId, SavingJoinRequestDto savingJoinRequestDto) {
 
         // 가입할 상품 가져오기
-        DepositsProduct product = depositsProductService.getProduct(savingJoinRequestDto.getSavingProductId());
+        DepositsProduct product = depositsProductService.getDetail(savingJoinRequestDto.getSavingProductId());
 
 
         SavingAccountCreateDto savingAccountCreateDto = new SavingAccountCreateDto(product.getFinPrdtNm(),

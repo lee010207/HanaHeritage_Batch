@@ -24,13 +24,13 @@ import java.util.Optional;
 @Slf4j
 public class DepositsProductService {
 
-    private final DepositsProductRepository repository;
+    private final DepositsProductRepository depositsProductRepository;
     private final DepositsProductUtil depositsProductUtil;
 
     @Transactional
     public void saveSavingProduct() {
         List<DepositsProductResponse> savingList = depositsProductUtil.getSavingList();
-        repository.saveAll(savingList
+        depositsProductRepository.saveAll(savingList
                 .stream()
                 .map(DepositsProductResponse::toSavingEntity)
                 .toList());
@@ -39,39 +39,24 @@ public class DepositsProductService {
     @Transactional
     public void saveDepositProduct() {
         List<DepositsProductResponse> depositList = depositsProductUtil.getDepositList();
-        repository.saveAll(depositList
+        depositsProductRepository.saveAll(depositList
                 .stream()
                 .map(DepositsProductResponse::toDepositEntity)
                 .toList());
     }
 
-    public GetDetailDepositsProductResponse getDetail(Long id) {
+    public DepositsProduct getDetail(Long id) {
         Optional<DepositsProduct> depositsProductResponse = depositsProductRepository.findById(id);
         if(depositsProductResponse.isEmpty()) {
             throw new BaseException(BaseResponseStatus.INVALID_DEPOSIT_PRODUCT_ID);
         }
 
-        DepositsProduct depositsProduct = depositsProductResponse.get();
-        GetDetailDepositsProductResponse response = GetDetailDepositsProductResponse
-                .builder()
-                .id(depositsProduct.getId())
-                .type(depositsProduct.getType().getTitle())
-                .finPrdtNm(depositsProduct.getFinPrdtNm())
-                .mtrtInt(depositsProduct.getMtrtInt())
-                .spclCnd(depositsProduct.getSpclCnd())
-                .joinDeny(depositsProduct.getJoinDeny())
-                .joinMember(depositsProduct.getJoinMember())
-                .etcNote(depositsProduct.getEtcNote())
-                .maxLimit(depositsProduct.getMaxLimit())
-                .promotionalText(depositsProduct.getPromotionalText())
-                .explanatoryText(depositsProduct.getExplanatoryText())
-                .build();
-        return response;
+        return depositsProductResponse.get();
     }
 
     @Transactional
     public List<GetListDepositsProductResponse> getList() {
-        List<DepositsProduct> depositsProductList = repository.findAll();
+        List<DepositsProduct> depositsProductList = depositsProductRepository.findAll();
         if(depositsProductList.isEmpty()) {
             throw new BaseException(BaseResponseStatus.EMPTY_DEPOSITS_PRODUCT);
         }
@@ -83,7 +68,7 @@ public class DepositsProductService {
 
     @Transactional
     public List<GetListDepositsProductResponse> searchList(String searchword) {
-        List<DepositsProduct> depositsProductList = repository.findByserchwordLike(searchword);
+        List<DepositsProduct> depositsProductList = depositsProductRepository.findByserchwordLike(searchword);
         if(depositsProductList.isEmpty()) {
             throw new BaseException(BaseResponseStatus.EMPTY_DEPOSITS_PRODUCT);
         }
