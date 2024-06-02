@@ -6,7 +6,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.Pattern;
 import lombok.*;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @Entity(name = "consulting")
 @Table(name = "consulting")
@@ -31,5 +31,5 @@ public class Consulting extends BaseEntity {
     private String phoneNumber;
 
     @Column(updatable = false)
-    private LocalDateTime reservationDatetime;
+    private LocalDate reservationDatetime;
 }

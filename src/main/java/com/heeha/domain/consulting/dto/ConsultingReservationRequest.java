@@ -5,7 +5,8 @@ import com.heeha.domain.consulting.entity.WorkType;
 import com.heeha.domain.customer.entity.Customer;
 import lombok.*;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 @Getter
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
@@ -14,14 +15,16 @@ import java.time.LocalDateTime;
 public class ConsultingReservationRequest {
     private String workTypeName;
     private String phoneNumber;
-    private LocalDateTime reservationDatetime;
+    private String reservationDatetime;
 
     public Consulting toEntity(Long customerId) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
         return Consulting.builder()
                 .customer(Customer.builder().id(customerId).build())
                 .workType(WorkType.of(workTypeName))
                 .phoneNumber(phoneNumber)
-                .reservationDatetime(reservationDatetime)
+                .reservationDatetime(LocalDate.parse(reservationDatetime, formatter))
                 .build();
     }
 }
