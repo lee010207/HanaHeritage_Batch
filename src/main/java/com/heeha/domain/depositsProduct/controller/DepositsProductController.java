@@ -41,5 +41,13 @@ public class DepositsProductController {
         List<GetListDepositsProductResponse> response = depositsProductService.searchList(searchword);
         return BaseResponse.success(response);
     }
+
+    @GetMapping("/save")
+    @Operation(summary = "예적금 상품 저장")
+    public BaseResponse.SuccessResult<Boolean> saveProduct() {
+        depositsProductService.saveSavingProduct();
+        depositsProductService.saveDepositProduct();
+        return BaseResponse.success(true);
+    }
 }
 

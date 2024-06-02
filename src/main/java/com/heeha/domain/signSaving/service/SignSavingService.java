@@ -6,6 +6,7 @@ import com.heeha.domain.account.service.AccountService;
 import com.heeha.domain.depositsProduct.entity.DepositsProduct;
 import com.heeha.domain.depositsProduct.service.DepositsProductService;
 import com.heeha.domain.signSaving.dto.SavingJoinRequestDto;
+import com.heeha.domain.signSaving.dto.SavingJoinResponseDto;
 import com.heeha.domain.signSaving.entity.SignSaving;
 import com.heeha.domain.signSaving.repository.SignSavingRepository;
 import lombok.RequiredArgsConstructor;
@@ -32,7 +33,7 @@ public class SignSavingService {
      */
 
     @Transactional
-    public SignSaving joinSavingAccount(Long customerId, SavingJoinRequestDto savingJoinRequestDto) {
+    public SavingJoinResponseDto joinSavingAccount(Long customerId, SavingJoinRequestDto savingJoinRequestDto) {
 
         // 가입할 상품 가져오기
         DepositsProduct product = depositsProductService.getProduct(savingJoinRequestDto.getSavingProductId());
@@ -56,7 +57,7 @@ public class SignSavingService {
                 .interestRate(savingJoinRequestDto.getInterestRate())
                 .build();
 
-        return signSavingRepository.save(signSaving);
+        return new SavingJoinResponseDto(signSavingRepository.save(signSaving));
     }
 
 }
