@@ -2,7 +2,6 @@ package com.heeha.domain.depositsProduct.entity;
 
 
 import com.heeha.domain.base.entity.BaseEntity;
-import com.heeha.domain.customer.entity.RoleType;
 import com.heeha.domain.depositsProduct.entity.DepositsType;
 import jakarta.persistence.*;
 import lombok.*;
@@ -24,52 +23,22 @@ public class DepositsProduct extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private DepositsType type;
 
-    @Column(name = "fin_prdt_cd")
-    private String finPrdtCd;
-
-    @Column(name = "dcls_month")
-    private String dclsMonth;
-
-    @Column(name = "fin_co_no")
-    private String finCoNo;
-
-    @Column(name = "kor_co_nm")
-    private String korCoNm;
-
-    @Column(name = "fin_prdt_nm")
-    private String finPrdtNm;
-
-    @Column(name = "join_way")
-    private String joinWay;
-
-    @Column(name = "mtrt_int")
-    private String mtrtInt;
-
-    @Column(name = "spcl_cnd")
-    private String spclCnd;
-
-    @Column(name = "join_deny")
-    private String joinDeny;
-
-    @Column(name = "join_member")
-    private String joinMember;
-
-    @Column(name = "etc_note")
-    private String etcNote;
-
-    @Column(name = "max_limit")
-    private String maxLimit;
-
-    @Column(name = "dcls_strt_day")
-    private String dclsStrtDay;
-
-    @Column(name = "dcls_end_day")
-    private String dclsEndDay;
-
-    @Column(name = "fin_co_subm_day")
-    private String finCoSubmDay;
+    private String finPrdtCd; // 금융상품코드
+    private String dclsMonth; // 공시제출일
+    private String finCoNo; // 금융회사코드
+    private String korCoNm; // 금융회사명
+    private String finPrdtNm; // 금융상품명
+    private String joinWay; // 가입방법
+    private String mtrtInt; // 만기 후 이자율
+    private String spclCnd; // 우대조건
+    private String joinDeny; // 가입제한
+    private String joinMember; // 가입대상
+    private String etcNote; // 기타 유의사항
+    private String maxLimit; // 최고한도
+    private String dclsStrtDay; // 공시시작일
+    private String dclsEndDay; // 공시종료일
+    private String finCoSubmDay; // 금융회사 제출일
 
     private String promotionalText; // 홍보문구
     private String explanatoryText; // 설명문구
-
 }

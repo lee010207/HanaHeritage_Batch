@@ -7,10 +7,14 @@ public enum DepositsType {
     DEPOSIT("적금"),
     SAVING("예금");
 
-    private final String type;
+    private final String title;
 
     DepositsType(String title) {
-        this.type = title;
+        this.title = title;
+    }
+
+    public String getTitle() {
+        return title;
     }
 
 }

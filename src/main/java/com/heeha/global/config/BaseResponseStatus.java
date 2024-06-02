@@ -49,6 +49,9 @@ public enum BaseResponseStatus {
     // depositsProduct (7000 ~ 7999)
     EMPTY_DEPOSITS_PRODUCT(false,  7200, "존재하지않는 상품입니다."),
 
+    // depositProduct (7000 ~ 7999)
+    INVALID_DEPOSIT_PRODUCT_ID(false, 7600, "존재하지 않는 deposit product id입니다."),
+
 
     // history (8000 ~ 8999)
 
