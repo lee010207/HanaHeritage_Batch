@@ -1,6 +1,9 @@
 package com.heeha.domain.customer.controller;
 
+import com.heeha.domain.auth.Auth;
+import com.heeha.domain.customer.dto.MyInfoResponse;
 import com.heeha.domain.customer.dto.SignUpRequest;
+import com.heeha.domain.customer.entity.Customer;
 import com.heeha.domain.customer.service.CustomerService;
 import com.heeha.global.config.BaseException;
 import com.heeha.global.config.BaseResponse;
@@ -13,6 +16,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,5 +38,11 @@ public class CustomerController {
     public SuccessResult<Long> signUp(@RequestBody SignUpRequest signUpRequest) {
         log.info("회원가입 시도 : {}", signUpRequest);
         return BaseResponse.success(customerService.save(signUpRequest));
+    }
+
+    @Operation(summary = "내 정보 조회")
+    @GetMapping("/me")
+    public SuccessResult<MyInfoResponse> me(@Auth Long customerId) {
+        return BaseResponse.success(customerService.findById(customerId));
     }
 }

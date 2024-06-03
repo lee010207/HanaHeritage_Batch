@@ -1,5 +1,6 @@
 package com.heeha.domain.customer.service;
 
+import com.heeha.domain.customer.dto.MyInfoResponse;
 import com.heeha.domain.customer.dto.SignUpRequest;
 import com.heeha.domain.customer.entity.Customer;
 import com.heeha.domain.customer.repository.CustomerRepository;
@@ -27,5 +28,11 @@ public class CustomerService {
         } catch (DataIntegrityViolationException e) {
             throw new BaseException(BaseResponseStatus.DUPLICATE_CUSTOMER);
         }
+    }
+
+    public MyInfoResponse findById(Long customerId) {
+        return new MyInfoResponse(customerRepository.findById(customerId).orElseThrow(() ->
+                new BaseException(BaseResponseStatus.INVALID_USER_JWT)));
+
     }
 }

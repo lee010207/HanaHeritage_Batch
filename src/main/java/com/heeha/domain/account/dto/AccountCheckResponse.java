@@ -12,6 +12,7 @@ public class AccountCheckResponse {
     private Long accountNumber;
     private String name;
     private Long balance;
+    private String productType;
     private LocalDateTime createdAt;
 
     public AccountCheckResponse(Account account) {
@@ -20,5 +21,6 @@ public class AccountCheckResponse {
         this.name = account.getName();
         this.balance = account.getBalance();
         this.createdAt = account.getCreated_at();
+        this.productType = accountNumber.toString().substring(3,5);
     }
 }
