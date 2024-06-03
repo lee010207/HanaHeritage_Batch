@@ -6,7 +6,6 @@ import com.heeha.domain.account.dto.MakeTransactionDto;
 import com.heeha.domain.account.dto.NormalAccountCreateDto;
 import com.heeha.domain.account.service.AccountService;
 import com.heeha.domain.auth.Auth;
-import com.heeha.domain.history.dto.CreateHistoryDto;
 import com.heeha.global.config.BaseResponse;
 import com.heeha.global.config.BaseResponse.ErrorResult;
 import com.heeha.global.config.BaseResponse.SuccessResult;

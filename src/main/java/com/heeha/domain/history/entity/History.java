@@ -38,6 +38,8 @@ public class History extends BaseEntity {
     private String recipientBank;
     // 받는 사람 계좌 번호
     private Long recipientNumber;
+    // 보내는 사람 계좌 번호
+    private Long senderNumber;
 
     // 보내는 사람
     private String sender;

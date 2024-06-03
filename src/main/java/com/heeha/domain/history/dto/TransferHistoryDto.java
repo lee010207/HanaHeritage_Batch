@@ -10,15 +10,23 @@ import lombok.*;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @ToString
 @Builder
-public class CreateHistoryDto {
+@Setter
+public class TransferHistoryDto {
 
     @NotEmpty
     private String dealClassification;
+
     private Long amount;
+
+    private String recipient;
     @NotEmpty
     private String recipientBank;
-    @NotEmpty
+
     private Long recipientNumber;
+
+    private Long senderNumber;
+
+    private String sender;
     @NotEmpty
     private String recipientRemarks;
     @NotEmpty
@@ -30,10 +38,10 @@ public class CreateHistoryDto {
         return History.builder()
                 .dealClassification(dealClassification)
                 .amount(amount)
-                .recipient(recipientRemarks)
+                .recipient(recipient)
                 .recipientBank(recipientBank)
                 .recipientNumber(recipientNumber)
-                .sender(senderRemarks)
+                .sender(sender)
                 .recipientRemarks(recipientRemarks)
                 .senderRemarks(senderRemarks)
                 .account(account)

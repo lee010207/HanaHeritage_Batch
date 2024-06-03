@@ -3,8 +3,15 @@ package com.heeha.global.config;
 import lombok.Getter;
 
 /**
- * [주의] 응답 코드 관리 작성 요령 : 3000번대 이후부터는 코드가 겹칠 수 있으니, 아래 본인에게 맞는 영역만 사용할 것!! 100~199 : 변정흠 200~299 : 유민아 300~399 : 이지후
- * 400~499 : 정찬수 500~599 : 황유진 600~699 : 황혜림 예) 변정흠이 deathNotifier 관련 에러를 추가하고 싶다면? 6100 ~ 6199 내의 코드만 사용
+ * [주의] 응답 코드 관리
+ * 작성 요령 : 3000번대 이후부터는 코드가 겹칠 수 있으니, 아래 본인에게 맞는 영역만 사용할 것!!
+ * 100~199 : 변정흠
+ * 200~299 : 유민아
+ * 300~399 : 이지후
+ * 400~499 : 정찬수
+ * 500~599 : 황유진
+ * 600~699 : 황혜림
+ * 예) 변정흠이 deathNotifier 관련 에러를 추가하고 싶다면? 6100 ~ 6199 내의 코드만 사용
  */
 @Getter
 public enum BaseResponseStatus {
@@ -42,6 +49,8 @@ public enum BaseResponseStatus {
     NO_FROM_ACCOUNT(false, 3301, "보내는 계좌가 없습니다"),
     NO_TO_ACCOUNT(false, 3302, "받는 계좌가 없습니다"),
     INVALID_BALANCE(false, 3303, "계좌 잔액이 부족합니다."),
+    WRONG_ACCOUNT_PASSWORD(false, 3304, "계좌 비밀번호가 다릅니다."),
+    FAIL_REGISTER_AUTOTRANSFER(false, 3500, "자동이체 등록 실패"),
 
     // autoTransfer (4000 ~ 4999)
 

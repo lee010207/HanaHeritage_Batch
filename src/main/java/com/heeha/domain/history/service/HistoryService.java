@@ -1,7 +1,6 @@
 package com.heeha.domain.history.service;
 
-import com.heeha.domain.history.dto.CreateHistoryDto;
-import com.heeha.domain.history.entity.History;
+import com.heeha.domain.history.dto.TransferHistoryDto;
 import com.heeha.domain.history.repository.HistoryRepository;
 import com.heeha.global.config.BaseException;
 import com.heeha.global.config.BaseResponseStatus;
@@ -19,7 +18,7 @@ public class HistoryService {
     private final HistoryRepository historyRepository;
 
     @Transactional
-    public void historySave(CreateHistoryDto history){
+    public void historySave(TransferHistoryDto history){
         try {
             historyRepository.save(history.toEntity());
         } catch (DataIntegrityViolationException e) {
