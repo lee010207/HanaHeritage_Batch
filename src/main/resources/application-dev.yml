@@ -15,10 +15,8 @@ spring:
       port: 6379
       password: 111111
   datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://127.0.0.1:3306/heritagedb?characterEncoding=utf8
-    username: heeha
-    password: '0612'
+    username: sa
+    url: jdbc:h2:mem:test;MODE=MYSQL
   jpa:
     hibernate:
       ddl-auto: update
