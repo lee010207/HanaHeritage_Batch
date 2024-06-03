@@ -1,8 +1,8 @@
 package com.heeha.domain.history.controller;
 
-import com.heeha.domain.account.JCS.dto.AccountCheckResponse;
 import com.heeha.domain.history.dto.HistoryDto;
 import com.heeha.domain.history.service.HistoryService;
+import com.heeha.global.config.BaseResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,8 +17,8 @@ import java.util.List;
 public class HistoryController {
     private final HistoryService historyService;
 
-    @GetMapping("/api/v1/history/account/{accountNumber}")
-    public List<HistoryDto> getHistoryByAccountNumber(@PathVariable Long accountNumber) {
-        return historyService.getHistoryByAccountNumber(accountNumber);
+    @GetMapping("/account/{accountId}")
+    public BaseResponse.SuccessResult<List<HistoryDto>> getHistoryByAccountId(@PathVariable Long accountId) {
+        return BaseResponse.success(historyService.getHistoryByAccountId(accountId));
     };
 }

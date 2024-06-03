@@ -22,8 +22,8 @@ public class HistoryService {
     private static final Logger log = LoggerFactory.getLogger(HistoryService.class);
     private final HistoryRepository historyRepository;
 
-    public List<HistoryDto> getHistoryByAccountNumber(Long accountNumber) {
-        List<History> histories = historyRepository.findByAccount_Id(accountNumber);
+    public List<HistoryDto> getHistoryByAccountId(Long accountId) {
+        List<History> histories = historyRepository.findByAccountId(accountId);
         return histories.stream().map(this::convertToDto).collect(Collectors.toList());
     }
     @Transactional
