@@ -14,36 +14,26 @@ public class CreateHistoryDto {
 
     @NotEmpty
     private String dealClassification;
-    @NotEmpty
-    private int deposit;
-    @NotEmpty
-    private int withdraw;
-    @NotEmpty
-    private String recipient;
+    private Long amount;
     @NotEmpty
     private String recipientBank;
     @NotEmpty
     private Long recipientNumber;
     @NotEmpty
-    private String sender;
-    @NotEmpty
     private String recipientRemarks;
     @NotEmpty
     private String senderRemarks;
     @NotEmpty
-    private String password;
-    @NotEmpty
-    private Long accountId;
+    private Account account;
 
-    public History toEntity(Account account) {
+    public History toEntity() {
         return History.builder()
                 .dealClassification(dealClassification)
-                .deposit(deposit)
-                .withdraw(withdraw)
-                .recipient(recipient)
+                .amount(amount)
+                .recipient(recipientRemarks)
                 .recipientBank(recipientBank)
                 .recipientNumber(recipientNumber)
-                .sender(sender)
+                .sender(senderRemarks)
                 .recipientRemarks(recipientRemarks)
                 .senderRemarks(senderRemarks)
                 .account(account)

@@ -2,10 +2,13 @@ package com.heeha.domain.account.controller;
 
 import com.heeha.domain.account.dto.AccountCheckResponse;
 import com.heeha.domain.account.dto.AccountValidationRequest;
+import com.heeha.domain.account.dto.MakeTransactionDto;
 import com.heeha.domain.account.dto.NormalAccountCreateDto;
 import com.heeha.domain.account.service.AccountService;
 import com.heeha.domain.auth.Auth;
+import com.heeha.domain.history.dto.CreateHistoryDto;
 import com.heeha.global.config.BaseResponse;
+import com.heeha.global.config.BaseResponse.ErrorResult;
 import com.heeha.global.config.BaseResponse.SuccessResult;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -45,8 +48,8 @@ public class AccountController {
             @ApiResponse(responseCode = "1000", description = "계좌조회 성공", content = @Content(schema = @Schema(implementation = SuccessResult.class))),
     })
     @GetMapping("/my")
-    public SuccessResult<List<AccountCheckResponse>> getMyAccounts() {
-        return BaseResponse.success(accountService.myAccounts(1L));
+    public SuccessResult<List<AccountCheckResponse>> myAccounts(@Auth Long customerId) {
+        return BaseResponse.success(accountService.myAccounts(customerId));
     }
 
     @Operation(summary = "단일 계좌 조회")
@@ -56,6 +59,18 @@ public class AccountController {
     @GetMapping("/get")
     public SuccessResult<AccountCheckResponse> getMyAccounts(@RequestParam Long accountId) {
         return BaseResponse.success(new AccountCheckResponse(accountService.getAccount(accountId)));
+    }
+
+    @Operation(summary = "계좌 이체")
+    @ApiResponses({
+            @ApiResponse(responseCode = "1000", description = "계좌이체 성공", content = @Content(schema = @Schema(implementation = SuccessResult.class))),
+            @ApiResponse(responseCode = "3300", description = "계좌이체 실패", content = @Content(schema = @Schema(implementation = ErrorResult.class))),
+    })
+    @PostMapping("/simple")
+    public BaseResponse.SuccessResult<MakeTransactionDto> simpleTransfer(@Auth Long customerId,
+                                                                         @RequestBody MakeTransactionDto makeTransactionDto) {
+        log.info("계좌이체 시도 : {}", makeTransactionDto.toString());
+        return BaseResponse.success(accountService.makeTransaction(makeTransactionDto));
     }
 
     @Operation(summary = "계좌 비밀번호 검증")

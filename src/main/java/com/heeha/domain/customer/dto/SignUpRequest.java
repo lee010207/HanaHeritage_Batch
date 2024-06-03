@@ -10,8 +10,7 @@ import lombok.*;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @ToString
 public class SignUpRequest {
-    @NotEmpty
-    private Long id;
+
     @NotEmpty
     private String name;
     @NotEmpty
@@ -23,7 +22,6 @@ public class SignUpRequest {
 
     public Customer toEntity() {
         return Customer.builder()
-                .id(id)
                 .name(name)
                 .password(password)
                 .phoneNumber(phoneNumber)
