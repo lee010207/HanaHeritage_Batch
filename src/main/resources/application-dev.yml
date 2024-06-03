@@ -13,7 +13,7 @@ spring:
     redis:
       host: localhost
       port: 6379
-      password: aaaa
+      password: 111111
   datasource:
     username: sa
     url: jdbc:h2:mem:test;MODE=MYSQL
