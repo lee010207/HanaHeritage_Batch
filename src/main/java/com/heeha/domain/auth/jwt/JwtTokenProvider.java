@@ -21,8 +21,6 @@ import org.springframework.stereotype.Component;
 @Getter
 public class JwtTokenProvider {
 
-    public static final String USER_TOKEN_NAME = "user_refresh_token";
-    public static final String MASTER_TOKEN_NAME = "master_refresh_token";
     private final SecretKey key;
     private final long accessExpireTime = 30 * 60 * 1000L;
     private final long refreshExpireTime = 24 * 60 * 60 * 1000L;
@@ -57,7 +55,7 @@ public class JwtTokenProvider {
                 .setClaims(payload)
                 .setIssuedAt(now)
                 .setExpiration(new Date(now.getTime() + expireTime))
-                .signWith(SignatureAlgorithm.HS256, key)
+                .signWith(key)
                 .compact();
     }
 

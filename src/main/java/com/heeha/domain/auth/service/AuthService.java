@@ -39,14 +39,14 @@ public class AuthService {
         return new JwtToken(accessToken, refreshToken);
     }
 
-    public JwtToken reissue(String accessToken, String refreshToken) {
+    public JwtToken reissue(String refreshToken) {
         // Refresh Token 검증
         if (!jwtTokenProvider.validateToken(refreshToken)) {
-            throw new BaseException(BaseResponseStatus.INVALID_REFRESH_TOKEN);
+            throw new BaseException(BaseResponseStatus.EXPIRED_TOKEN);
         }
 
-        // Access Token에서 User ID를 가져옵니다.
-        Long userId = jwtTokenProvider.getCustomerIdFromToken(accessToken);
+        // refreshToken에서 User ID를 가져옵니다.
+        Long userId = jwtTokenProvider.getCustomerIdFromToken(refreshToken);
 
         // Redis에서 저장된 Refresh Token 값을 가져옵니다.
         String storedRefreshToken = (String) redisTemplate.opsForValue().get("RT:" + userId);
