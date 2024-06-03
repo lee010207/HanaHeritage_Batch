@@ -4,9 +4,11 @@ import com.heeha.domain.account.dto.DepositAccountCreateDto;
 import com.heeha.domain.account.dto.SavingAccountCreateDto;
 import com.heeha.domain.account.entity.Account;
 import com.heeha.domain.account.service.AccountService;
+import com.heeha.domain.account.yma.dto.AccountInfoResponse;
 import com.heeha.domain.depositsProduct.entity.DepositsProduct;
 import com.heeha.domain.depositsProduct.service.DepositsProductService;
 import com.heeha.domain.signDeposit.dto.SignDepositRequest;
+import com.heeha.domain.signDeposit.dto.SignDepositResponse;
 import com.heeha.domain.signDeposit.entity.SignDeposit;
 import com.heeha.domain.signDeposit.repository.SignDepositRepository;
 import com.heeha.domain.signSaving.dto.SavingJoinRequestDto;
@@ -36,11 +38,10 @@ public class SignDepositService {
      */
 
     @Transactional
-    public SignDeposit joinDepositAccount(Long customerId, SignDepositRequest signDepositRequest) {
+    public SignDepositResponse joinDepositAccount(Long customerId, SignDepositRequest signDepositRequest) {
 
         // 가입할 상품 가져오기
-        DepositsProduct product = depositsProductService.getProduct(signDepositRequest.getDepositProductId());
-
+        DepositsProduct product = depositsProductService.getDetail(signDepositRequest.getDepositProductId());
 
         DepositAccountCreateDto depositAccountCreateDto = new DepositAccountCreateDto(product.getFinPrdtNm(),
                 signDepositRequest.getAccountPassword(), signDepositRequest.getDepositAmount());
@@ -48,10 +49,19 @@ public class SignDepositService {
         Account depositAccount = accountService.createAccount(customerId, depositAccountCreateDto);
         Account withdrawAccount = accountService.getAccount(signDepositRequest.getWithdrawAccountId());
 
-        /* TO-DO
-         * 가입 요청 Dto에서 예치금액만큼 출금계좌에서 차감하기 (이체 로직 사용)
-         * 자동 이체 계좌번호와 비번 확인, 자동 이체 실시
-         */
+
+        MakeTransactionDto makeTransactionDto = MakeTransactionDto.builder()
+                .accountId(withdrawAccount.getId())
+                .amount(signDepositRequest.getDepositAmount())
+                .password(withdrawAccount.getPassword())
+                .recipientBank("하나")
+                .recipientAccountNumber(depositAccount.getAccountNumber())
+                .recipientRemarks(withdrawAccount.getName())
+                .senderRemarks(depositAccount.getName())
+                .memo("적금 납입")
+                .build();
+
+        accountService.makeTransaction(makeTransactionDto);
 
         SignDeposit signDeposit = SignDeposit.builder()
                 .account(depositAccount)
@@ -61,6 +71,12 @@ public class SignDepositService {
                 .interestRate(signDepositRequest.getInterestRate())
                 .build();
 
-        return signDepositRepository.save(signDeposit);
+        return new SignDepositResponse(signDepositRepository.save(signDeposit));
+    }
+
+    public AccountInfoResponse getAccountInfo(Long accountId) {
+        SignDeposit signDeposit = signDepositRepository.findByAccountId(accountId);
+
+        return AccountInfoResponse.todto(signDeposit);
     }
 }
