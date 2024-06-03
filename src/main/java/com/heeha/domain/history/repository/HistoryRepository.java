@@ -9,4 +9,5 @@ import java.util.List;
 
 @Repository
 public interface HistoryRepository extends JpaRepository<History, Long> {
+    List<History> findByAccount_Id(Long accountNumber);
 }
