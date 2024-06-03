@@ -92,7 +92,7 @@ public class TransferService {
 
     public boolean CheckAccountPassword(String accPw, String inputPw){
             if (!accPw.equals(inputPw)) {
-                throw new BaseException(BaseResponseStatus.WRONG_PASSWORD);
+                throw new BaseException(BaseResponseStatus.WRONG_ACCOUNT_PASSWORD);
             }
             return true;
     }
