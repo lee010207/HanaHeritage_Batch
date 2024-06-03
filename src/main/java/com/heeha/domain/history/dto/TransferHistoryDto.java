@@ -10,15 +10,13 @@ import lombok.*;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @ToString
 @Builder
-public class CreateHistoryDto {
+@Setter
+public class TransferHistoryDto {
 
     @NotEmpty
     private String dealClassification;
     @NotEmpty
-    private int deposit;
-    @NotEmpty
-    private int withdraw;
-    @NotEmpty
+    private int amount;
     private String recipient;
     @NotEmpty
     private String recipientBank;
@@ -38,8 +36,8 @@ public class CreateHistoryDto {
     public History toEntity(Account account) {
         return History.builder()
                 .dealClassification(dealClassification)
-                .deposit(deposit)
-                .withdraw(withdraw)
+                .withdraw(amount)
+                .senderNumber(account.getAccountNumber())
                 .recipient(recipient)
                 .recipientBank(recipientBank)
                 .recipientNumber(recipientNumber)

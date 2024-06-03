@@ -40,6 +40,7 @@ public enum BaseResponseStatus {
     NO_TO_ACCOUNT(false, 3302, "받는 계좌가 없습니다"),
     INVALID_BALANCE(false, 3303, "계좌 잔액이 부족합니다."),
     WRONG_PASSWORD(false, 3304, "계좌 비밀번호가 다릅니다."),
+    FAIL_REGISTER_AUTOTRANSFER(false, 3500, "자동이체 등록 실패"),
 
     // autoTransfer (4000 ~ 4999)
 

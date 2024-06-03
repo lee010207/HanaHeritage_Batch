@@ -5,6 +5,7 @@ import com.heeha.domain.base.entity.BaseEntity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.sql.Date;
 import java.time.LocalDateTime;
 
 @Entity(name = "auto_transfer")
@@ -12,7 +13,6 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
 @Builder
-@ToString(exclude = {"cust", "item"})
 @Getter
 public class AutoTransfer extends BaseEntity {
 
@@ -24,11 +24,14 @@ public class AutoTransfer extends BaseEntity {
     @Column(name = "sender", length = 100, nullable = false)
     private String sender;
 
-    @Column(name = "recipient", length = 100, nullable = false)
+    @Column(name = "recipient", length = 100)
     private String recipient;
 
+    @Column(name = "recipien_bank", length = 100, nullable = false)
+    private String recipientBank;
+
     @Column(name = "to_account_number", length = 13, nullable = false)
-    private String toAccountNumber;
+    private Long toAccountNumber;
 
     @Column(name = "amount", nullable = false)
     private int amount;
@@ -37,7 +40,10 @@ public class AutoTransfer extends BaseEntity {
     private int autoTransferDay;
 
     @Column(name = "end_date", nullable = false)
-    private LocalDateTime endDate;
+    private Date endDate;
+
+    @Column(name = "start_date", nullable = false)
+    private Date startDate;
 
     @OneToOne
     @JoinColumn(name = "account_id")
