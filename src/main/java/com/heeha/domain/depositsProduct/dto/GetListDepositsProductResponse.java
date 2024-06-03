@@ -10,6 +10,9 @@ import lombok.*;
 @ToString
 @Builder
 public class GetListDepositsProductResponse {
+    @JsonProperty("id")
+    private long id;
+
     @JsonProperty("fin_prdt_nm")
     private String finPrdtNm;
 
@@ -21,6 +24,7 @@ public class GetListDepositsProductResponse {
 
     public static GetListDepositsProductResponse fromEntity(DepositsProduct depositsProduct) {
         return GetListDepositsProductResponse.builder()
+                .id(depositsProduct.getId())
                 .finPrdtNm(depositsProduct.getFinPrdtNm())
                 .spclCnd(depositsProduct.getSpclCnd())
                 .promotionalText(depositsProduct.getPromotionalText())

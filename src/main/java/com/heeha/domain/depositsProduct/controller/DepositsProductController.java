@@ -18,6 +18,7 @@ import java.util.List;
 @RestController
 @Slf4j
 @RequiredArgsConstructor
+@CrossOrigin(origins = "http://localhost:3000")
 @RequestMapping("/api/v1/deposits-products")
 public class DepositsProductController {
     private final DepositsProductService depositsProductService;
@@ -26,7 +27,7 @@ public class DepositsProductController {
     @ApiResponses({
             @ApiResponse(responseCode = "1000", description = "조회 완료", content = @Content(schema = @Schema(implementation = BaseResponse.SuccessResult.class))),
     })
-    @GetMapping("/list")
+    @PostMapping("/list")
     public BaseResponse.SuccessResult<List<GetListDepositsProductResponse>> getDepositsProducts() {
         List<GetListDepositsProductResponse> response = depositsProductService.getList();
         return BaseResponse.success(response);
@@ -36,7 +37,7 @@ public class DepositsProductController {
     @ApiResponses({
             @ApiResponse(responseCode = "1000", description = "검색 완료", content = @Content(schema = @Schema(implementation = BaseResponse.SuccessResult.class))),
     })
-    @GetMapping("/search")
+    @PostMapping("/search")
     public BaseResponse.SuccessResult<List<GetListDepositsProductResponse>> searchDepositsProducts(@RequestParam String searchword) {
         List<GetListDepositsProductResponse> response = depositsProductService.searchList(searchword);
         return BaseResponse.success(response);

@@ -16,6 +16,7 @@ import com.heeha.global.config.BaseResponse.SuccessResult;
 @RestController
 @RequestMapping("/api/v1/accountinfo")
 @RequiredArgsConstructor
+@CrossOrigin(origins = "http://localhost:3000")
 public class AccountInfoController {
     private final AccountInfoService accountInfoService;
 
@@ -24,7 +25,7 @@ public class AccountInfoController {
             @ApiResponse(responseCode = "1000", description = "조회 완료", content = @Content(schema = @Schema(implementation = BaseResponse.SuccessResult.class))),
             @ApiResponse(responseCode = "3200", description = "계좌 아이디 없음", content = @Content(schema = @Schema(implementation = BaseResponse.ErrorResult.class))),
     })
-    @GetMapping("/{accountId}")
+    @PostMapping("/{accountId}")
     public SuccessResult<AccountInfoResponse> getAccountInfo(@PathVariable Long accountId) {
         try {
             AccountInfoResponse response = accountInfoService.getAccountInfo(accountId);
