@@ -22,13 +22,12 @@ import org.springframework.web.filter.OncePerRequestFilter;
 @Component
 public class CustomerAuthenticationFilter extends OncePerRequestFilter {
     private final JwtTokenProvider tokenProvider;
-    private final List<String> EXCLUDE_URL = List.of("/login","/logout","/api/v1/customer/signup", "/favicon", "/swagger", "/v3");
+    private final List<String> EXCLUDE_URL = List.of("/reissue","/login","/logout","/api/v1/customer/signup", "/favicon", "/swagger", "/v3");
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
         log.info("MemberAuthFilter Start : {}", request.getServletPath());
-
         String token = JwtTokenExtractor.extractJwt(request);
         RoleType roleType = tokenProvider.getRoleFromToken(token);
         Long id = tokenProvider.getCustomerIdFromToken(token);
