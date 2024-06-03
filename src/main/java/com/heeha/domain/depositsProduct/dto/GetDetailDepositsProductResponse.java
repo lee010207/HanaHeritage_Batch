@@ -18,8 +18,6 @@ public class GetDetailDepositsProductResponse {
     private String joinMember; // 가입대상
     private String etcNote; // 기타 유의사항
     private String maxLimit; // 최고한도
-    private String promotionalText; // 홍보문구
-    private String explanatoryText; // 설명문구
 
     public GetDetailDepositsProductResponse(DepositsProduct depositsProduct) {
         this.id = depositsProduct.getId();
@@ -31,7 +29,5 @@ public class GetDetailDepositsProductResponse {
         this.joinMember = depositsProduct.getJoinMember();
         this.etcNote = depositsProduct.getEtcNote();
         this.maxLimit = depositsProduct.getMaxLimit();
-        this.promotionalText = depositsProduct.getPromotionalText();
-        this.explanatoryText = depositsProduct.getExplanatoryText();
     }
 }
