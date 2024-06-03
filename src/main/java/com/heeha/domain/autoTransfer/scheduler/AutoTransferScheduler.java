@@ -1,6 +1,6 @@
-package com.heeha.domain.autoTransfer.jihu.scheduler;
+package com.heeha.domain.autoTransfer.scheduler;
 
-import com.heeha.domain.autoTransfer.jihu.service.AutoTransferService;
+import com.heeha.domain.autoTransfer.service.AutoTransferService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;

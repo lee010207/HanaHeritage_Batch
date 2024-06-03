@@ -1,4 +1,4 @@
-package com.heeha.domain.autoTransfer.jihu.repository;
+package com.heeha.domain.autoTransfer.repository;
 
 import com.heeha.domain.autoTransfer.entity.AutoTransfer;
 import org.springframework.data.jpa.repository.JpaRepository;

@@ -1,15 +1,14 @@
-package com.heeha.domain.autoTransfer.jihu.service;
+package com.heeha.domain.autoTransfer.service;
 
 import com.heeha.domain.account.entity.Account;
-import com.heeha.domain.account.jihu.repository.AccountRepository;
-import com.heeha.domain.account.jihu.service.TransferService;
+import com.heeha.domain.account.repository.AccountRepository;
+import com.heeha.domain.account.service.TransferService;
+import com.heeha.domain.autoTransfer.dto.CreateAutoTransferDto;
 import com.heeha.domain.autoTransfer.entity.AutoTransfer;
-import com.heeha.domain.autoTransfer.jihu.dto.CreateAutoTransferDto;
-import com.heeha.domain.autoTransfer.jihu.repository.AutoTransferRepository;
+import com.heeha.domain.autoTransfer.repository.AutoTransferRepository;
 import com.heeha.domain.history.dto.TransferHistoryDto;
 import com.heeha.domain.history.service.HistoryService;
 import com.heeha.global.config.BaseException;
-import com.heeha.global.config.BaseResponse;
 import com.heeha.global.config.BaseResponseStatus;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

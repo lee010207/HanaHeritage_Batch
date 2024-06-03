@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface AccountRepository extends JpaRepository<Account, Long> {
+    Account findByAccountNumber(Long accountNumber);
 
     Boolean existsAccountByAccountNumber(Long accountNumber);
     @Query("SELECT a FROM account a join fetch a.customer where a.customer.id = :customerId")

@@ -1,8 +1,8 @@
-package com.heeha.domain.account.jihu.service;
+package com.heeha.domain.account.service;
 
 import com.heeha.domain.account.entity.Account;
-import com.heeha.domain.account.jihu.dto.AccountResponse;
-import com.heeha.domain.account.jihu.repository.AccountRepository;
+import com.heeha.domain.account.dto.AccountResponse;
+import com.heeha.domain.account.repository.AccountRepository;
 import com.heeha.domain.history.dto.TransferHistoryDto;
 import com.heeha.domain.history.entity.History;
 import com.heeha.domain.history.service.HistoryService;

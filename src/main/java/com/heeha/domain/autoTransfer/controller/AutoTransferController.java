@@ -1,7 +1,7 @@
-package com.heeha.domain.autoTransfer.jihu.controller;
+package com.heeha.domain.autoTransfer.controller;
 
-import com.heeha.domain.autoTransfer.jihu.dto.CreateAutoTransferDto;
-import com.heeha.domain.autoTransfer.jihu.service.AutoTransferService;
+import com.heeha.domain.autoTransfer.dto.CreateAutoTransferDto;
+import com.heeha.domain.autoTransfer.service.AutoTransferService;
 import com.heeha.global.config.BaseResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -14,13 +14,10 @@ import org.springframework.web.bind.annotation.*;
 import com.heeha.global.config.BaseResponse.ErrorResult;
 import com.heeha.global.config.BaseResponse.SuccessResult;
 
-import java.util.List;
-
 @RestController
 @Slf4j
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/autoTransfer")
-@CrossOrigin
 public class AutoTransferController {
 
     private final AutoTransferService  autoTransferService;

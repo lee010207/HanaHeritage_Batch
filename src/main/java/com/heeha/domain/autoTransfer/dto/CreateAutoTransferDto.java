@@ -1,4 +1,4 @@
-package com.heeha.domain.autoTransfer.jihu.dto;
+package com.heeha.domain.autoTransfer.dto;
 
 import com.heeha.domain.account.entity.Account;
 import com.heeha.domain.autoTransfer.entity.AutoTransfer;

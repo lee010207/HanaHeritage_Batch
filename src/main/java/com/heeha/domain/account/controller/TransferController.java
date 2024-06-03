@@ -1,6 +1,6 @@
-package com.heeha.domain.account.jihu.controller;
+package com.heeha.domain.account.controller;
 
-import com.heeha.domain.account.jihu.service.TransferService;
+import com.heeha.domain.account.service.TransferService;
 import com.heeha.domain.history.dto.TransferHistoryDto;
 import com.heeha.global.config.BaseResponse.ErrorResult;
 import com.heeha.global.config.BaseResponse.SuccessResult;
@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.*;
 @Slf4j
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/transfer")
-@CrossOrigin(origins = "http://localhost:3000")
 public class TransferController {
     private final TransferService transferService;
 

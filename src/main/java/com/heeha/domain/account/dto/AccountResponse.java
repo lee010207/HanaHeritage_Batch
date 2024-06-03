@@ -1,4 +1,4 @@
-package com.heeha.domain.account.jihu.dto;
+package com.heeha.domain.account.dto;
 
 
 import com.heeha.domain.customer.entity.Customer;
