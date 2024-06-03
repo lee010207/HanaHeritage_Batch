@@ -1,9 +1,9 @@
 package com.heeha.domain.signDeposit.entity;
 
 import com.heeha.domain.account.entity.Account;
+import com.heeha.domain.autoTransfer.entity.AutoTransfer;
 import com.heeha.domain.base.entity.BaseEntity;
-import com.heeha.domain.customer.entity.Customer;
-import com.heeha.domain.depositProduct.entity.DepositProduct;
+import com.heeha.domain.depositsProduct.entity.DepositsProduct;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -12,41 +12,31 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
 @Builder
-@ToString
 @Getter
 public class SignDeposit extends BaseEntity {
-    // 적금가입아이디
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
 
     @OneToOne
-    @JoinColumn(name = "withdrawal_account")
+    @JoinColumn(name = "account_id")
     private Account account;
 
-    @JoinColumn(name = "customer_id")
-    @OneToOne
-    private Customer customer;
+    @ManyToOne
+    @JoinColumn(name = "deposits_product_id")
+    private DepositsProduct depositsProduct;
 
     @OneToOne
-    @JoinColumn(name = "fin_prdt_cd")
-    private DepositProduct deposit;
+    @JoinColumn(name = "auto_transfer_id", nullable = true)
+    private AutoTransfer autoTransfer;
 
-    private int first_deposit;
+    private InstallmentMethodType installmentMethod; // 적립 방법
+    private MaturityClassType maturityClass; // 만기해지구분
+    private AutoCancelType autoCancel; // 자동 해지 시점
+    private Integer monthlyAmount; // 월 납입 금액
 
-    private int installment_method;
-
-    private int contract_period;
-
-    private int auto_transfer_apply;
-
-    private int auto_redeopsit;
-
-    private String maturity_classification;
-
-    private int auto_cancellation_point;
-
-    private String maturity_notice;
-
+    private Integer contractYears; // 계약 햇수 setSubscriptionPeriod
+    private Boolean snsNotice; // SNS 만기 알림 setSmsNotification
+    private Double interestRate; // 금리
 }

@@ -3,11 +3,8 @@ package com.heeha.domain.signSaving.entity;
 
 import com.heeha.domain.account.entity.Account;
 import com.heeha.domain.base.entity.BaseEntity;
-import com.heeha.domain.customer.entity.Customer;
-import com.heeha.domain.savingProduct.entity.SavingProduct;
+import com.heeha.domain.depositsProduct.entity.DepositsProduct;
 import jakarta.persistence.*;
-
-import java.time.LocalDateTime;
 
 import lombok.*;
 
@@ -23,26 +20,16 @@ public class SignSaving extends BaseEntity {
     @Column(name = "id")
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "customer_id")
-    private Customer customer;
-
-    @ManyToOne
-    @JoinColumn(name = "savingproduct_id")
-    private SavingProduct savingProduct;
-
-    private String accountName;
-    private String accountNumber;
-    private String password;
-
     @OneToOne
-    @JoinColumn(name = "withdrawal_account_id")
-    private Account withdrawalAccount;
+    @JoinColumn(name = "account_id")
+    private Account account;
 
-    private Integer firstDeposit;
-    private LocalDateTime maturityDate;
-    private Boolean autoRedeposit;
-    private Boolean maturityNotice;
-    private Double interestRate;
+    @ManyToOne
+    @JoinColumn(name = "deposits_product_id")
+    private DepositsProduct depositsProduct;
+
+    private Integer contractYears; // 계약 햇수
+    private Boolean snsNotice; // SNS 만기 알림
+    private Double interestRate; // 금리
 }
 
