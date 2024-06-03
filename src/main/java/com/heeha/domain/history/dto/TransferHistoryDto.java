@@ -17,12 +17,15 @@ public class TransferHistoryDto {
     private String dealClassification;
 
     private Long amount;
+
     private String recipient;
     @NotEmpty
     private String recipientBank;
-    @NotEmpty
+
     private Long recipientNumber;
-    @NotEmpty
+
+    private Long senderNumber;
+
     private String sender;
     @NotEmpty
     private String recipientRemarks;
@@ -35,8 +38,6 @@ public class TransferHistoryDto {
         return History.builder()
                 .dealClassification(dealClassification)
                 .amount(amount)
-                .recipient(recipientRemarks)
-                .senderNumber(account.getAccountNumber())
                 .recipient(recipient)
                 .recipientBank(recipientBank)
                 .recipientNumber(recipientNumber)

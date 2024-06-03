@@ -8,7 +8,7 @@ import com.heeha.domain.account.repository.AccountRepository;
 import com.heeha.domain.account.entity.Account;
 import com.heeha.domain.customer.entity.Customer;
 import com.heeha.domain.customer.repository.CustomerRepository;
-import com.heeha.domain.history.dto.CreateHistoryDto;
+import com.heeha.domain.history.dto.TransferHistoryDto;
 import com.heeha.domain.history.service.HistoryService;
 import com.heeha.global.config.BaseException;
 import com.heeha.global.config.BaseResponseStatus;
@@ -75,6 +75,7 @@ public class AccountService {
 
         // 비밀번호 일치 여부 확인
         if (CheckAccountPassword(account.getPassword(), makeTransactionDto.getPassword())) {
+            String recipient = null;
             // 하나 -> 하나 이체
             if (makeTransactionDto.getRecipientBank().equals("하나")) {
                 Account toAccount = accountRepository.findByAccountNumber(
@@ -82,15 +83,18 @@ public class AccountService {
                         .orElseThrow(
                                 () -> new BaseException(BaseResponseStatus.NO_TO_ACCOUNT)
                         );
+
+                recipient = toAccount.getCustomer().getName();
                 //당행 이체 처리
                 hanaTransfer(account, toAccount, makeTransactionDto.getAmount());
-                historyService.historySave(CreateHistoryDto.builder()
+                historyService.historySave(TransferHistoryDto.builder()
                         .dealClassification("입금")
                         .amount(makeTransactionDto.getAmount())
                         .recipientBank(makeTransactionDto.getRecipientBank())
-                        .recipientNumber(makeTransactionDto.getRecipientAccountNumber())
-                        .recipientRemarks(makeTransactionDto.getRecipientRemarks())
-                        .senderRemarks(makeTransactionDto.getSenderRemarks())
+                        .senderNumber(account.getAccountNumber())
+                        .recipientRemarks(makeTransactionDto.getSenderRemarks())
+                        .sender(account.getCustomer().getName())
+                        .senderRemarks(makeTransactionDto.getRecipientRemarks())
                         .account(toAccount).build());
 
             }
@@ -98,9 +102,10 @@ public class AccountService {
             else {
                 otherTransfer(account, makeTransactionDto.getAmount());
             }
-            historyService.historySave(CreateHistoryDto.builder()
+            historyService.historySave(TransferHistoryDto.builder()
                     .dealClassification("출금")
                     .amount(makeTransactionDto.getAmount())
+                    .recipient(recipient)
                     .recipientBank(makeTransactionDto.getRecipientBank())
                     .recipientNumber(makeTransactionDto.getRecipientAccountNumber())
                     .recipientRemarks(makeTransactionDto.getRecipientRemarks())

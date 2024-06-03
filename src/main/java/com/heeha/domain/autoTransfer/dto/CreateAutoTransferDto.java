@@ -2,6 +2,7 @@ package com.heeha.domain.autoTransfer.dto;
 
 import com.heeha.domain.account.entity.Account;
 import com.heeha.domain.autoTransfer.entity.AutoTransfer;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -16,15 +17,11 @@ import java.time.LocalDateTime;
 @Builder
 public class CreateAutoTransferDto {
 
-    private String sender;
-
-    private String recipient;
-
     private String recipientBank;
 
     private Long toAccountNumber;
 
-    private int amount;
+    private Long amount;
 
     private int autoTransferDay;
 
@@ -36,15 +33,18 @@ public class CreateAutoTransferDto {
 
     private String password;
 
+    private String recipientRemarks;
+    private String senderRemarks;
+
 
     public CreateAutoTransferDto(AutoTransfer autoTransfer) {
-        this.sender = autoTransfer.getSender();
         this.autoTransferDay = autoTransfer.getAutoTransferDay();
         this.accountId = autoTransfer.getAccount().getId();
         this.startDate = autoTransfer.getStartDate();
         this.endDate = autoTransfer.getEndDate();
+        this.recipientRemarks = autoTransfer.getRecipientRemarks();
+        this.senderRemarks = autoTransfer.getSenderRemarks();
         this.toAccountNumber = autoTransfer.getToAccountNumber();
-        this.recipient = autoTransfer.getRecipient();
         this.recipientBank = autoTransfer.getRecipientBank();
         this.password = autoTransfer.getAccount().getPassword();
         this.amount = autoTransfer.getAmount();
@@ -52,12 +52,12 @@ public class CreateAutoTransferDto {
 
     public AutoTransfer toEntity(Account account) {
         return AutoTransfer.builder()
-                .sender(sender)
                 .account(account)
                 .autoTransferDay(autoTransferDay)
                 .amount(amount)
-                .recipient(recipient)
                 .recipientBank(recipientBank)
+                .recipientRemarks(recipientRemarks)
+                .senderRemarks(senderRemarks)
                 .startDate(startDate)
                 .endDate(endDate)
                 .toAccountNumber(toAccountNumber)

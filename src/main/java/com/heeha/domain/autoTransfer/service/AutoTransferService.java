@@ -1,8 +1,9 @@
 package com.heeha.domain.autoTransfer.service;
 
+import com.heeha.domain.account.dto.MakeTransactionDto;
 import com.heeha.domain.account.entity.Account;
 import com.heeha.domain.account.repository.AccountRepository;
-import com.heeha.domain.account.service.TransferService;
+import com.heeha.domain.account.service.AccountService;
 import com.heeha.domain.autoTransfer.dto.CreateAutoTransferDto;
 import com.heeha.domain.autoTransfer.entity.AutoTransfer;
 import com.heeha.domain.autoTransfer.repository.AutoTransferRepository;
@@ -23,7 +24,7 @@ public class AutoTransferService {
     private final AutoTransferRepository autoTransferRepository;
     private final AccountRepository accountRepository;
     private final HistoryService historyService;
-    private final TransferService transferService;
+    private final AccountService transferService;
 
     // 자동이체 등록
     @Transactional
@@ -48,25 +49,19 @@ public class AutoTransferService {
         List<AutoTransfer> transfers = autoTransferRepository.findByAutoTransferDay(day);
         List<CreateAutoTransferDto> autoTransferDtoList = transfers.stream().map(CreateAutoTransferDto::new).toList();
 
-        // 계좌이체 로직 실행
-        // transfer(CreateHistoryDto createHistoryDto)
-
         for (CreateAutoTransferDto autoTransferDto : autoTransferDtoList) {
             if(today.isAfter(autoTransferDto.getStartDate().toLocalDate()) &&  today.isBefore(autoTransferDto.getEndDate().toLocalDate())){
-
-                TransferHistoryDto autoTransfer = TransferHistoryDto.builder()
-                    .dealClassification("자동이체")
+                MakeTransactionDto autoTransfer = MakeTransactionDto.builder()
                     .amount(autoTransferDto.getAmount())
                     .recipientBank(autoTransferDto.getRecipientBank()) // 수신 은행 명
-                    .recipientNumber(autoTransferDto.getToAccountNumber())
-                    .sender(autoTransferDto.getSender())
-                    .recipientRemarks(autoTransferDto.getSender())
-                    .senderRemarks(autoTransferDto.getRecipient())
+                    .recipientAccountNumber(autoTransferDto.getToAccountNumber())
+                    .recipientRemarks(autoTransferDto.getRecipientRemarks())
+                    .senderRemarks(autoTransferDto.getSenderRemarks())
                     .accountId(autoTransferDto.getAccountId())
                     .password(autoTransferDto.getPassword())
                     .build();
 
-            transferService.transfer(autoTransfer);
+            transferService.makeTransaction(autoTransfer);
 
             }
         }

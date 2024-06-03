@@ -21,12 +21,6 @@ public class AutoTransfer extends BaseEntity {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "sender", length = 100, nullable = false)
-    private String sender;
-
-    @Column(name = "recipient", length = 100)
-    private String recipient;
-
     @Column(name = "recipien_bank", length = 100, nullable = false)
     private String recipientBank;
 
@@ -34,7 +28,7 @@ public class AutoTransfer extends BaseEntity {
     private Long toAccountNumber;
 
     @Column(name = "amount", nullable = false)
-    private int amount;
+    private Long amount;
 
     @Column(name = "auto_transfer_day", nullable = false)
     private int autoTransferDay;
@@ -48,4 +42,7 @@ public class AutoTransfer extends BaseEntity {
     @OneToOne
     @JoinColumn(name = "account_id")
     private Account account;
+
+    private String recipientRemarks;
+    private String senderRemarks;
 }
