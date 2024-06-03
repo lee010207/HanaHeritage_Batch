@@ -1,18 +1,16 @@
 package com.heeha.domain.customer.dto;
 
 import com.heeha.domain.customer.entity.Customer;
+import com.heeha.domain.customer.entity.RoleType;
 import jakarta.validation.constraints.NotEmpty;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 @Getter
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @ToString
 public class SignUpRequest {
+
     @NotEmpty
     private String name;
     @NotEmpty
@@ -27,7 +25,7 @@ public class SignUpRequest {
                 .name(name)
                 .password(password)
                 .phoneNumber(phoneNumber)
-                .identificationNumber(identificationNumber).build();
+                .identificationNumber(identificationNumber)
+                .role(RoleType.USER).build();
     }
-
 }

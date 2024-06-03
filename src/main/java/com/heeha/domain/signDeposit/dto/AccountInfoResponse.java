@@ -1,4 +1,4 @@
-package com.heeha.domain.account.yma.dto;
+package com.heeha.domain.signDeposit.dto;
 
 import com.heeha.domain.signDeposit.entity.InstallmentMethodType;
 import com.heeha.domain.signDeposit.entity.SignDeposit;
@@ -33,7 +33,7 @@ public class AccountInfoResponse {
 
     public static AccountInfoResponse todto(SignDeposit signDeposit) {
         return AccountInfoResponse.builder()
-                .accountNumber(signDeposit.getAccount().getAccount_number())
+                .accountNumber(signDeposit.getAccount().getAccountNumber())
                 .finPrditNm(signDeposit.getDepositsProduct().getFinPrdtNm())
                 .type(String.valueOf(signDeposit.getDepositsProduct().getType()))
                 .balance(signDeposit.getAccount().getBalance())
