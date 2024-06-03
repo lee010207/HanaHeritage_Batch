@@ -29,12 +29,8 @@ public class History extends BaseEntity {
     private LocalDateTime dealdate;
 
     private String dealClassification;
-
-    // 입금액 : 받는 사람 계좌 +
-    private int deposit;
-
-    // 출금액 : 보내는 사람 계좌 -
-    private int withdraw;
+    //거래액
+    private Long amount;
 
     // 받는 사람 이름
     private String recipient;

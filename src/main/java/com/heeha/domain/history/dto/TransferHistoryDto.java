@@ -15,8 +15,8 @@ public class TransferHistoryDto {
 
     @NotEmpty
     private String dealClassification;
-    @NotEmpty
-    private int amount;
+
+    private Long amount;
     private String recipient;
     @NotEmpty
     private String recipientBank;
@@ -29,14 +29,13 @@ public class TransferHistoryDto {
     @NotEmpty
     private String senderRemarks;
     @NotEmpty
-    private String password;
-    @NotEmpty
-    private Long accountId;
+    private Account account;
 
-    public History toEntity(Account account) {
+    public History toEntity() {
         return History.builder()
                 .dealClassification(dealClassification)
-                .withdraw(amount)
+                .amount(amount)
+                .recipient(recipientRemarks)
                 .senderNumber(account.getAccountNumber())
                 .recipient(recipient)
                 .recipientBank(recipientBank)
