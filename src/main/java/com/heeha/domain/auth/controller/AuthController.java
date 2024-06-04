@@ -39,8 +39,7 @@ public class AuthController {
     public BaseResponse.SuccessResult<JwtToken> reissue(HttpServletRequest request) {
         // refresh 토큰 추출
         String refreshToken = JwtTokenExtractor.extractRefresh(request);
-        String accessToken = JwtTokenExtractor.extractJwt(request);
-        return BaseResponse.success(authService.reissue(refreshToken, accessToken));
+        return BaseResponse.success(authService.reissue(refreshToken));
     }
 
     @PostMapping("/logout")
