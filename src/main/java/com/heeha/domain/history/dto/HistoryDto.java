@@ -13,6 +13,7 @@ public class HistoryDto {
     private Long accountNumber;
     private LocalDateTime dealdate;
     private String dealClassification;
+    private Long remainBalance;
     private Long amount;
     private String recipient;
     private String recipientBank;

@@ -110,20 +110,23 @@ public class AccountService {
                     .recipientNumber(makeTransactionDto.getRecipientAccountNumber())
                     .recipientRemarks(makeTransactionDto.getRecipientRemarks())
                     .senderRemarks(makeTransactionDto.getSenderRemarks())
+                    .remainBalance(account.getBalance())
                     .account(account).build());
         }
         return makeTransactionDto;
     }
 
     @Transactional
-    public void hanaTransfer(Account fromAccount, Account toAccount, Long amount) {
+    public Long hanaTransfer(Account fromAccount, Account toAccount, Long amount) {
         fromAccount.setBalance(fromAccount.getBalance() - amount);
         toAccount.setBalance(toAccount.getBalance() + amount);
+        return fromAccount.getBalance();
     }
 
     @Transactional
-    public void otherTransfer(Account fromAccount, Long amount) {
+    public Long otherTransfer(Account fromAccount, Long amount) {
         fromAccount.setBalance(fromAccount.getBalance() - amount);
+        return fromAccount.getBalance();
     }
 
     public void checkBalance(Long balance, long amount) {
