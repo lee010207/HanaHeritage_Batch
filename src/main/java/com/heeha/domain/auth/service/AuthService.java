@@ -1,5 +1,6 @@
 package com.heeha.domain.auth.service;
 
+import com.heeha.domain.auth.dto.CertificationDto;
 import com.heeha.domain.auth.dto.CustomerUserInfoDto;
 import com.heeha.domain.auth.dto.JwtToken;
 import com.heeha.domain.auth.jwt.JwtTokenProvider;
@@ -35,7 +36,8 @@ public class AuthService {
 
         // Redis에 Refresh Token 저장 (만료 시간 설정을 통해 자동 삭제 처리)
         redisTemplate.opsForValue()
-                .set("RT:" + customer.getId(), refreshToken, jwtTokenProvider.getRefreshExpireTime(), TimeUnit.MILLISECONDS);
+                .set("RT:" + customer.getId(), refreshToken, jwtTokenProvider.getRefreshExpireTime(),
+                        TimeUnit.MILLISECONDS);
         return new JwtToken(accessToken, refreshToken);
     }
 
@@ -80,6 +82,19 @@ public class AuthService {
         // Access Token 유효 시간 가져와서 Blacklist로 저장
         Long expiration = jwtTokenProvider.getAccessExpireTime();
         redisTemplate.opsForValue().set(accessToken, "logout", expiration, TimeUnit.MILLISECONDS);
+    }
+
+    public Boolean certification(CertificationDto certificationDto) {
+        Object certification = redisTemplate.opsForValue().get(certificationDto.getPhoneNumber());
+        if (certification == null) {
+            throw new BaseException(BaseResponseStatus.REQUEST_ERROR);
+        }
+        String code = (String) certification;
+        if (!code.equals(certificationDto.getCertificationCode())) {
+            throw new BaseException(BaseResponseStatus.REQUEST_ERROR);
+        }
+
+        return Boolean.TRUE;
     }
 
 

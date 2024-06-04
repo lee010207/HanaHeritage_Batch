@@ -3,7 +3,7 @@ package com.heeha.domain.sms.controller;
 import com.heeha.domain.sms.service.SmsService;
 import com.heeha.global.config.BaseResponse;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class SmsController {
     private final SmsService smsService;
 
-    @PostMapping("/send")
+    @GetMapping("/send")
     public BaseResponse.SuccessResult<Boolean> sendSms(String phoneNumber) {
         return BaseResponse.success(smsService.sendMessage(phoneNumber));
     }
