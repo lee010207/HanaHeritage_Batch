@@ -45,6 +45,7 @@ public class HistoryService {
                 .dealClassification(history.getDealClassification())
                 .amount(history.getAmount())
                 .recipient(history.getRecipient())
+                .remainBalance(history.getBalance())
                 .recipientBank(history.getRecipientBank())
                 .recipientNumber(history.getRecipientNumber())
                 .sender(history.getSender())

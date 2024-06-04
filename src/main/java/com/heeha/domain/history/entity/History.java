@@ -31,7 +31,8 @@ public class History extends BaseEntity {
     private String dealClassification;
     //거래액
     private Long amount;
-
+    //거래 후 잔액
+    private Long balance;
     // 받는 사람 이름
     private String recipient;
     // 받는 사람 은행
