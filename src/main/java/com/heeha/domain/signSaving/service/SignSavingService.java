@@ -1,5 +1,6 @@
 package com.heeha.domain.signSaving.service;
 
+import com.heeha.domain.account.dto.MakeTransactionDto;
 import com.heeha.domain.account.dto.SavingAccountCreateDto;
 import com.heeha.domain.account.entity.Account;
 import com.heeha.domain.account.service.AccountService;
@@ -48,6 +49,9 @@ public class SignSavingService {
         /* TO-DO
          * 가입 요청 Dto에서 예치금액만큼 출금계좌에서 차감하기 (이체 로직 사용)
          */
+//
+//        accountService.makeTransaction(MakeTransactionDto.builder()
+//                .build())
 
         SignSaving signSaving = SignSaving.builder()
                 .account(savingAccount)

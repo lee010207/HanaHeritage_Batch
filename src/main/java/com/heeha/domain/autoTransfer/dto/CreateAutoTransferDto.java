@@ -9,6 +9,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.sql.Date;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @AllArgsConstructor
@@ -25,9 +26,9 @@ public class CreateAutoTransferDto {
 
     private int autoTransferDay;
 
-    private Date endDate;
+    private LocalDate endDate;
 
-    private Date startDate;
+    private LocalDate startDate;
 
     private Long accountId;
 

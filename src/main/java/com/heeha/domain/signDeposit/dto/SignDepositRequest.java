@@ -25,10 +25,7 @@ public class SignDepositRequest {
 
     private Long withdrawAccountId;
 
-    private AutoTransfer autoTransfer;
-    private AutoTransfer autoTransferPwd;
-    private AutoTransfer autoTransferStart; //자동이체 시작일
-
+    private MakeAutoTransfer autoTransfer;
 
     private String installmentMethod; //적립방법
     private String maturityClass; //만기해지구분

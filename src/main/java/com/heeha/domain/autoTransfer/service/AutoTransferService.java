@@ -23,7 +23,6 @@ import java.util.List;
 public class AutoTransferService {
     private final AutoTransferRepository autoTransferRepository;
     private final AccountRepository accountRepository;
-    private final HistoryService historyService;
     private final AccountService transferService;
 
     // 자동이체 등록
@@ -50,7 +49,7 @@ public class AutoTransferService {
         List<CreateAutoTransferDto> autoTransferDtoList = transfers.stream().map(CreateAutoTransferDto::new).toList();
 
         for (CreateAutoTransferDto autoTransferDto : autoTransferDtoList) {
-            if(today.isAfter(autoTransferDto.getStartDate().toLocalDate()) &&  today.isBefore(autoTransferDto.getEndDate().toLocalDate())){
+            if(today.isAfter(autoTransferDto.getStartDate()) &&  today.isBefore(autoTransferDto.getEndDate())){
                 MakeTransactionDto autoTransfer = MakeTransactionDto.builder()
                     .amount(autoTransferDto.getAmount())
                     .recipientBank(autoTransferDto.getRecipientBank()) // 수신 은행 명

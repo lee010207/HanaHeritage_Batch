@@ -1,13 +1,13 @@
 package com.heeha.domain.account.service;
 
-import com.heeha.domain.account.dto.AccountCheckResponse;
-import com.heeha.domain.account.dto.AccountCreateDto;
-import com.heeha.domain.account.dto.AccountValidationRequest;
-import com.heeha.domain.account.dto.MakeTransactionDto;
+import com.heeha.domain.account.dto.*;
 import com.heeha.domain.account.repository.AccountRepository;
 import com.heeha.domain.account.entity.Account;
 import com.heeha.domain.customer.entity.Customer;
 import com.heeha.domain.customer.repository.CustomerRepository;
+import com.heeha.domain.depositsProduct.entity.DepositsProduct;
+import com.heeha.domain.depositsProduct.entity.DepositsType;
+import com.heeha.domain.depositsProduct.service.DepositsProductService;
 import com.heeha.domain.history.dto.TransferHistoryDto;
 import com.heeha.domain.history.service.HistoryService;
 import com.heeha.global.config.BaseException;
@@ -27,6 +27,7 @@ public class AccountService {
     private final AccountRepository accountRepository;
     private final CustomerRepository customerRepository;
     private final HistoryService historyService;
+    private final DepositsProductService depositsProductService;
     private final int LOW_BOUND = 10_000_000;
     private final int MAX_BOUND = 90_000_000;
 
@@ -136,7 +137,7 @@ public class AccountService {
 
     public boolean CheckAccountPassword(String accPw, String inputPw) {
         if (!accPw.equals(inputPw)) {
-            throw new BaseException(BaseResponseStatus.WRONG_PASSWORD);
+            throw new BaseException(BaseResponseStatus.WRONG_ACCOUNT_PASSWORD);
         }
         return true;
     }

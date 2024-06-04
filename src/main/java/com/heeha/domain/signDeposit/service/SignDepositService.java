@@ -1,30 +1,35 @@
 package com.heeha.domain.signDeposit.service;
 
+import com.heeha.domain.account.dto.AccountCreateDto;
 import com.heeha.domain.account.dto.DepositAccountCreateDto;
-import com.heeha.domain.account.dto.SavingAccountCreateDto;
+import com.heeha.domain.account.dto.MakeTransactionDto;
 import com.heeha.domain.account.entity.Account;
 import com.heeha.domain.account.service.AccountService;
+import com.heeha.domain.autoTransfer.dto.CreateAutoTransferDto;
+import com.heeha.domain.autoTransfer.entity.AutoTransfer;
+import com.heeha.domain.autoTransfer.service.AutoTransferService;
 import com.heeha.domain.depositsProduct.entity.DepositsProduct;
 import com.heeha.domain.depositsProduct.service.DepositsProductService;
 import com.heeha.domain.signDeposit.dto.SignDepositRequest;
 import com.heeha.domain.signDeposit.entity.SignDeposit;
 import com.heeha.domain.signDeposit.repository.SignDepositRepository;
-import com.heeha.domain.signSaving.dto.SavingJoinRequestDto;
-import com.heeha.domain.signSaving.entity.SignSaving;
-import com.heeha.domain.signSaving.repository.SignSavingRepository;
 import com.heeha.domain.signDeposit.dto.AccountInfoResponse;
 import com.heeha.domain.signDeposit.dto.SignDepositResponse;
-import com.heeha.domain.signDeposit.entity.SignDeposit;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
+
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class SignDepositService {
     private final DepositsProductService depositsProductService;
     private final AccountService accountService;
     private final SignDepositRepository signDepositRepository;
+    private final AutoTransferService autoTransferService;
 
     /**
      * 예적금 가입 처리
@@ -40,31 +45,42 @@ public class SignDepositService {
 
     @Transactional
     public SignDepositResponse joinDepositAccount(Long customerId, SignDepositRequest signDepositRequest) {
-
-        // 가입할 상품 가져오기
+        // 가입할 상품
         DepositsProduct product = depositsProductService.getDetail(signDepositRequest.getDepositProductId());
 
-        DepositAccountCreateDto depositAccountCreateDto = new DepositAccountCreateDto(product.getFinPrdtNm(),
-                signDepositRequest.getAccountPassword(), signDepositRequest.getDepositAmount());
-
-        Account depositAccount = accountService.createAccount(customerId, depositAccountCreateDto);
+        // 출금 계좌
         Account withdrawAccount = accountService.getAccount(signDepositRequest.getWithdrawAccountId());
 
+        // 예적금 신규 계좌 생성 및 초기 금액 셋팅
+        Account depositAccount = initiateDepositAccount(customerId, product.getFinPrdtNm(), signDepositRequest.getAccountPassword(), withdrawAccount, signDepositRequest.getDepositAmount());
 
-        MakeTransactionDto makeTransactionDto = MakeTransactionDto.builder()
-                .accountId(withdrawAccount.getId())
-                .amount(signDepositRequest.getDepositAmount())
-                .password(withdrawAccount.getPassword())
-                .recipientBank("하나")
-                .recipientAccountNumber(depositAccount.getAccountNumber())
-                .recipientRemarks(withdrawAccount.getName())
-                .senderRemarks(depositAccount.getName())
-                .memo("적금 납입")
-                .build();
 
-        accountService.makeTransaction(makeTransactionDto);
+        Long autoTransferId = 0L;
+        if (signDepositRequest.getAutoTransfer() != null) {
+            Account autoTransferAccount=accountService.getAccount(signDepositRequest.getAutoTransfer().getId());
 
+            log.info("Auto Transfer create START");
+            CreateAutoTransferDto createAutoTransferDto = CreateAutoTransferDto.builder()
+                    .autoTransferDay(signDepositRequest.getAutoTransfer().getStartDate().getDayOfMonth())
+                    .accountId(autoTransferAccount.getId())
+                    .startDate(signDepositRequest.getAutoTransfer().getStartDate())
+                    .endDate(signDepositRequest.getAutoTransfer().getStartDate().plusYears(signDepositRequest.getContractYears()))
+                    .recipientRemarks(depositAccount.getName())
+                    .senderRemarks(withdrawAccount.getName())
+                    .toAccountNumber(autoTransferAccount.getAccountNumber())
+                    .recipientBank("하나")
+                    .password(signDepositRequest.getAutoTransfer().getPassword())
+                    .amount(signDepositRequest.getAutoTransfer().getAmount())
+                    .build();
+
+
+            autoTransferId = autoTransferService.createAutoTransfer(createAutoTransferDto);
+        }
+
+//
+//        // TODO transfer id 넣기
         SignDeposit signDeposit = SignDeposit.builder()
+                .autoTransfer(AutoTransfer.builder().id(autoTransferId).build())
                 .account(depositAccount)
                 .depositsProduct(product)
                 .contractYears(signDepositRequest.getContractYears())
@@ -73,6 +89,38 @@ public class SignDepositService {
                 .build();
 
         return new SignDepositResponse(signDepositRepository.save(signDeposit));
+//        return null;
+    }
+
+    private Account initiateDepositAccount(
+            Long customerId,
+            String productName,
+            String accountPassword,
+            Account withdrawAccount,
+            Long depositAmount
+    ) {
+        // 예적금 신규 계좌 생성
+        DepositAccountCreateDto depositAccountCreateDto = new DepositAccountCreateDto(
+                productName,
+                accountPassword,
+                0L
+        );
+        Account depositAccount = accountService.createAccount(customerId, depositAccountCreateDto);
+
+        // 출금계좌 -> 예적금 신규 계좌 이체
+        MakeTransactionDto makeTransactionDto = MakeTransactionDto.builder()
+                .accountId(withdrawAccount.getId())
+                .amount(depositAmount)
+                .password(withdrawAccount.getPassword())
+                .recipientBank("하나")
+                .recipientAccountNumber(depositAccount.getAccountNumber())
+                .recipientRemarks(withdrawAccount.getName())
+                .senderRemarks(depositAccount.getName())
+                .build();
+
+        accountService.makeTransaction(makeTransactionDto);
+
+        return depositAccount;
     }
 
     public AccountInfoResponse getAccountInfo(Long accountId) {
