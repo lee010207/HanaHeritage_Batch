@@ -1,6 +1,8 @@
 package com.heeha.domain.history.service;
 
 import com.heeha.domain.history.dto.TransferHistoryDto;
+import com.heeha.domain.history.dto.HistoryDto;
+import com.heeha.domain.history.entity.History;
 import com.heeha.domain.history.repository.HistoryRepository;
 import com.heeha.global.config.BaseException;
 import com.heeha.global.config.BaseResponseStatus;
@@ -11,12 +13,19 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 @RequiredArgsConstructor
 public class HistoryService {
     private static final Logger log = LoggerFactory.getLogger(HistoryService.class);
     private final HistoryRepository historyRepository;
 
+    public List<HistoryDto> getHistoryByAccountId(Long accountId) {
+        List<History> histories = historyRepository.findByAccountId(accountId);
+        return histories.stream().map(this::convertToDto).collect(Collectors.toList());
+    }
     @Transactional
     public void historySave(TransferHistoryDto history){
         try {
@@ -27,4 +36,20 @@ public class HistoryService {
 
     }
 
+    // 엔티티를 DTO로 변환
+    private HistoryDto convertToDto(History history) {
+        return HistoryDto.builder().
+                id(history.getId())
+                .accountNumber(history.getAccount().getId())
+                .dealdate(history.getDealdate())
+                .dealClassification(history.getDealClassification())
+                .amount(history.getAmount())
+                .recipient(history.getRecipient())
+                .recipientBank(history.getRecipientBank())
+                .recipientNumber(history.getRecipientNumber())
+                .sender(history.getSender())
+                .recipientRemarks(history.getRecipientRemarks())
+                .senderRemarks(history.getSenderRemarks())
+                .build();
+    }
 }

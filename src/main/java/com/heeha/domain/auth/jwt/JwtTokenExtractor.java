@@ -3,11 +3,12 @@ package com.heeha.domain.auth.jwt;
 import com.heeha.global.config.BaseException;
 import com.heeha.global.config.BaseResponseStatus;
 import jakarta.servlet.http.HttpServletRequest;
+import lombok.extern.slf4j.Slf4j;
 
 public class JwtTokenExtractor {
     private static final String SCHEMA = "Bearer ";
     private static final String TOKEN_HEADER = "Authorization";
-    private static final String REFRESH_HEADER = "Authorization-refresh";
+    private static final String REFRESH_HEADER = "Authorization-Refresh";
     private JwtTokenExtractor() {
     }
 
