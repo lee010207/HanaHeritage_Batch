@@ -31,8 +31,20 @@ public class PropertyController {
             @ApiResponse(responseCode = "11200", description = "등록된 자산 목록 없음 (가능 : 금전, 금전채권, 유가증권, 부동산)", content = @Content(schema = @Schema(implementation = ErrorResult.class))),
     })
     @GetMapping("/my")
-    public SuccessResult<Map<String,List<PropertyResponse>>> getProperty(@RequestBody Long livingtrustId) {
+    public SuccessResult<Map<String,List<PropertyResponse>>> getProperty(@RequestParam Long livingtrustId) {
         log.info("자산 목록 조회 시도 : {}", livingtrustId);
         return BaseResponse.success(propertyService.getAllProperties(livingtrustId));
+    }
+
+    @Operation(summary = "자산 차트 데이터 조회")
+    @ApiResponses({
+            @ApiResponse(responseCode = "1000", description = "자산 목록 조회 성공", content = @Content(schema = @Schema(implementation = SuccessResult.class))),
+            @ApiResponse(responseCode = "11100", description = "잘못된 신탁 아이디값", content = @Content(schema = @Schema(implementation = ErrorResult.class))),
+            @ApiResponse(responseCode = "11200", description = "등록된 자산 목록 없음 (가능 : 금전, 금전채권, 유가증권, 부동산)", content = @Content(schema = @Schema(implementation = ErrorResult.class))),
+    })
+    @GetMapping("/chartData")
+    public SuccessResult<List<Long>> getChartData(@RequestParam Long livingtrustId) {
+        log.info("자산 차트 데이터 조회 시도 : {}", livingtrustId);
+        return BaseResponse.success(propertyService.getAllPropertyAmountQuantity_ByType(livingtrustId));
     }
 }

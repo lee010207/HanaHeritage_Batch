@@ -28,6 +28,9 @@ public class Property extends BaseEntity {
     @Column(name = "amount")
     private Long amount;
 
+    @Column(name = "name")
+    private String name;
+
     @Column(name = "location", length = 30)
     private String location;
 

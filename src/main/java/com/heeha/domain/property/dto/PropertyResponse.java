@@ -12,7 +12,7 @@ public class PropertyResponse {
     //private Long id;
 
 //    private LivingTrust livingTrust;
-
+    private String name;
     private String type;
 
     private Long amount;
@@ -24,6 +24,7 @@ public class PropertyResponse {
     public PropertyResponse(Property property) {
         //this.id = property.getId();
 //        this.livingTrust = property.getLivingTrust();
+        this.name = property.getName();
         this.type = property.getType();
         this.amount = property.getAmount();
         this.location = property.getLocation();

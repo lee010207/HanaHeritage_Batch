@@ -5,10 +5,6 @@ server:
       charset: UTF-8
       force: true
 spring:
-  h2:
-    console:
-      enabled: true
-      path: /h2-console
   data:
     redis:
       host: localhost
@@ -16,9 +12,9 @@ spring:
       password: 111111
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://127.0.0.1:3306/heritagedb?characterEncoding=utf8
-    username: heritage
-    password: 123123
+    url: jdbc:mysql://heritage.cpqe6sioasnt.ap-northeast-2.rds.amazonaws.com:3306/heritage?serverTimezone=UTC&characterEncoding=UTF-8
+    username: admin
+    password: hanaro1234!!
   jpa:
     hibernate:
       ddl-auto: update

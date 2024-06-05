@@ -1,5 +1,6 @@
 package com.heeha.domain.property.service;
 
+import com.heeha.domain.account.dto.AccountCheckResponse;
 import com.heeha.domain.property.dto.PropertyResponse;
 import com.heeha.domain.property.entity.Property;
 import com.heeha.domain.property.repository.PropertyRepository;
@@ -57,11 +58,21 @@ public class PropertyService {
             throw new BaseException(BaseResponseStatus.INVAILD_LIVINGTRUSTID);
         }
     }
+
     @Transactional
     public List<PropertyResponse> getBondProperty(Long livingTrustId) {
         try {
             List<Property> properties = propertyRepository.findAllByLivingTrust_IdAndType(livingTrustId, "bond");
             return properties.stream().map(PropertyResponse::new).toList();
+        }  catch (DataIntegrityViolationException e) {
+            throw new BaseException(BaseResponseStatus.INVAILD_LIVINGTRUSTID);
+        }
+    }
+    @Transactional
+    public List<Long> getAllPropertyAmountQuantity_ByType(Long livingTrustId) {
+        try {
+            return propertyRepository.findPropertiesByLivingTrust_Id(livingTrustId);
+//            return all.stream().map(obj -> (Long) obj).toList();
         }  catch (DataIntegrityViolationException e) {
             throw new BaseException(BaseResponseStatus.INVAILD_LIVINGTRUSTID);
         }
