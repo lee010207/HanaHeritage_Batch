@@ -19,12 +19,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/v1/accountinfo")
+@RequestMapping("/api/v1/signdeposit")
 public class SignDepositController {
 
     private final SignDepositService signDepositService;
 
-    @Operation(summary = "계좌 정보 조회")
+    @Operation(summary = "적금 계좌 정보 조회")
     @ApiResponses({
             @ApiResponse(responseCode = "1000", description = "조회 완료", content = @Content(schema = @Schema(implementation = BaseResponse.SuccessResult.class))),
             @ApiResponse(responseCode = "3200", description = "계좌 아이디 없음", content = @Content(schema = @Schema(implementation = BaseResponse.ErrorResult.class))),

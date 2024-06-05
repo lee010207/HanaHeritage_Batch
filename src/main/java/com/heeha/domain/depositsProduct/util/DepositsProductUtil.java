@@ -30,7 +30,7 @@ public class DepositsProductUtil {
     private final ObjectMapper mapper = new ObjectMapper();
 
     public List<DepositsProductResponse> getSavingList() {
-        String savingUrl = "https://finlife.fss.or.kr:443/finlifeapi/savingProductsSearch.json?"
+        String savingUrl = "https://finlife.fss.or.kr:443/finlifeapi/depositProductsSearch.json?"
                 + "auth=" + API_KEY
                 + "&topFinGrpNo=" + topFinGrpNo
                 + "&pageNo=" + pageNo;
@@ -38,7 +38,7 @@ public class DepositsProductUtil {
     }
 
     public List<DepositsProductResponse> getDepositList() {
-        String depositUrl = "https://finlife.fss.or.kr:443/finlifeapi/depositProductsSearch.json?"
+        String depositUrl = "https://finlife.fss.or.kr:443/finlifeapi/savingProductsSearch.json?"
                 + "auth=" + API_KEY
                 + "&topFinGrpNo=" + topFinGrpNo
                 + "&pageNo=" + pageNo;

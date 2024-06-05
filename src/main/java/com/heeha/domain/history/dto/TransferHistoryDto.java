@@ -18,6 +18,8 @@ public class TransferHistoryDto {
 
     private Long amount;
 
+    private Long remainBalance;
+
     private String recipient;
     @NotEmpty
     private String recipientBank;
@@ -45,6 +47,7 @@ public class TransferHistoryDto {
                 .recipientRemarks(recipientRemarks)
                 .senderRemarks(senderRemarks)
                 .account(account)
+                .balance(remainBalance)
                 .build();
     }
 

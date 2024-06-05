@@ -1,5 +1,6 @@
 package com.heeha.domain.auth.controller;
 
+import com.heeha.domain.auth.dto.CertificationDto;
 import com.heeha.domain.auth.dto.CustomerUserInfoDto;
 import com.heeha.domain.auth.dto.JwtToken;
 import com.heeha.domain.auth.jwt.JwtTokenExtractor;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
+@RequestMapping("/api/v1/auth")
 public class AuthController {
 
     private final AuthService authService;
@@ -37,13 +39,17 @@ public class AuthController {
     public BaseResponse.SuccessResult<JwtToken> reissue(HttpServletRequest request) {
         // refresh 토큰 추출
         String refreshToken = JwtTokenExtractor.extractRefresh(request);
-        String accessToken = JwtTokenExtractor.extractJwt(request);
-        return BaseResponse.success(authService.reissue(refreshToken,accessToken));
+        return BaseResponse.success(authService.reissue(refreshToken));
     }
 
     @PostMapping("/logout")
     public void logout(HttpServletRequest request) {
         String accessToken = JwtTokenExtractor.extractJwt(request);
         authService.logout(accessToken);
+    }
+
+    @PostMapping("/certification")
+    public BaseResponse.SuccessResult<Boolean> certificate(@RequestBody CertificationDto certificationDto) {
+        return BaseResponse.success(authService.certification(certificationDto));
     }
 }
