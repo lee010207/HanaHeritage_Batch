@@ -18,7 +18,7 @@ public class HistoryController {
     private final HistoryService historyService;
 
     @GetMapping("/account/{accountId}")
-    public BaseResponse.SuccessResult<List<HistoryDto>> getHistoryByAccountId(@PathVariable Long accountId) {
+    public BaseResponse.SuccessResult<List<HistoryDto>> getHistoryByAccountId(@PathVariable("accountId") Long accountId) {
         return BaseResponse.success(historyService.getHistoryByAccountId(accountId));
     };
 }

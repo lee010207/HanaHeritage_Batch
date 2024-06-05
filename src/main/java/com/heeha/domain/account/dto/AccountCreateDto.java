@@ -6,9 +6,13 @@ import jakarta.validation.constraints.NotEmpty;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Getter
 @AllArgsConstructor
+@NoArgsConstructor
+@Setter
 public abstract class AccountCreateDto {
     private final String branchCode = "111";
     @NotEmpty
