@@ -73,7 +73,8 @@ public enum BaseResponseStatus {
     // postBeneficiary (10000 ~ 10999)
 
     // property (11000 ~ 11999)
-
+    INVAILD_LIVINGTRUSTID(false, 11100 , "유효하지 않은 유언대용신탁 아이디입니다."),
+    NO_PROPERTY(false, 11200, "등록된 자산 목록이 없습니다."),
     // savingProduct (12000 ~ 12999)
 
     // signDeposit (13000 ~ 13999)
