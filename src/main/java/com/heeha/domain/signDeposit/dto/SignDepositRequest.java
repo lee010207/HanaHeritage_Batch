@@ -19,12 +19,20 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString
 public class SignDepositRequest {
-    private String installmentMethod;
-    private String maturityClass;
-    private String autoCancel;
+    private Long depositProductId;
+    private String accountPassword;
+    private Long depositAmount;
+
+    private Long withdrawAccountId;
+
+    private MakeAutoTransfer autoTransfer;
+
+    private String installmentMethod; //적립방법
+    private String maturityClass; //만기해지구분
+    private String autoCancel; //자동해지시점
     private Integer monthlyAmount;
 
-    private Integer contractYears;
+    private Integer contractYears; //가입기간
     private Boolean snsNotice;
     private Double interestRate;
 

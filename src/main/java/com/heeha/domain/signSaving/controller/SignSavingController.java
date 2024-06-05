@@ -1,13 +1,12 @@
 package com.heeha.domain.signSaving.controller;
 
+import com.heeha.domain.auth.Auth;
 import com.heeha.domain.signSaving.dto.AccountInfoResponse;
 import com.heeha.domain.signSaving.dto.SavingJoinRequestDto;
 import com.heeha.domain.signSaving.dto.SavingJoinResponseDto;
 import com.heeha.domain.signSaving.service.SignSavingService;
-import com.heeha.global.config.BaseException;
 import com.heeha.global.config.BaseResponse;
 import com.heeha.global.config.BaseResponse.SuccessResult;
-import com.heeha.global.config.BaseResponseStatus;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -29,8 +28,8 @@ public class SignSavingController {
             @ApiResponse(responseCode = "1000", description = "상품 가입 성공", content = @Content(schema = @Schema(implementation = SuccessResult.class)))
     })
     @PostMapping("/create")
-    public BaseResponse.SuccessResult<SavingJoinResponseDto> createSavingAccount(Long customerId,
-                                                                                 SavingJoinRequestDto request) {
+    public BaseResponse.SuccessResult<SavingJoinResponseDto> createSavingAccount(@Auth Long customerId,
+                                                                                 @RequestBody SavingJoinRequestDto request) {
 
         return BaseResponse.success(signSavingService.joinSavingAccount(customerId, request));
     }
