@@ -3,7 +3,12 @@ package com.heeha.domain.account.dto;
 import com.heeha.domain.account.entity.Account;
 import com.heeha.domain.customer.entity.Customer;
 import jakarta.validation.constraints.NotEmpty;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+@Setter
+@NoArgsConstructor
 public class NormalAccountCreateDto extends AccountCreateDto {
 
     private final String normalAccountCode = "03";

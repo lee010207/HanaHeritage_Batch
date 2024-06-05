@@ -5,6 +5,7 @@ import com.heeha.global.config.BaseResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -14,7 +15,7 @@ public class SmsController {
     private final SmsService smsService;
 
     @GetMapping("/send")
-    public BaseResponse.SuccessResult<Boolean> sendSms(String phoneNumber) {
+    public BaseResponse.SuccessResult<Boolean> sendSms(@RequestParam("phoneNumber") String phoneNumber) {
         return BaseResponse.success(smsService.sendMessage(phoneNumber));
     }
 
