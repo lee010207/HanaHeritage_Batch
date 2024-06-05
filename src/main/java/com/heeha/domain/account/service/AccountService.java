@@ -73,9 +73,10 @@ public class AccountService {
 
         // 잔액 조회 - 이체 가능 여부 확인
         checkBalance(account.getBalance(), makeTransactionDto.getAmount());
-
+        log.info("잔액 확인 OK...");
         // 비밀번호 일치 여부 확인
         if (CheckAccountPassword(account.getPassword(), makeTransactionDto.getPassword())) {
+            log.info("비밀 번호 OK...");
             String recipient = null;
             // 하나 -> 하나 이체
             if (makeTransactionDto.getRecipientBank().equals("하나")) {
@@ -88,16 +89,18 @@ public class AccountService {
                 recipient = toAccount.getCustomer().getName();
                 //당행 이체 처리
                 hanaTransfer(account, toAccount, makeTransactionDto.getAmount());
+                log.info("{} 에서 {} 계좌로 {} 를 이체합니다",account.getAccountNumber(), toAccount.getAccountNumber(), makeTransactionDto.getAmount());
                 historyService.historySave(TransferHistoryDto.builder()
                         .dealClassification("입금")
                         .amount(makeTransactionDto.getAmount())
+                        .recipient(recipient)
                         .recipientBank(makeTransactionDto.getRecipientBank())
+                        .recipientNumber(toAccount.getAccountNumber())
                         .senderNumber(account.getAccountNumber())
-                        .recipientRemarks(makeTransactionDto.getSenderRemarks())
+                        .recipientRemarks(recipient)
                         .sender(account.getCustomer().getName())
-                        .senderRemarks(makeTransactionDto.getRecipientRemarks())
+                        .senderRemarks(account.getCustomer().getName())
                         .account(toAccount).build());
-
             }
             // 타행이체
             else {
@@ -111,6 +114,8 @@ public class AccountService {
                     .recipientNumber(makeTransactionDto.getRecipientAccountNumber())
                     .recipientRemarks(makeTransactionDto.getRecipientRemarks())
                     .senderRemarks(makeTransactionDto.getSenderRemarks())
+                    .sender(makeTransactionDto.getSenderRemarks())
+                    .senderNumber(account.getAccountNumber())
                     .account(account).build());
         }
         return makeTransactionDto;

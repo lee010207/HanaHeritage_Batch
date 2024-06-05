@@ -18,7 +18,7 @@ import java.time.LocalDateTime;
 public class MakeAutoTransfer {
 
     private Long toAccountNumber;
-    private Long Id;
+    private Long id;
 
     private Long amount;
 

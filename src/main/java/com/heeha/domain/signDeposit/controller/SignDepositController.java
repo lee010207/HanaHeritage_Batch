@@ -15,7 +15,6 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -30,8 +29,8 @@ public class SignDepositController {
             @ApiResponse(responseCode = "1000", description = "상품 가입 성공", content = @Content(schema = @Schema(implementation = BaseResponse.SuccessResult.class)))
     })
     @PostMapping("/create")
-    public BaseResponse.SuccessResult<SignDepositResponse> createDepositAccount(Long customerId,
-                                                                                SignDepositRequest request) {
+    public BaseResponse.SuccessResult<SignDepositResponse> createDepositAccount(@Auth Long customerId,
+                                                                                @RequestBody SignDepositRequest request) {
 
         return BaseResponse.success(signDepositService.joinDepositAccount(customerId, request));
     }

@@ -47,13 +47,13 @@ public class SignDepositService {
     public SignDepositResponse joinDepositAccount(Long customerId, SignDepositRequest signDepositRequest) {
         // 가입할 상품
         DepositsProduct product = depositsProductService.getDetail(signDepositRequest.getDepositProductId());
-
+        log.info("가입할 상품 조회 : {}", product.getId());
         // 출금 계좌
         Account withdrawAccount = accountService.getAccount(signDepositRequest.getWithdrawAccountId());
+        log.info("출금 계좌 번호 : {}", withdrawAccount.getAccountNumber());
 
         // 예적금 신규 계좌 생성 및 초기 금액 셋팅
         Account depositAccount = initiateDepositAccount(customerId, product.getFinPrdtNm(), signDepositRequest.getAccountPassword(), withdrawAccount, signDepositRequest.getDepositAmount());
-
 
         Long autoTransferId = 0L;
         if (signDepositRequest.getAutoTransfer() != null) {
@@ -77,8 +77,6 @@ public class SignDepositService {
             autoTransferId = autoTransferService.createAutoTransfer(createAutoTransferDto);
         }
 
-//
-//        // TODO transfer id 넣기
         SignDeposit signDeposit = SignDeposit.builder()
                 .autoTransfer(AutoTransfer.builder().id(autoTransferId).build())
                 .account(depositAccount)
@@ -89,7 +87,6 @@ public class SignDepositService {
                 .build();
 
         return new SignDepositResponse(signDepositRepository.save(signDeposit));
-//        return null;
     }
 
     private Account initiateDepositAccount(
@@ -119,7 +116,7 @@ public class SignDepositService {
                 .build();
 
         accountService.makeTransaction(makeTransactionDto);
-
+        log.info("계좌 생성 및 적금 계좌에 입금 완료");
         return depositAccount;
     }
 
