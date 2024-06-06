@@ -81,7 +81,8 @@ public enum BaseResponseStatus {
     // signSaving (14000 ~ 14999)
 
     // reservation (15000 ~ 15999)
-    INVALID_WORK_TYPE(false, 15001, "사용할 수 없는 상담 유형입니다.");
+    INVALID_WORK_TYPE(false, 15001, "사용할 수 없는 상담 유형입니다."),
+    NOT_FOUND_CONSULTING_ID(false, 15002, "존재하지 않는 상담 아이디입니다.");
 
     private final boolean isSuccess;
     private final int code;

@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -33,5 +34,17 @@ public class ConsultingService {
 
     public List<GetConsultingDto> getAllByReservationDate(LocalDate reservationDate) {
         return consultingRepository.findAllByReservationDate(reservationDate);
+    }
+
+    public boolean setComplete(Long id){
+        Optional<Consulting> response = consultingRepository.findById(id);
+        if(!response.isPresent()){
+            throw new BaseException(BaseResponseStatus.NOT_FOUND_CONSULTING_ID);
+        }
+
+        Consulting consulting = response.get();
+        consulting.setCompleteTrue();
+        consultingRepository.save(consulting);
+        return true;
     }
 }

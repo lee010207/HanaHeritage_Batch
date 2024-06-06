@@ -46,4 +46,13 @@ public class ConsultingController {
     public SuccessResult<List<GetConsultingDto>> getConsultingList(@RequestParam("reservationDate") LocalDate reservationDate) {
         return BaseResponse.success(consultingService.getAllByReservationDate(reservationDate));
     }
+
+    @Operation(summary = "상담 완료 처리하기")
+    @ApiResponses({
+            @ApiResponse(responseCode = "1000", description = "상담 완료 처리 성공", content = @Content(schema = @Schema(implementation = SuccessResult.class))),
+    })
+    @PutMapping("/reservation/complete")
+    public SuccessResult<Boolean> editConsultingStatus(@RequestParam("id") Long id) {
+        return BaseResponse.success(consultingService.setComplete(id));
+    }
 }

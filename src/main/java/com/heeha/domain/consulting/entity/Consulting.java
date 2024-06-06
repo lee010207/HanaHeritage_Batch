@@ -1,10 +1,7 @@
 package com.heeha.domain.consulting.entity;
 
 import com.heeha.domain.base.entity.BaseEntity;
-import com.heeha.domain.consulting.dto.GetConsultingDto;
 import com.heeha.domain.customer.entity.Customer;
-import com.heeha.domain.history.dto.HistoryDto;
-import com.heeha.domain.history.entity.History;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -37,4 +34,8 @@ public class Consulting extends BaseEntity {
 
     @Column(nullable = false)
     private Boolean isCompleted = Boolean.FALSE;
+
+    public void setCompleteTrue(){
+        isCompleted = Boolean.TRUE;
+    }
 }
