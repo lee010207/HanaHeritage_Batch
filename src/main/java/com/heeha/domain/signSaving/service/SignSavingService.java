@@ -32,13 +32,14 @@ public class SignSavingService {
 
         SavingAccountCreateDto savingAccountCreateDto = new SavingAccountCreateDto(product.getFinPrdtNm(),
                 savingJoinRequestDto.getAccountPassword(), 0L);
-
         Account savingAccount = accountService.createAccount(customerId, savingAccountCreateDto);
+        log.info("예금 계좌 생성 : {}", savingAccount.getAccountNumber());
         Account withdrawAccount = accountService.getAccount(savingJoinRequestDto.getWithdrawAccountId());
 
         /* TO-DO
          * 가입 요청 Dto에서 예치금액만큼 출금계좌에서 차감하기 (이체 로직 사용)
          */
+        log.info("거래 시작");
         accountService.makeTransaction(MakeTransactionDto.builder()
                 .accountId(withdrawAccount.getId())
                 .password(withdrawAccount.getPassword())

@@ -13,10 +13,6 @@ public class SavingJoinRequestDto {
     private Long depositAmount;
     private String accountPassword;
 
-    private String installmentMethod;
-    private String maturityClass;
-    private String autoCancel;
-
     private Integer contractYears;
     private Double interestRate;
     private Boolean snsNotice;

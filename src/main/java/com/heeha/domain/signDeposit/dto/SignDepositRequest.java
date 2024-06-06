@@ -30,7 +30,6 @@ public class SignDepositRequest {
     private String installmentMethod; //적립방법
     private String maturityClass; //만기해지구분
     private String autoCancel; //자동해지시점
-    private Integer monthlyAmount;
 
     private Integer contractYears; //가입기간
     private Boolean snsNotice;
@@ -44,7 +43,7 @@ public class SignDepositRequest {
                 .installmentMethod(InstallmentMethodType.of(installmentMethod))
                 .maturityClass(MaturityClassType.of(maturityClass))
                 .autoCancel(AutoCancelType.of(autoCancel))
-                .monthlyAmount(monthlyAmount)
+                .monthlyAmount(depositAmount)
                 .contractYears(contractYears)
                 .snsNotice(snsNotice)
                 .interestRate(interestRate)
