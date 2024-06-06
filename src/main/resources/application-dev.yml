@@ -33,3 +33,9 @@ jwt:
 
 app:
   key: ebfd212c9fc8a2c8774d9dee8c034bd7
+
+naver:
+  ocr:
+    secret: cUdjQUZlYktYcE16QlhzWkF4cWZ6VWhLQmtnYVluVEg=
+    url: https://uai2lypwa6.apigw.ntruss.com/custom/v1/31531/7581753b3f6e4191227c04d5d08f959eb74f3486b7cae387f4dbf3c6580c14d3/infer
+
