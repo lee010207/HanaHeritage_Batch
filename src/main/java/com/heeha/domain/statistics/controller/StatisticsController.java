@@ -21,12 +21,14 @@ public class StatisticsController {
 
     private final StatisticsSettlementService statisticsSettlementService;
 
-    @Operation(summary = "일주일 정산 집계 데이터 조회")
+    @Operation(summary = "최근 일주일 정산 집계 데이터 조회")
     @ApiResponses({
             @ApiResponse(responseCode = "1000", description = "정산 데이터 조회 성공", content = @Content(schema = @Schema(implementation = BaseResponse.SuccessResult.class)))
     })
     @GetMapping("/settlement")
-    public BaseResponse.SuccessResult<List<StatisticsSettlement>> getSettlement(@RequestParam("startDate") LocalDate startDate, @RequestParam("endDate") LocalDate endDate) {
+    public BaseResponse.SuccessResult<List<StatisticsSettlement>> getSettlement() {
+        LocalDate startDate = LocalDate.now().minusDays(8);
+        LocalDate endDate = LocalDate.now().minusDays(1);
         List<StatisticsSettlement> response = statisticsSettlementService.getAllByDateBetween(startDate, endDate);
         return BaseResponse.success(response);
     }
