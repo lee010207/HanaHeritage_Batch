@@ -3,7 +3,6 @@ package com.heeha.domain.consulting.entity;
 import com.heeha.domain.base.entity.BaseEntity;
 import com.heeha.domain.customer.entity.Customer;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Pattern;
 import lombok.*;
 
 import java.time.LocalDate;
@@ -31,5 +30,12 @@ public class Consulting extends BaseEntity {
     private String phoneNumber;
 
     @Column(updatable = false)
-    private LocalDate reservationDatetime;
+    private LocalDate reservationDate;
+
+    @Column(nullable = false)
+    private Boolean isCompleted = Boolean.FALSE;
+
+    public void setCompleteTrue(){
+        isCompleted = Boolean.TRUE;
+    }
 }
