@@ -21,8 +21,15 @@ public class StatisticsSettlement {
     @Column(unique = true, nullable = false)
     private LocalDate date;
 
-    private Long depositAmount;
-    private Long withdrawalAmount;
-    private Long depositCount;
-    private Long withdrawalCount;
+    @Column(nullable = false)
+    private Long depositAmount = 0L;
+
+    @Column(nullable = false)
+    private Long withdrawalAmount= 0L;
+
+    @Column(nullable = false)
+    private Long depositCount= 0L;
+
+    @Column(nullable = false)
+    private Long withdrawalCount= 0L;
 }

@@ -1,11 +1,8 @@
 package com.heeha.domain.statistics.service;
 
-import com.heeha.domain.account.entity.Account;
 import com.heeha.domain.history.dto.DailySettlementDto;
 import com.heeha.domain.statistics.entity.StatisticsSettlement;
 import com.heeha.domain.statistics.repository.StatisticsSettlementRepository;
-import com.heeha.global.config.BaseException;
-import com.heeha.global.config.BaseResponseStatus;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,6 +18,35 @@ public class StatisticsSettlementService {
 
     @Transactional
     public void save(LocalDate date, List<DailySettlementDto> dailySettlementDtoList) {
+        StatisticsSettlement statisticsSettlement = createStatisticsSettlement(date, dailySettlementDtoList);
+        repository.save(statisticsSettlement);
+    }
+
+    @Transactional
+    public void updateByDate(LocalDate date, List<DailySettlementDto> dailySettlementDtoList) {
+        StatisticsSettlement statisticsSettlement = createStatisticsSettlement(date, dailySettlementDtoList);
+        repository.updateByDate(
+                statisticsSettlement.getDepositAmount(),
+                statisticsSettlement.getDepositCount(),
+                statisticsSettlement.getWithdrawalAmount(),
+                statisticsSettlement.getWithdrawalCount(),
+                statisticsSettlement.getDate()
+        );
+    }
+
+    public StatisticsSettlement getByDate(LocalDate dealDate) {
+        return statisticsSettlementRepository.findByDate(dealDate).get(0);
+    }
+
+    public List<StatisticsSettlement> getAllByDateBetween(LocalDate startDate, LocalDate endDate) {
+        return statisticsSettlementRepository.findAllByDateBetween(startDate, endDate);
+    }
+
+    public boolean existStatisticsSettlement(LocalDate dealDate) {
+        return !statisticsSettlementRepository.findByDate(dealDate).isEmpty();
+    }
+
+    public StatisticsSettlement createStatisticsSettlement(LocalDate date, List<DailySettlementDto> dailySettlementDtoList) {
         StatisticsSettlement statisticsSettlement = new StatisticsSettlement();
         statisticsSettlement.setDate(date);
 
@@ -34,10 +60,6 @@ public class StatisticsSettlementService {
             }
         }
 
-        repository.save(statisticsSettlement);
-    }
-
-    public boolean existStatisticsSettlement(LocalDate dealDate) {
-        return !statisticsSettlementRepository.findByDate(dealDate).isEmpty();
+        return statisticsSettlement;
     }
 }
