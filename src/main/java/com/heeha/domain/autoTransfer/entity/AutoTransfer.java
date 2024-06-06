@@ -6,7 +6,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.sql.Date;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @Entity(name = "auto_transfer")
 @Table(name = "auto_transfer")
@@ -34,12 +34,12 @@ public class AutoTransfer extends BaseEntity {
     private int autoTransferDay;
 
     @Column(name = "end_date", nullable = false)
-    private Date endDate;
+    private LocalDate endDate;
 
     @Column(name = "start_date", nullable = false)
-    private Date startDate;
+    private LocalDate startDate;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "account_id")
     private Account account;
 
