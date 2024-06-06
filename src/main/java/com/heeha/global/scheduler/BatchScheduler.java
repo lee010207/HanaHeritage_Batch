@@ -12,6 +12,8 @@ import org.springframework.batch.core.repository.JobRestartException;
 import org.springframework.context.annotation.Bean;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
+
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @RequiredArgsConstructor
@@ -22,18 +24,21 @@ public class BatchScheduler {
     private final JobRegistry jobRegistry;
 
     @Bean
-    public JobRegistryBeanPostProcessor jobRegistryBeanPostProcessor(){
+    public JobRegistryBeanPostProcessor jobRegistryBeanPostProcessor() {
         JobRegistryBeanPostProcessor jobProcessor = new JobRegistryBeanPostProcessor();
         jobProcessor.setJobRegistry(jobRegistry);
         return jobProcessor;
     }
 
-    @Scheduled(cron = "0/3 * * * * *") // 3초마다 실행
+    @Scheduled(cron = "0 10 0 * * ?") // 매일 00:10:00 에 실행
     public void runJob() {
-        String time = LocalDateTime.now().toString();
+        LocalDate dealDate = LocalDate.now().minusDays(1);
         try {
-            Job job = jobRegistry.getJob("testJob"); // job 이름
-            JobParametersBuilder jobParam = new JobParametersBuilder().addString("time", time);
+            Job job = jobRegistry.getJob("settlementJob"); // job 이름
+            JobParametersBuilder jobParam = new JobParametersBuilder()
+                    .addLocalDate("dealDate", dealDate)
+                    .addLocalDateTime("runAt", LocalDateTime.now());
+
             jobLauncher.run(job, jobParam.toJobParameters());
         } catch (NoSuchJobException | JobInstanceAlreadyCompleteException | JobExecutionAlreadyRunningException |
                  JobParametersInvalidException | JobRestartException e) {
