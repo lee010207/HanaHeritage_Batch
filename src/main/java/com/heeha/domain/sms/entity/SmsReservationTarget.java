@@ -7,8 +7,8 @@ import lombok.*;
 
 import java.time.LocalDate;
 
-@Entity(name = "sms_reservation")
-@Table(name = "sms_reservation")
+@Entity(name = "sms_reservation_target")
+@Table(name = "sms_reservation_target")
 @NoArgsConstructor
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
 @Builder
