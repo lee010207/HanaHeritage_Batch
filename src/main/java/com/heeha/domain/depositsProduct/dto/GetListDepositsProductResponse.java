@@ -10,20 +10,29 @@ import lombok.*;
 @ToString
 @Builder
 public class GetListDepositsProductResponse {
+    @JsonProperty("id")
+    private long id;
+
     @JsonProperty("fin_prdt_nm")
     private String finPrdtNm;
 
     @JsonProperty("spcl_cnd")
     private String spclCnd;
 
-    @JsonProperty("promotional_text")
-    private String promotionalText;
+    @JsonProperty("join_member")
+    private String joinMember;
+
+    @JsonProperty("max_limit")
+    private String maxLimit;
+
 
     public static GetListDepositsProductResponse fromEntity(DepositsProduct depositsProduct) {
         return GetListDepositsProductResponse.builder()
+                .id(depositsProduct.getId())
                 .finPrdtNm(depositsProduct.getFinPrdtNm())
                 .spclCnd(depositsProduct.getSpclCnd())
-                .promotionalText(depositsProduct.getPromotionalText())
+                .joinMember(depositsProduct.getJoinMember())
+                .maxLimit(depositsProduct.getMaxLimit())
                 .build();
     }
 }

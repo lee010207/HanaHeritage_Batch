@@ -5,6 +5,7 @@ import com.heeha.domain.account.entity.Account;
 import com.heeha.domain.account.service.AccountService;
 import com.heeha.domain.depositsProduct.entity.DepositsProduct;
 import com.heeha.domain.depositsProduct.service.DepositsProductService;
+import com.heeha.domain.signSaving.dto.AccountInfoResponse;
 import com.heeha.domain.signSaving.dto.SavingJoinRequestDto;
 import com.heeha.domain.signSaving.dto.SavingJoinResponseDto;
 import com.heeha.domain.signSaving.entity.SignSaving;
@@ -58,6 +59,12 @@ public class SignSavingService {
                 .build();
 
         return new SavingJoinResponseDto(signSavingRepository.save(signSaving));
+    }
+
+    public AccountInfoResponse getAccountInfo(Long accountId) {
+        SignSaving signSaving = signSavingRepository.findByAccountId(accountId);
+
+        return AccountInfoResponse.todto(signSaving);
     }
 
 }

@@ -38,7 +38,4 @@ public class DepositsProduct extends BaseEntity {
     private String dclsStrtDay; // 공시시작일
     private String dclsEndDay; // 공시종료일
     private String finCoSubmDay; // 금융회사 제출일
-
-    private String promotionalText; // 홍보문구
-    private String explanatoryText; // 설명문구
 }
