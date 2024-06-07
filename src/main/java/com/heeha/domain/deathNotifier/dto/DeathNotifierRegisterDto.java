@@ -1,5 +1,6 @@
 package com.heeha.domain.deathNotifier.dto;
 
+import com.heeha.domain.deathNotifier.entity.DeathNotifier;
 import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

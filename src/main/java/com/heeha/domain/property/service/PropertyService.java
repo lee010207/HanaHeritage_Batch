@@ -2,7 +2,6 @@ package com.heeha.domain.property.service;
 
 import com.heeha.domain.livingTrust.entity.LivingTrust;
 import com.heeha.domain.property.dto.PropertyRegisterDto;
-import com.heeha.domain.account.dto.AccountCheckResponse;
 import com.heeha.domain.property.dto.PropertyResponse;
 import com.heeha.domain.property.entity.Property;
 import com.heeha.domain.property.repository.PropertyRepository;
@@ -24,13 +23,14 @@ public class PropertyService {
     @Transactional
     public Map<String, List<PropertyResponse>> getAllProperties(Long livingTrustId) {
 
-            Map<String, List<PropertyResponse>> propertiesMap = new HashMap<>();
-            propertiesMap.put("cash", getCashProperty(livingTrustId));
-            propertiesMap.put("security", getSecurityProperty(livingTrustId));
-            propertiesMap.put("realty", getRealtyProperty(livingTrustId));
-            propertiesMap.put("bond", getBondProperty(livingTrustId));
-            return propertiesMap;
-}
+        Map<String, List<PropertyResponse>> propertiesMap = new HashMap<>();
+        propertiesMap.put("cash", getCashProperty(livingTrustId));
+        propertiesMap.put("security", getSecurityProperty(livingTrustId));
+        propertiesMap.put("realty", getRealtyProperty(livingTrustId));
+        propertiesMap.put("bond", getBondProperty(livingTrustId));
+        return propertiesMap;
+    }
+    @Transactional
     public Long save(PropertyRegisterDto propertyDto, LivingTrust livingTrust) {
         Property property = Property.builder()
                 .livingTrust(livingTrust)
@@ -41,11 +41,11 @@ public class PropertyService {
                 .build();
 
         return propertyRepository.save(property).getId();
-        }
+    }
     @Transactional
     public List<PropertyResponse> getCashProperty(Long livingTrustId) {
         try {
-            List<Property> properties = propertyRepository.findAllByLivingTrust_IdAndType(livingTrustId, "cash");
+            List<Property> properties = propertyRepository.findAllByLivingTrust_IdAndType(livingTrustId, "금전");
             return properties.stream().map(PropertyResponse::new).toList();
         } catch (DataIntegrityViolationException e) {
             throw new BaseException(BaseResponseStatus.INVAILD_LIVINGTRUSTID);
@@ -54,7 +54,7 @@ public class PropertyService {
     @Transactional
     public List<PropertyResponse> getSecurityProperty(Long livingTrustId) {
         try {
-            List<Property> properties = propertyRepository.findAllByLivingTrust_IdAndType(livingTrustId, "security");
+            List<Property> properties = propertyRepository.findAllByLivingTrust_IdAndType(livingTrustId, "유가증권");
             return properties.stream().map(PropertyResponse::new).toList();
         } catch (DataIntegrityViolationException e) {
             throw new BaseException(BaseResponseStatus.INVAILD_LIVINGTRUSTID);
@@ -63,7 +63,7 @@ public class PropertyService {
     @Transactional
     public List<PropertyResponse> getRealtyProperty(Long livingTrustId) {
         try {
-            List<Property> properties = propertyRepository.findAllByLivingTrust_IdAndType(livingTrustId, "realty");
+            List<Property> properties = propertyRepository.findAllByLivingTrust_IdAndType(livingTrustId, "부동산");
             return properties.stream().map(PropertyResponse::new).toList();
         } catch (DataIntegrityViolationException e) {
             throw new BaseException(BaseResponseStatus.INVAILD_LIVINGTRUSTID);
@@ -73,7 +73,7 @@ public class PropertyService {
     @Transactional
     public List<PropertyResponse> getBondProperty(Long livingTrustId) {
         try {
-            List<Property> properties = propertyRepository.findAllByLivingTrust_IdAndType(livingTrustId, "bond");
+            List<Property> properties = propertyRepository.findAllByLivingTrust_IdAndType(livingTrustId, "금전채권");
             return properties.stream().map(PropertyResponse::new).toList();
         }  catch (DataIntegrityViolationException e) {
             throw new BaseException(BaseResponseStatus.INVAILD_LIVINGTRUSTID);
@@ -83,7 +83,6 @@ public class PropertyService {
     public List<Long> getAllPropertyAmountQuantity_ByType(Long livingTrustId) {
         try {
             return propertyRepository.findPropertiesByLivingTrust_Id(livingTrustId);
-//            return all.stream().map(obj -> (Long) obj).toList();
         }  catch (DataIntegrityViolationException e) {
             throw new BaseException(BaseResponseStatus.INVAILD_LIVINGTRUSTID);
         }

@@ -9,12 +9,14 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
 public class PostBeneficiaryService{
     private final PostBeneficiaryRepository postBeneficiaryRepository;
 
+    @Transactional
     public Long save(PostBeneficiaryRegisterDto postBeneficiaryRegisterDto, LivingTrust livingTrust) {
         PostBeneficiary postBeneficiary = PostBeneficiary.builder()
                 .name(postBeneficiaryRegisterDto.getName())
