@@ -1,0 +1,60 @@
+package com.heeha.domain.livingTrust.service;
+
+import com.heeha.domain.customer.entity.Customer;
+import com.heeha.domain.customer.repository.CustomerRepository;
+import com.heeha.domain.customer.service.CustomerService;
+import com.heeha.domain.deathNotifier.dto.DeathNotifierRegisterDto;
+import com.heeha.domain.deathNotifier.service.DeathNotifierService;
+import com.heeha.domain.livingTrust.dto.LivingTrustCreateDto;
+import com.heeha.domain.livingTrust.dto.LivingTrustDoneDto;
+import com.heeha.domain.livingTrust.entity.LivingTrust;
+import com.heeha.domain.livingTrust.repository.LivingTrustRepository;
+import com.heeha.domain.postBeneficiary.dto.PostBeneficiaryRegisterDto;
+import com.heeha.domain.postBeneficiary.service.PostBeneficiaryService;
+import com.heeha.domain.property.dto.PropertyRegisterDto;
+import com.heeha.domain.property.service.PropertyService;
+import com.heeha.global.config.BaseException;
+import com.heeha.global.config.BaseResponseStatus;
+import java.util.Optional;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Service;
+
+@Service
+@RequiredArgsConstructor
+@Slf4j
+public class LivingTrustService {
+    private final LivingTrustRepository livingTrustRepository;
+    private final CustomerRepository customerRepository;
+    private final PostBeneficiaryService postBeneficiaryService;
+    private final DeathNotifierService deathNotifierService;
+    private final PropertyService propertyService;
+
+    public LivingTrustDoneDto makeContract(Long customerId, LivingTrustCreateDto livingTrustCreateDto) {
+        Customer customer = customerRepository.findById(customerId).orElseThrow(
+                () -> new BaseException(BaseResponseStatus.USERS_EMPTY_USER_ID)
+        );
+
+        LivingTrust livingTrust = LivingTrust.builder()
+                .customer(customer)
+                .contractNumber("계약 번호")
+                .trustContractStartDate(livingTrustCreateDto.getTrustContractStartDate())
+                .trustContractEndDate(livingTrustCreateDto.getTrustContractEndDate())
+                .settlor(livingTrustCreateDto.getSettlor())
+                .trustee(livingTrustCreateDto.getTrustee())
+                .build();
+        LivingTrust save = livingTrustRepository.save(livingTrust);
+        log.info("유언 대용 신탁 계약 생성 완료 : {}",save.getId());
+        for (PropertyRegisterDto propertyRegiDto : livingTrustCreateDto.getProperties()) {
+            propertyService.save(propertyRegiDto, save);
+        }
+        for (PostBeneficiaryRegisterDto PostBenefitRegiDto : livingTrustCreateDto.getPostBeneficiaries()) {
+            postBeneficiaryService.save(PostBenefitRegiDto, save);
+        }
+        for (DeathNotifierRegisterDto deathRegiDto : livingTrustCreateDto.getDeathNotifiers()) {
+            deathNotifierService.save(deathRegiDto, save);
+        }
+        log.info("유언 대용 신탁 계약 관련 내용 등록 완료");
+        return new LivingTrustDoneDto();
+    }
+}
