@@ -21,7 +21,7 @@ public class StatisticsController {
 
     private final StatisticsSettlementService statisticsSettlementService;
 
-    @Operation(summary = "최근 일주일 정산 집계 데이터 조회")
+    @Operation(summary = "[😈Admin] 최근 일주일 정산 집계 데이터 조회")
     @ApiResponses({
             @ApiResponse(responseCode = "1000", description = "정산 데이터 조회 성공", content = @Content(schema = @Schema(implementation = BaseResponse.SuccessResult.class)))
     })

@@ -38,7 +38,7 @@ public class ConsultingController {
         return BaseResponse.success(consultingService.save(customerId, request));
     }
 
-    @Operation(summary = "상담 목록 조회하기")
+    @Operation(summary = "[😈Admin] 상담 목록 조회하기")
     @ApiResponses({
             @ApiResponse(responseCode = "1000", description = "상담 목록 조회 성공", content = @Content(schema = @Schema(implementation = SuccessResult.class))),
     })
@@ -47,7 +47,7 @@ public class ConsultingController {
         return BaseResponse.success(consultingService.getAllByReservationDate(reservationDate));
     }
 
-    @Operation(summary = "상담 완료 처리하기")
+    @Operation(summary = "[😈Admin] 상담 완료 처리하기")
     @ApiResponses({
             @ApiResponse(responseCode = "1000", description = "상담 완료 처리 성공", content = @Content(schema = @Schema(implementation = SuccessResult.class))),
     })
