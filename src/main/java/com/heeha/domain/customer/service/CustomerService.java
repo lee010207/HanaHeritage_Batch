@@ -1,12 +1,15 @@
 package com.heeha.domain.customer.service;
 
+import com.heeha.domain.customer.dto.CustomerContactDto;
 import com.heeha.domain.customer.dto.MyInfoResponse;
 import com.heeha.domain.customer.dto.SignUpRequest;
 import com.heeha.domain.customer.entity.Customer;
 import com.heeha.domain.customer.repository.CustomerRepository;
 import com.heeha.global.config.BaseException;
 import com.heeha.global.config.BaseResponseStatus;
-import java.sql.SQLIntegrityConstraintViolationException;
+
+import java.util.List;
+
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,6 +36,9 @@ public class CustomerService {
     public MyInfoResponse findById(Long customerId) {
         return new MyInfoResponse(customerRepository.findById(customerId).orElseThrow(() ->
                 new BaseException(BaseResponseStatus.INVALID_USER_JWT)));
+    }
 
+    public List<CustomerContactDto> getCustomerContact() {
+        return customerRepository.findCustomerContact();
     }
 }
