@@ -1,5 +1,7 @@
 package com.heeha.domain.statistics.controller;
 
+import com.heeha.domain.statistics.dto.DailySettlementAmountDto;
+import com.heeha.domain.statistics.dto.GetWeeklySettlementDto;
 import com.heeha.domain.statistics.entity.StatisticsSettlement;
 import com.heeha.domain.statistics.service.StatisticsSettlementService;
 import com.heeha.global.config.BaseResponse;
@@ -26,10 +28,15 @@ public class StatisticsController {
             @ApiResponse(responseCode = "1000", description = "정산 데이터 조회 성공", content = @Content(schema = @Schema(implementation = BaseResponse.SuccessResult.class)))
     })
     @GetMapping("/settlement")
-    public BaseResponse.SuccessResult<List<StatisticsSettlement>> getSettlement() {
+    public BaseResponse.SuccessResult<GetWeeklySettlementDto> getWeeklySettlement() {
         LocalDate startDate = LocalDate.now().minusDays(8);
         LocalDate endDate = LocalDate.now().minusDays(1);
-        List<StatisticsSettlement> response = statisticsSettlementService.getAllByDateBetween(startDate, endDate);
-        return BaseResponse.success(response);
+        List<StatisticsSettlement> settlements = statisticsSettlementService.getAllByDateBetween(startDate, endDate);
+
+        GetWeeklySettlementDto weeklySettlementDto = new GetWeeklySettlementDto(startDate, endDate);
+        for(StatisticsSettlement settlement : settlements) {
+            weeklySettlementDto.addData(settlement);
+        }
+        return BaseResponse.success(weeklySettlementDto);
     }
 }
