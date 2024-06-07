@@ -105,4 +105,8 @@ public class SmsService {
     public SmsReservation insert(SmsReservation smsReservation) {
         return smsReservationRepository.save(smsReservation);
     }
+
+    public List<SmsReservation> getAll() {
+        return smsReservationRepository.findAll();
+    }
 }

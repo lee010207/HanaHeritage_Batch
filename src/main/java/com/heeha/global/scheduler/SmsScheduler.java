@@ -47,6 +47,6 @@ public class SmsScheduler {
             smsReservation.setSentTrue();
             smsService.insert(smsReservation);
         }
-        log.info("========");
+        log.info("=== 문자 예약 발송 ===");
     }
 }
