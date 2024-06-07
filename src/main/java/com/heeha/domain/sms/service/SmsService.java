@@ -1,10 +1,15 @@
 package com.heeha.domain.sms.service;
 
+import java.time.LocalDate;
+import java.util.List;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
+import com.heeha.domain.customer.dto.CustomerContactDto;
 import com.heeha.domain.customer.entity.Customer;
+import com.heeha.domain.postBeneficiary.entity.PostBeneficiary;
 import com.heeha.domain.sms.dto.ReserveSmsDto;
+import com.heeha.domain.sms.dto.SmsPhoneNumberDto;
 import com.heeha.domain.sms.entity.SmsReservation;
 import com.heeha.domain.sms.entity.SmsReservationTarget;
 import com.heeha.domain.sms.repository.SmsReservationRepository;
@@ -87,5 +92,17 @@ public class SmsService {
         }
 
         return Boolean.TRUE;
+    }
+
+    public List<SmsReservation> getAllAtDate(LocalDate date) {
+        return smsReservationRepository.findAllBySendingDateBetween(date, date.plusDays(1));
+    }
+
+    public List<String> getPhoneNumberBySmsReservationId(Long smsReservationId) {
+        return smsReservationTargetRepository.findPhoneNumberBySmsReservationId(smsReservationId);
+    }
+
+    public SmsReservation insert(SmsReservation smsReservation) {
+        return smsReservationRepository.save(smsReservation);
     }
 }
