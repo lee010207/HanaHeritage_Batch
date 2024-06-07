@@ -1,6 +1,7 @@
 package com.heeha.domain.livingTrust.service;
 
 import com.heeha.domain.consulting.entity.Consulting;
+import com.heeha.domain.livingTrust.dto.GetLivingTrustSummaryDto;
 import com.heeha.domain.livingTrust.entity.LivingTrust;
 import com.heeha.domain.livingTrust.repository.LivingTrustRepository;
 import com.heeha.global.config.BaseException;
@@ -15,6 +16,10 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class LivingTrustService {
     private final LivingTrustRepository livingTrustRepository;
+
+    public List<GetLivingTrustSummaryDto> getAllSummary() {
+        return livingTrustRepository.findAllSummary();
+    }
 
     public List<LivingTrust> getAll() {
         return livingTrustRepository.findAll();
