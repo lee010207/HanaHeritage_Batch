@@ -9,7 +9,6 @@ import com.heeha.domain.sms.entity.SmsReservation;
 import com.heeha.domain.sms.entity.SmsReservationTarget;
 import com.heeha.domain.sms.repository.SmsReservationRepository;
 import com.heeha.domain.sms.repository.SmsReservationTargetRepository;
-import lombok.RequiredArgsConstructor;
 import net.nurigo.sdk.NurigoApp;
 import net.nurigo.sdk.message.exception.NurigoEmptyResponseException;
 import net.nurigo.sdk.message.exception.NurigoMessageNotReceivedException;
@@ -40,20 +39,25 @@ public class SmsService {
                 apiSecret, "https://api.coolsms.co.kr");
     }
 
-    public Boolean sendMessage(String phoneNumber) {
+    public Boolean sendCertificationMessage(String phoneNumber) {
+        String certification = createCertificationNumber();
+        String text = CERTIFICATION + certification + " 입니다.";
+        sendMessage(phoneNumber, text);
+        redisTemplate.opsForValue().set(phoneNumber, certification, 5, TimeUnit.MINUTES);
+        return Boolean.TRUE;
+    }
+
+    public void sendMessage(String phoneNumber, String text) {
         Message message = new Message();
         message.setFrom("01090410672");
         message.setTo(phoneNumber);
-        String certification = createCertificationNumber();
-        message.setText(CERTIFICATION + certification + " 입니다.");
+        message.setText(text);
 
         try {
             defaultMessageService.send(message);
-            redisTemplate.opsForValue().set(phoneNumber, certification, 5, TimeUnit.MINUTES);
         } catch (NurigoMessageNotReceivedException | NurigoEmptyResponseException | NurigoUnknownException e) {
             throw new RuntimeException(e);
         }
-        return Boolean.TRUE;
     }
 
 

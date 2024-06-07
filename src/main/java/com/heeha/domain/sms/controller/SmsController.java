@@ -1,6 +1,5 @@
 package com.heeha.domain.sms.controller;
 
-import com.heeha.domain.auth.dto.CertificationDto;
 import com.heeha.domain.sms.dto.ReserveSmsDto;
 import com.heeha.domain.sms.service.SmsService;
 import com.heeha.global.config.BaseResponse;
@@ -20,7 +19,7 @@ public class SmsController {
 
     @GetMapping("/send")
     public BaseResponse.SuccessResult<Boolean> sendSms(@RequestParam("phoneNumber") String phoneNumber) {
-        return BaseResponse.success(smsService.sendMessage(phoneNumber));
+        return BaseResponse.success(smsService.sendCertificationMessage(phoneNumber));
     }
 
     @Operation(summary = "[😈Admin] 문자 예약하기")
