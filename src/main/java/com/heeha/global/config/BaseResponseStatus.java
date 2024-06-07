@@ -69,6 +69,7 @@ public enum BaseResponseStatus {
     // history (8000 ~ 8999)
 
     // livingTrust (9000 ~ 9999)
+    NOT_FOUND_LIVING_TRUST_ID(false, 9001, "존재하지 않는 LivingTrust 아이디입니다."),
 
     // postBeneficiary (10000 ~ 10999)
 
