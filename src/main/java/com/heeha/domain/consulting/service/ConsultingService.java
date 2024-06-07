@@ -36,6 +36,7 @@ public class ConsultingService {
         return consultingRepository.findAllByReservationDate(reservationDate);
     }
 
+    @Transactional
     public boolean setComplete(Long id){
         Optional<Consulting> response = consultingRepository.findById(id);
         if(!response.isPresent()){
@@ -44,7 +45,6 @@ public class ConsultingService {
 
         Consulting consulting = response.get();
         consulting.setCompleteTrue();
-        consultingRepository.save(consulting);
         return true;
     }
 }

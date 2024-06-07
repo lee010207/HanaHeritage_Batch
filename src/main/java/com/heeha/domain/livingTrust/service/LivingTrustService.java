@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -25,6 +26,7 @@ public class LivingTrustService {
         return livingTrustRepository.findAll();
     }
 
+    @Transactional
     public boolean setComplete(Long id){
         Optional<LivingTrust> response = livingTrustRepository.findById(id);
         if(response.isEmpty()){
@@ -33,7 +35,6 @@ public class LivingTrustService {
 
         LivingTrust livingTrust = response.get();
         livingTrust.setApproveTrue();
-        livingTrustRepository.save(livingTrust);
         return true;
     }
 }
