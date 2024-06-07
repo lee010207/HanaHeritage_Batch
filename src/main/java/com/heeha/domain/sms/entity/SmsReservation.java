@@ -26,5 +26,5 @@ public class SmsReservation extends BaseEntity {
 
     private String content;
     private LocalDate sendingDate;
-    private Boolean isSent;
+    private Boolean isSent = Boolean.FALSE;
 }
