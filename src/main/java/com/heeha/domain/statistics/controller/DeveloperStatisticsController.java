@@ -20,12 +20,12 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/v1/developer/statistics")
 @RequiredArgsConstructor
-public class DeveloperController {
+public class DeveloperStatisticsController {
 
     private final StatisticsSettlementService statisticsSettlementService;
     private final HistoryService historyService;
 
-    @Operation(summary = "특정 날짜의 입출금 정산 계산 (개발자용)")
+    @Operation(summary = "[🧑🏻‍💻developer] 특정 날짜의 입출금 정산 계산")
     @ApiResponses({
             @ApiResponse(responseCode = "1000", description = "정산 및 데이터 업데이트 성공", content = @Content(schema = @Schema(implementation = BaseResponse.SuccessResult.class)))
     })
