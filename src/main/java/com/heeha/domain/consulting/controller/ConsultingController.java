@@ -43,7 +43,10 @@ public class ConsultingController {
             @ApiResponse(responseCode = "1000", description = "상담 목록 조회 성공", content = @Content(schema = @Schema(implementation = SuccessResult.class))),
     })
     @GetMapping("/reservation")
-    public SuccessResult<List<GetConsultingDto>> getConsultingList(@RequestParam("reservationDate") LocalDate reservationDate) {
+    public SuccessResult<List<GetConsultingDto>> getConsultingList(@RequestParam(value = "reservationDate", required = false) LocalDate reservationDate) {
+        if(reservationDate == null){
+            reservationDate = LocalDate.now();
+        }
         return BaseResponse.success(consultingService.getAllByReservationDate(reservationDate));
     }
 
