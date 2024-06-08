@@ -84,8 +84,9 @@ public class LivingTrustService {
         );
 
         return new LivingTrustDoneDto(livingTrust);
-      
-        public List<GetLivingTrustSummaryDto> getAllSummary() {
+    }
+
+    public List<GetLivingTrustSummaryDto> getAllSummary() {
         return livingTrustRepository.findAllSummary();
     }
 
@@ -94,9 +95,9 @@ public class LivingTrustService {
     }
 
     @Transactional
-    public boolean setComplete(Long id){
+    public boolean setComplete(Long id) {
         Optional<LivingTrust> response = livingTrustRepository.findById(id);
-        if(response.isEmpty()){
+        if (response.isEmpty()) {
             throw new BaseException(BaseResponseStatus.NOT_FOUND_LIVING_TRUST_ID);
         }
 
