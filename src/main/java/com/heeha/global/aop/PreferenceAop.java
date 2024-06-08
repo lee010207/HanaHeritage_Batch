@@ -1,15 +1,13 @@
 package com.heeha.global.aop;
 
 import com.heeha.domain.depositsProduct.entity.DepositsProduct;
+import java.time.LocalDate;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
-import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 
-import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
@@ -29,19 +27,23 @@ public class PreferenceAop {
 
     @Around("cut()")
     public Object around(ProceedingJoinPoint joinPoint) throws Throwable {
+        LocalDate today = LocalDate.now();
         Long productId = (Long) joinPoint.getArgs()[0];
-        log.info("예적금 상품 아이디 : {} 가 조회되었습니다.", productId);
+        log.info("{} : 예적금 상품 아이디 : {} 가 조회되었습니다.", today.toString(), productId);
         DepositsProduct selectedProduct = (DepositsProduct) joinPoint.proceed();
         log.info("조회된 상품명 : {}", selectedProduct.getFinPrdtNm());
-        updatePreference(selectedProduct.getFinPrdtNm());
+        updatePreference(selectedProduct.getFinPrdtNm(), today);
         return selectedProduct;
     }
 
-    private void updatePreference(String productName) {
-        if (!redisTemplate.opsForValue().setIfAbsent(productName, "1")) {
-            int preference = Integer.parseInt((String) redisTemplate.opsForValue().get(productName));
-
-            redisTemplate.opsForValue().set(productName, String.valueOf(preference + 1));
+    private void updatePreference(String productName, LocalDate today) {
+        if(!redisTemplate.opsForHash().hasKey(productName, today.toString())) {
+            redisTemplate.opsForHash().put(productName, today.toString(), String.valueOf(1));
+            return;
         }
+
+        int viewCount = Integer.parseInt((String) redisTemplate.opsForHash().get(productName, today.toString()));
+        viewCount = viewCount + 1;
+        redisTemplate.opsForHash().put(productName, today.toString(),String.valueOf(viewCount));
     }
 }
