@@ -1,5 +1,6 @@
 package com.heeha.domain.property.dto;
 
+import com.heeha.domain.property.entity.Property;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -10,4 +11,11 @@ public class PropertyRegisterDto {
     private Long amount;
     private String location;
     private Integer quantity;
+
+    public PropertyRegisterDto(Property property) {
+        this.propertyType = property.getType();
+        this.amount = property.getAmount();
+        this.location = property.getLocation();
+        this.quantity = property.getQuantity();
+    }
 }

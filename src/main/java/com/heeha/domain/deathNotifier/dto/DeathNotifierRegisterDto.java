@@ -13,4 +13,12 @@ public class DeathNotifierRegisterDto {
     private String address;
     private LocalDateTime birthdate;
     private String relation;
+
+    public DeathNotifierRegisterDto(DeathNotifier deathNotifier) {
+        this.name = deathNotifier.getName();
+        this.phoneNumber = deathNotifier.getPhoneNumber();
+        this.address = deathNotifier.getAddress();
+        this.birthdate = deathNotifier.getBirthdate();
+        this.relation = deathNotifier.getRelation();
+    }
 }

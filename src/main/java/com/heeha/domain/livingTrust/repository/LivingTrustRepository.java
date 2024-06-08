@@ -9,7 +9,7 @@ import org.springframework.data.repository.query.Param;
 public interface LivingTrustRepository extends JpaRepository<LivingTrust, Long> {
     @Query("select l from living_trust l "
             + "join fetch l.properties "
-            + "join fetch l.postBeneficiaries "
-            + "join fetch l.deathNotifiers where l.customer.id = : customerId")
-    Optional<LivingTrust> findLivingTrustByCustomerId(@Param(value = "customerId") Long customerId);
+            + "where l.customer.id = :customerId")
+    Optional<LivingTrust> findLivingTrustByCustomerId(@Param("customerId") Long customerId);
+
 }

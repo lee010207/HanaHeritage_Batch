@@ -2,7 +2,6 @@ package com.heeha.domain.livingTrust.service;
 
 import com.heeha.domain.customer.entity.Customer;
 import com.heeha.domain.customer.repository.CustomerRepository;
-import com.heeha.domain.customer.service.CustomerService;
 import com.heeha.domain.deathNotifier.dto.DeathNotifierRegisterDto;
 import com.heeha.domain.deathNotifier.service.DeathNotifierService;
 import com.heeha.domain.livingTrust.dto.LivingTrustCreateDto;
@@ -12,11 +11,9 @@ import com.heeha.domain.livingTrust.repository.LivingTrustRepository;
 import com.heeha.domain.postBeneficiary.dto.PostBeneficiaryRegisterDto;
 import com.heeha.domain.postBeneficiary.service.PostBeneficiaryService;
 import com.heeha.domain.property.dto.PropertyRegisterDto;
-import com.heeha.domain.property.dto.PropertyResponse;
 import com.heeha.domain.property.service.PropertyService;
 import com.heeha.global.config.BaseException;
 import com.heeha.global.config.BaseResponseStatus;
-import java.util.Optional;
 import java.util.Random;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -71,5 +68,13 @@ public class LivingTrustService {
     private String makeRandomNumber() {
         Random random = new Random();
         return "C" + String.valueOf(LOW_BOUND + random.nextInt(MAX_BOUND));
+    }
+
+    public LivingTrustDoneDto getMyLivingTrust(Long customerId) {
+        LivingTrust livingTrust = livingTrustRepository.findLivingTrustByCustomerId(customerId).orElseThrow(
+                () -> new BaseException(BaseResponseStatus.USERS_EMPTY_USER_ID)
+        );
+
+        return new LivingTrustDoneDto(livingTrust);
     }
 }
