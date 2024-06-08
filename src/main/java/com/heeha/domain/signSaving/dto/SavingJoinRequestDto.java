@@ -2,8 +2,10 @@ package com.heeha.domain.signSaving.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @AllArgsConstructor
+@NoArgsConstructor
 @Getter
 public class SavingJoinRequestDto {
 
@@ -12,10 +14,6 @@ public class SavingJoinRequestDto {
     private Long withdrawAccountId;
     private Long depositAmount;
     private String accountPassword;
-
-    private String installmentMethod;
-    private String maturityClass;
-    private String autoCancel;
 
     private Integer contractYears;
     private Double interestRate;

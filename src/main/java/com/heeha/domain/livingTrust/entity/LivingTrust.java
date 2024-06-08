@@ -49,5 +49,12 @@ public class LivingTrust extends BaseEntity {
     private List<PostBeneficiary> postBeneficiaries;
     @OneToMany(mappedBy = "livingTrust", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<DeathNotifier> deathNotifiers;
+
+    @Column(nullable = false)
+    private Boolean isApproved = Boolean.FALSE;
+
+    public void setApproveTrue(){
+        isApproved = Boolean.TRUE;
+    }
 }
 

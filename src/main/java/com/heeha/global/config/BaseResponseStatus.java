@@ -22,6 +22,7 @@ public enum BaseResponseStatus {
     WRONG_PASSWORD(false, 123, "유효하지 않은 비밀번호 또는 아이디 입니다."),
     LOGIN_SUCCESS(true, 100, "로그인에 성공하였습니다."),
     LOGOUT_SUCCESS(true, 101, "로그아웃에 성공하였습니다."),
+    INTERNAL_SERVER_ERROR(false, 150, "OCR 인증 요청 실패"),
 
     /**
      * 1000 : 요청 성공
@@ -69,6 +70,7 @@ public enum BaseResponseStatus {
     // history (8000 ~ 8999)
 
     // livingTrust (9000 ~ 9999)
+    NOT_FOUND_LIVING_TRUST_ID(false, 9001, "존재하지 않는 LivingTrust 아이디입니다."),
 
     // postBeneficiary (10000 ~ 10999)
 
@@ -82,7 +84,8 @@ public enum BaseResponseStatus {
     // signSaving (14000 ~ 14999)
 
     // reservation (15000 ~ 15999)
-    INVALID_WORK_TYPE(false, 15001, "사용할 수 없는 상담 유형입니다.");
+    INVALID_WORK_TYPE(false, 15001, "사용할 수 없는 상담 유형입니다."),
+    NOT_FOUND_CONSULTING_ID(false, 15002, "존재하지 않는 상담 아이디입니다.");
 
     private final boolean isSuccess;
     private final int code;

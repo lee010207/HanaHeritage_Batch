@@ -1,6 +1,8 @@
 package com.heeha.domain.livingTrust.service;
 
 import com.heeha.domain.customer.entity.Customer;
+import com.heeha.domain.consulting.entity.Consulting;
+import com.heeha.domain.livingTrust.dto.GetLivingTrustSummaryDto;
 import com.heeha.domain.customer.repository.CustomerRepository;
 import com.heeha.domain.deathNotifier.dto.DeathNotifierRegisterDto;
 import com.heeha.domain.deathNotifier.service.DeathNotifierService;
@@ -19,6 +21,11 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+
+import java.util.List;
+import java.util.Optional;
+
 
 @Service
 @RequiredArgsConstructor
@@ -76,5 +83,24 @@ public class LivingTrustService {
         );
 
         return new LivingTrustDoneDto(livingTrust);
+      
+        public List<GetLivingTrustSummaryDto> getAllSummary() {
+        return livingTrustRepository.findAllSummary();
+    }
+
+    public List<LivingTrust> getAll() {
+        return livingTrustRepository.findAll();
+    }
+
+    public boolean setComplete(Long id){
+        Optional<LivingTrust> response = livingTrustRepository.findById(id);
+        if(response.isEmpty()){
+            throw new BaseException(BaseResponseStatus.NOT_FOUND_LIVING_TRUST_ID);
+        }
+
+        LivingTrust livingTrust = response.get();
+        livingTrust.setApproveTrue();
+        livingTrustRepository.save(livingTrust);
+        return true;
     }
 }

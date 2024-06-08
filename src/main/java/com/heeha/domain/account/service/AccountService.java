@@ -1,9 +1,6 @@
 package com.heeha.domain.account.service;
 
-import com.heeha.domain.account.dto.AccountCheckResponse;
-import com.heeha.domain.account.dto.AccountCreateDto;
-import com.heeha.domain.account.dto.AccountValidationRequest;
-import com.heeha.domain.account.dto.MakeTransactionDto;
+import com.heeha.domain.account.dto.*;
 import com.heeha.domain.account.repository.AccountRepository;
 import com.heeha.domain.account.entity.Account;
 import com.heeha.domain.customer.entity.Customer;
@@ -27,6 +24,7 @@ public class AccountService {
     private final AccountRepository accountRepository;
     private final CustomerRepository customerRepository;
     private final HistoryService historyService;
+
     private final int LOW_BOUND = 10_000_000;
     private final int MAX_BOUND = 90_000_000;
 
@@ -72,9 +70,10 @@ public class AccountService {
 
         // 잔액 조회 - 이체 가능 여부 확인
         checkBalance(account.getBalance(), makeTransactionDto.getAmount());
-
+        log.info("잔액 확인 OK...");
         // 비밀번호 일치 여부 확인
         if (CheckAccountPassword(account.getPassword(), makeTransactionDto.getPassword())) {
+            log.info("비밀 번호 OK...");
             String recipient = null;
             // 하나 -> 하나 이체
             if (makeTransactionDto.getRecipientBank().equals("하나")) {
@@ -87,16 +86,18 @@ public class AccountService {
                 recipient = toAccount.getCustomer().getName();
                 //당행 이체 처리
                 hanaTransfer(account, toAccount, makeTransactionDto.getAmount());
+                log.info("{} 에서 {} 계좌로 {} 를 이체합니다",account.getAccountNumber(), toAccount.getAccountNumber(), makeTransactionDto.getAmount());
                 historyService.historySave(TransferHistoryDto.builder()
                         .dealClassification("입금")
                         .amount(makeTransactionDto.getAmount())
+                        .recipient(recipient)
                         .recipientBank(makeTransactionDto.getRecipientBank())
+                        .recipientNumber(toAccount.getAccountNumber())
                         .senderNumber(account.getAccountNumber())
-                        .recipientRemarks(makeTransactionDto.getSenderRemarks())
+                        .recipientRemarks(recipient)
                         .sender(account.getCustomer().getName())
-                        .senderRemarks(makeTransactionDto.getRecipientRemarks())
+                        .senderRemarks(account.getCustomer().getName())
                         .account(toAccount).build());
-
             }
             // 타행이체
             else {
@@ -111,22 +112,22 @@ public class AccountService {
                     .recipientRemarks(makeTransactionDto.getRecipientRemarks())
                     .senderRemarks(makeTransactionDto.getSenderRemarks())
                     .remainBalance(account.getBalance())
+                    .sender(makeTransactionDto.getSenderRemarks())
+                    .senderNumber(account.getAccountNumber())
                     .account(account).build());
         }
         return makeTransactionDto;
     }
 
     @Transactional
-    public Long hanaTransfer(Account fromAccount, Account toAccount, Long amount) {
+    public void hanaTransfer(Account fromAccount, Account toAccount, Long amount) {
         fromAccount.setBalance(fromAccount.getBalance() - amount);
         toAccount.setBalance(toAccount.getBalance() + amount);
-        return fromAccount.getBalance();
     }
 
     @Transactional
-    public Long otherTransfer(Account fromAccount, Long amount) {
+    public void otherTransfer(Account fromAccount, Long amount) {
         fromAccount.setBalance(fromAccount.getBalance() - amount);
-        return fromAccount.getBalance();
     }
 
     public void checkBalance(Long balance, long amount) {
