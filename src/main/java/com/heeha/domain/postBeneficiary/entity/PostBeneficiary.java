@@ -8,6 +8,9 @@ import lombok.*;
 import java.time.LocalDateTime;
 
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor(access = AccessLevel.PROTECTED)
+@Builder
 @Getter
 public class PostBeneficiary extends BaseEntity {
     @Id

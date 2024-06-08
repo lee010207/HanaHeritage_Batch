@@ -71,6 +71,7 @@ public class JwtTokenProvider {
 
     private Claims getValidClaim(String token) {
         try {
+            log.info("Validating token {}", token);
             return parseClaim(token);
         } catch (ExpiredJwtException e) {
             throw new BaseException(BaseResponseStatus.EXPIRED_TOKEN);
