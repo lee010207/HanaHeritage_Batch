@@ -12,10 +12,10 @@ import java.time.format.DateTimeFormatter;
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @ToString
-public class ConsultingReservationRequest {
+public class ReserveConsultingDto {
     private String workTypeName;
     private String phoneNumber;
-    private String reservationDatetime;
+    private String reservationDate;
 
     public Consulting toEntity(Long customerId) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
@@ -24,7 +24,8 @@ public class ConsultingReservationRequest {
                 .customer(Customer.builder().id(customerId).build())
                 .workType(WorkType.of(workTypeName))
                 .phoneNumber(phoneNumber)
-                .reservationDatetime(LocalDate.parse(reservationDatetime, formatter))
+                .reservationDate(LocalDate.parse(reservationDate, formatter))
+                .isCompleted(false)
                 .build();
     }
 }

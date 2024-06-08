@@ -76,8 +76,8 @@ public class AccountController {
     @ApiResponses({
             @ApiResponse(responseCode = "1000", description = "비밀번호 일치", content = @Content(schema = @Schema(implementation = SuccessResult.class))),
     })
-    @GetMapping("/validate")
-    public SuccessResult<Boolean> validateAccount(AccountValidationRequest validationRequest) {
+    @PostMapping("/validate")
+    public SuccessResult<Boolean> validateAccount(@RequestBody AccountValidationRequest validationRequest) {
         return BaseResponse.success(accountService.validateAccount(validationRequest));
     }
 
