@@ -6,6 +6,7 @@ import com.heeha.domain.depositsProduct.dto.GetListDepositsProductResponse;
 import com.heeha.domain.depositsProduct.entity.DepositsProduct;
 import com.heeha.domain.depositsProduct.repository.DepositsProductRepository;
 import com.heeha.domain.depositsProduct.util.DepositsProductUtil;
+import com.heeha.global.aop.Preference;
 import com.heeha.global.config.BaseException;
 import com.heeha.global.config.BaseResponseStatus;
 import java.util.Optional;
@@ -45,6 +46,7 @@ public class DepositsProductService {
                 .toList());
     }
 
+    @Preference
     public DepositsProduct getDetail(Long id) {
         Optional<DepositsProduct> depositsProductResponse = depositsProductRepository.findById(id);
         if(depositsProductResponse.isEmpty()) {
