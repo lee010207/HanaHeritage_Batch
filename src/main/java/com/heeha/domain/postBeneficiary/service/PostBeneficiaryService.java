@@ -1,5 +1,7 @@
 package com.heeha.domain.postBeneficiary.service;
 
+import com.heeha.domain.livingTrust.entity.LivingTrust;
+import com.heeha.domain.postBeneficiary.dto.PostBeneficiaryRegisterDto;
 import com.heeha.domain.postBeneficiary.entity.PostBeneficiary;
 import com.heeha.domain.postBeneficiary.repository.PostBeneficiaryRepository;
 import lombok.RequiredArgsConstructor;
@@ -7,36 +9,25 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
 public class PostBeneficiaryService{
-//implements BaseService<PostBeneficiary, Long>
-    final PostBeneficiaryRepository repository;
+    private final PostBeneficiaryRepository postBeneficiaryRepository;
 
-    //@Override
-    public PostBeneficiary insert(PostBeneficiary entity) {
-        return repository.save(entity);
+    @Transactional
+    public Long save(PostBeneficiaryRegisterDto postBeneficiaryRegisterDto, LivingTrust livingTrust) {
+        PostBeneficiary postBeneficiary = PostBeneficiary.builder()
+                .name(postBeneficiaryRegisterDto.getName())
+                .phoneNumber(postBeneficiaryRegisterDto.getPhoneNumber())
+                .address(postBeneficiaryRegisterDto.getAddress())
+                .birthdate(postBeneficiaryRegisterDto.getBirthdate())
+                .relation(postBeneficiaryRegisterDto.getRelation())
+                .ratio(postBeneficiaryRegisterDto.getRatio())
+                .livingTrust(livingTrust)
+                .build();
+        return postBeneficiaryRepository.save(postBeneficiary).getId();
     }
 
-    //@Override
-    public Boolean delete(Long id) {
-        repository.deleteById(id);
-        return true;
-    }
-
-   //@Override
-    public PostBeneficiary update(PostBeneficiary entity) {
-        return repository.save(entity);
-    }
-
-    //@Override
-    public Optional<PostBeneficiary> get(Long id) {
-        return repository.findById(id);
-    }
-
-    //@Override
-    public List<PostBeneficiary> getAll() {
-        return repository.findAll();
-    }
 }
