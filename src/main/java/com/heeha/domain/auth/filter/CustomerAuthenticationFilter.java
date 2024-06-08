@@ -23,7 +23,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 public class CustomerAuthenticationFilter extends OncePerRequestFilter {
     private final JwtTokenProvider tokenProvider;
     private final List<String> EXCLUDE_URL = List.of("/api/v1/auth", "/api/v1/customer/signup", "/favicon",
-            "/api/v1/sms", "/swagger", "/v3");
+            "/api/v1/sms", "/swagger", "/v3", "/api/v1/developer");
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)

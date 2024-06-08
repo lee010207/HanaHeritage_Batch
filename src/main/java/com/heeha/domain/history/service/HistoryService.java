@@ -1,5 +1,6 @@
 package com.heeha.domain.history.service;
 
+import com.heeha.domain.history.dto.DailySettlementDto;
 import com.heeha.domain.history.dto.TransferHistoryDto;
 import com.heeha.domain.history.dto.HistoryDto;
 import com.heeha.domain.history.entity.History;
@@ -13,6 +14,9 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -26,8 +30,15 @@ public class HistoryService {
         List<History> histories = historyRepository.findByAccountId(accountId);
         return histories.stream().map(this::convertToDto).collect(Collectors.toList());
     }
+
+    public List<DailySettlementDto> getStatistics(LocalDate dealdate) {
+        LocalDateTime startDate = dealdate.atStartOfDay();
+        LocalDateTime endDate = dealdate.atTime(LocalTime.MAX);
+        return historyRepository.getStatistics(startDate, endDate);
+    }
+
     @Transactional
-    public void historySave(TransferHistoryDto history){
+    public void historySave(TransferHistoryDto history) {
         try {
             historyRepository.save(history.toEntity());
         } catch (DataIntegrityViolationException e) {

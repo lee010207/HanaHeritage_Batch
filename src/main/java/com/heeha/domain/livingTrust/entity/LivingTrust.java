@@ -2,6 +2,8 @@ package com.heeha.domain.livingTrust.entity;
 
 import com.heeha.domain.base.entity.BaseEntity;
 import com.heeha.domain.customer.entity.Customer;
+import com.heeha.domain.deathNotifier.entity.DeathNotifier;
+import com.heeha.domain.postBeneficiary.entity.PostBeneficiary;
 import com.heeha.domain.property.entity.Property;
 import jakarta.persistence.*;
 import lombok.*;
@@ -15,7 +17,6 @@ import java.util.List;
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
 @Builder
 @Getter
-@ToString
 public class LivingTrust extends BaseEntity {
 
     @Id
@@ -44,5 +45,16 @@ public class LivingTrust extends BaseEntity {
 
     @OneToMany(mappedBy = "livingTrust", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Property> properties;
+    @OneToMany(mappedBy = "livingTrust", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<PostBeneficiary> postBeneficiaries;
+    @OneToMany(mappedBy = "livingTrust", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<DeathNotifier> deathNotifiers;
+
+    @Column(nullable = false)
+    private Boolean isApproved = Boolean.FALSE;
+
+    public void setApproveTrue(){
+        isApproved = Boolean.TRUE;
+    }
 }
 

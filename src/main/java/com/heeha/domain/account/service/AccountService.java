@@ -94,6 +94,7 @@ public class AccountService {
                         .recipientBank(makeTransactionDto.getRecipientBank())
                         .recipientNumber(toAccount.getAccountNumber())
                         .senderNumber(account.getAccountNumber())
+                        .remainBalance(toAccount.getBalance())
                         .recipientRemarks(recipient)
                         .sender(account.getCustomer().getName())
                         .senderRemarks(account.getCustomer().getName())

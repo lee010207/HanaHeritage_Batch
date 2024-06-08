@@ -9,21 +9,14 @@ import lombok.*;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @ToString
 public class PropertyResponse {
-    //private Long id;
 
-//    private LivingTrust livingTrust;
     private String name;
     private String type;
-
     private Long amount;
-
     private String location;
-
     private Integer quantity;
 
     public PropertyResponse(Property property) {
-        //this.id = property.getId();
-//        this.livingTrust = property.getLivingTrust();
         this.name = property.getName();
         this.type = property.getType();
         this.amount = property.getAmount();
