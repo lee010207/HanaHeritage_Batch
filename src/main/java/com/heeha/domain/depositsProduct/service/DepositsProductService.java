@@ -3,15 +3,25 @@ package com.heeha.domain.depositsProduct.service;
 import com.heeha.domain.depositsProduct.dto.DepositsProductResponse;
 import com.heeha.domain.depositsProduct.dto.GetDetailDepositsProductResponse;
 import com.heeha.domain.depositsProduct.dto.GetListDepositsProductResponse;
+import com.heeha.domain.depositsProduct.dto.PreferenceInfo;
 import com.heeha.domain.depositsProduct.entity.DepositsProduct;
 import com.heeha.domain.depositsProduct.repository.DepositsProductRepository;
 import com.heeha.domain.depositsProduct.util.DepositsProductUtil;
+import com.heeha.global.aop.Preference;
 import com.heeha.global.config.BaseException;
 import com.heeha.global.config.BaseResponseStatus;
+import jakarta.persistence.criteria.CriteriaBuilder.In;
+import java.time.LocalDate;
+import java.util.HashMap;
+import java.util.Locale;
+import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
+import java.util.PriorityQueue;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -26,6 +36,7 @@ public class DepositsProductService {
 
     private final DepositsProductRepository depositsProductRepository;
     private final DepositsProductUtil depositsProductUtil;
+    private final RedisTemplate<String, Object> redisTemplate;
 
     @Transactional
     public void saveSavingProduct() {
@@ -45,9 +56,10 @@ public class DepositsProductService {
                 .toList());
     }
 
+    @Preference
     public DepositsProduct getDetail(Long id) {
         Optional<DepositsProduct> depositsProductResponse = depositsProductRepository.findById(id);
-        if(depositsProductResponse.isEmpty()) {
+        if (depositsProductResponse.isEmpty()) {
             throw new BaseException(BaseResponseStatus.INVALID_DEPOSIT_PRODUCT_ID);
         }
 
@@ -57,7 +69,7 @@ public class DepositsProductService {
     @Transactional
     public List<GetListDepositsProductResponse> getList() {
         List<DepositsProduct> depositsProductList = depositsProductRepository.findAll();
-        if(depositsProductList.isEmpty()) {
+        if (depositsProductList.isEmpty()) {
             throw new BaseException(BaseResponseStatus.EMPTY_DEPOSITS_PRODUCT);
         }
         return depositsProductList
@@ -69,12 +81,43 @@ public class DepositsProductService {
     @Transactional
     public List<GetListDepositsProductResponse> searchList(String searchword) {
         List<DepositsProduct> depositsProductList = depositsProductRepository.findByserchwordLike(searchword);
-        if(depositsProductList.isEmpty()) {
+        if (depositsProductList.isEmpty()) {
             throw new BaseException(BaseResponseStatus.EMPTY_DEPOSITS_PRODUCT);
         }
         return depositsProductList
                 .stream()
                 .map(GetListDepositsProductResponse::fromEntity)
                 .collect(Collectors.toList());
+    }
+
+    public Map<Integer, PreferenceInfo> getTopProduct() {
+        Map<Integer, PreferenceInfo> topProduct = new HashMap<>();
+        LocalDate today = LocalDate.now();
+
+        PriorityQueue<PreferenceInfo> queue = new PriorityQueue<>();
+        depositsProductRepository.findAll().forEach(depositsProduct -> {
+            String productName = depositsProduct.getFinPrdtNm();
+            if (Boolean.TRUE.equals(redisTemplate.opsForHash().hasKey(productName, today.toString()))) {
+                queue.add(new PreferenceInfo(productName, Integer.parseInt(
+                        (String) Objects.requireNonNull(
+                                redisTemplate.opsForHash().get(productName, today.toString())))));
+            }
+        });
+
+        int cnt = 1;
+        while (!queue.isEmpty() && cnt <= 3) {
+            topProduct.put(cnt++, queue.poll());
+        }
+
+        return topProduct;
+    }
+
+    public Map<String, Integer> getViewCountPerDay(String productName) {
+        Map<String, Integer> viewCountPerDay = new HashMap<>();
+        Map<Object, Object> entries = redisTemplate.opsForHash().entries(productName);
+        for (Map.Entry<Object, Object> entry : entries.entrySet()) {
+            viewCountPerDay.put(entry.getKey().toString(), Integer.parseInt(entry.getValue().toString()));
+        }
+        return viewCountPerDay;
     }
 }
