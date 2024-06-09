@@ -33,7 +33,7 @@ public class AutoTransferJobConfig extends DefaultBatchConfiguration {
     public Job autoTransferJob(JobRepository jobRepository, PlatformTransactionManager transactionManager) throws DuplicateJobException {
         log.info("=== autoTransferJob ===");
         Job job = new JobBuilder("autoTransferJob", jobRepository)
-                .start(autoTransferStep(jobRepository, transactionManager))
+                .start(autoTransferStep(jobRepository, transactionManager, null))
                 .build();
         return job;
     }
@@ -43,11 +43,13 @@ public class AutoTransferJobConfig extends DefaultBatchConfiguration {
     @JobScope
     public Step autoTransferStep(
             JobRepository jobRepository,
-            PlatformTransactionManager transactionManager) {
+            PlatformTransactionManager transactionManager,
+            @Value("#{jobParameters[today]}") LocalDate today
+    ) {
         log.info("== autoTransferStep ==");
         //log.info(dealDate.toString());
         return new StepBuilder("autoTransferStep", jobRepository)
-                .tasklet(new AutoTransferTasklet(autoTransferService, accountService), transactionManager)
+                .tasklet(new AutoTransferTasklet(autoTransferService, accountService, today), transactionManager)
                 .build();
     }
 

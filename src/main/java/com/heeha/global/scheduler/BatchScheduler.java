@@ -45,19 +45,18 @@ public class BatchScheduler {
             throw new RuntimeException(e);
         }
     }
-    // 잡을 실행
 
     // 자동이체 스케줄러
     //cron="0/10 * * * * *"
-    //@Scheduled(cron = "0 0 0 * * ?") // 매일 자정에 실행
-    @Scheduled(cron = "0/10 * * * * *")
+    @Scheduled(cron = "0 9 0 * * ?")  // 매일 9시 실행
     public void runAutoTranferJob() {
-        //LocalDate today = LocalDate.now();
+        LocalDate today = LocalDate.now();
         //int day = today.getDayOfMonth();
 
         try {
             Job job = jobRegistry.getJob("autoTransferJob"); // job 이름
             JobParametersBuilder jobParam = new JobParametersBuilder()
+                    .addLocalDate("today", today)
                     .addLocalDateTime("runAt", LocalDateTime.now());
 
             jobLauncher.run(job, jobParam.toJobParameters());
