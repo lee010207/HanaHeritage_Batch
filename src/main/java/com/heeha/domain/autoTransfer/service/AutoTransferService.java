@@ -38,6 +38,20 @@ public class AutoTransferService {
         }
     }
 
+    // 자동이체 내역 조회
+    @Transactional
+    public List<CreateAutoTransferDto> getAutoTransferByDay(int day) {
+            List<AutoTransfer> transfers = autoTransferRepository.findByAutoTransferDay(day);
+            if (transfers.isEmpty()) {
+                throw new BaseException(BaseResponseStatus.NO_AUTOTRANSFER);
+            }else {
+                List<CreateAutoTransferDto> autoTransferDtoList = transfers.stream()
+                        .map(CreateAutoTransferDto::new)
+                        .toList();
+                return autoTransferDtoList;
+            }
+    }
+
     // 자동이체 실행
     @Transactional
     public void executeAutoTransfers() {
