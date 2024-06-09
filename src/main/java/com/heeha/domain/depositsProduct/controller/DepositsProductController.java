@@ -3,6 +3,7 @@ package com.heeha.domain.depositsProduct.controller;
 
 import com.heeha.domain.depositsProduct.dto.GetListDepositsProductResponse;
 import com.heeha.domain.depositsProduct.dto.GetDetailDepositsProductResponse;
+import com.heeha.domain.depositsProduct.dto.PreferenceInfo;
 import com.heeha.domain.depositsProduct.service.DepositsProductService;
 import com.heeha.global.config.BaseResponse;
 import io.swagger.v3.oas.annotations.Operation;
@@ -12,6 +13,7 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import java.util.Map;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
@@ -65,6 +67,18 @@ public class DepositsProductController {
         depositsProductService.saveSavingProduct();
         depositsProductService.saveDepositProduct();
         return BaseResponse.success(true);
+    }
+
+    @GetMapping("/preference")
+    @Operation(summary = "상품 조회 순위 조회")
+    public BaseResponse.SuccessResult<Map<Integer, PreferenceInfo>> getPreferences() {
+        return BaseResponse.success(depositsProductService.getTopProduct());
+    }
+
+    @GetMapping("/preference/perday")
+    @Operation(summary = "특정 상품의 일별 조회수")
+    public BaseResponse.SuccessResult<Map<String,Integer>> getPerDayPreferences(@RequestParam(name = "productName") String productName) {
+        return BaseResponse.success(depositsProductService.getViewCountPerDay(productName));
     }
 }
 

@@ -19,6 +19,7 @@ public class LivingTrustDoneDto {
     private LocalDateTime trustContractStartDate;
     private LocalDateTime trustContractEndDate;
 
+    private boolean isApproved;
     private List<PostBeneficiaryRegisterDto> postBeneficiary;
     private List<PropertyRegisterDto> properties;
     private List<DeathNotifierRegisterDto> deathNotifiers;
@@ -32,6 +33,6 @@ public class LivingTrustDoneDto {
         postBeneficiary = livingTrust.getPostBeneficiaries().stream().map(PostBeneficiaryRegisterDto::new).toList();
         properties = livingTrust.getProperties().stream().map(PropertyRegisterDto::new).toList();
         deathNotifiers = livingTrust.getDeathNotifiers().stream().map(DeathNotifierRegisterDto::new).toList();
-
+        isApproved = livingTrust.getIsApproved();
     }
 }

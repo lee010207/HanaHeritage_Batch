@@ -1,11 +1,10 @@
 package com.heeha.domain.customer.controller;
 
 import com.heeha.domain.auth.Auth;
+import com.heeha.domain.customer.dto.CustomerContactDto;
 import com.heeha.domain.customer.dto.MyInfoResponse;
 import com.heeha.domain.customer.dto.SignUpRequest;
-import com.heeha.domain.customer.entity.Customer;
 import com.heeha.domain.customer.service.CustomerService;
-import com.heeha.global.config.BaseException;
 import com.heeha.global.config.BaseResponse;
 import com.heeha.global.config.BaseResponse.ErrorResult;
 import com.heeha.global.config.BaseResponse.SuccessResult;
@@ -21,6 +20,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 @RestController
 @Slf4j
@@ -44,5 +45,11 @@ public class CustomerController {
     @GetMapping("/me")
     public SuccessResult<MyInfoResponse> me(@Auth Long customerId) {
         return BaseResponse.success(customerService.findById(customerId));
+    }
+
+    @Operation(summary = "[😈Admin] 고객 이름 및 연락처 정보 조회")
+    @GetMapping("/contact")
+    public SuccessResult<List<CustomerContactDto>> getCustomerContact() {
+        return BaseResponse.success(customerService.getCustomerContact());
     }
 }
