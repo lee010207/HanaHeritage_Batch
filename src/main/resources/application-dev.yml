@@ -12,9 +12,9 @@ spring:
       password: 111111
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://127.0.0.1:3306/heritagedb?characterEncoding=utf8
-    username: heritage
-    password: 123123
+    url: jdbc:mysql://heritage.cpqe6sioasnt.ap-northeast-2.rds.amazonaws.com:3306/heritage?serverTimezone=UTC&characterEncoding=UTF-8
+    username: admin
+    password: hanaro1234!!
   batch:
     job:
       enabled: false # 서버 재시작시 배치 자동실행 방지
@@ -40,6 +40,3 @@ jwt:
 
 app:
   key: ebfd212c9fc8a2c8774d9dee8c034bd7
-coolsms :
-  apikey : NCSSAHYGSD5SKPUS
-  apiPrivate : CZR2PLG0FF2UV2T29O4AU4GWU9X5WLYK
