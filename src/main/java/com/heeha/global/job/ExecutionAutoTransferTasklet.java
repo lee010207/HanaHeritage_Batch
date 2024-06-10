@@ -17,43 +17,40 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Slf4j
-public class AutoTransferTasklet implements Tasklet, StepExecutionListener {
-    private final AutoTransferService autoTransferService;
+public class ExecutionAutoTransferTasklet implements Tasklet, StepExecutionListener {
     private final AccountService transferService;
     private LocalDate today;
-    private List<CreateAutoTransferDto> autoTransferDtoList;
+    //private List<CreateAutoTransferDto> autoTransferDtoList;
 
-    public AutoTransferTasklet(AutoTransferService autoTransferService, AccountService transferService, LocalDate today) {
-        this.autoTransferService = autoTransferService;
+    public ExecutionAutoTransferTasklet(AccountService transferService, LocalDate today) {
         this.transferService = transferService;
         this.today = today;
     }
 
-    @Override
-    public void beforeStep(StepExecution stepExecution) {
-        int day = today.getDayOfMonth();
-        autoTransferDtoList = autoTransferService.getAutoTransferByDay(day);
-    }
 
     @Override
     public RepeatStatus execute(StepContribution contribution, ChunkContext chunkContext) {
+        StepExecution stepExecution = contribution.getStepExecution();
+        List<CreateAutoTransferDto> autoTransferDtoList = (List<CreateAutoTransferDto>) stepExecution.getExecutionContext().get("autoTransferDtoList");
 
         for (CreateAutoTransferDto autoTransferDto : autoTransferDtoList) {
             if (today.isAfter(autoTransferDto.getStartDate()) && today.isBefore(autoTransferDto.getEndDate())) {
-                MakeTransactionDto autoTransfer = MakeTransactionDto.builder()
-                        .amount(autoTransferDto.getAmount())
-                        .recipientBank(autoTransferDto.getRecipientBank())
-                        .recipientAccountNumber(autoTransferDto.getToAccountNumber())
-                        .recipientRemarks(autoTransferDto.getRecipientRemarks())
-                        .senderRemarks(autoTransferDto.getSenderRemarks())
-                        .accountId(autoTransferDto.getAccountId())
-                        .password(autoTransferDto.getPassword())
-                        .build();
-
-                transferService.makeTransaction(autoTransfer);
+                try {
+                    MakeTransactionDto autoTransfer = MakeTransactionDto.builder()
+                            .amount(autoTransferDto.getAmount())
+                            .recipientBank(autoTransferDto.getRecipientBank())
+                            .recipientAccountNumber(autoTransferDto.getToAccountNumber())
+                            .recipientRemarks(autoTransferDto.getRecipientRemarks())
+                            .senderRemarks(autoTransferDto.getSenderRemarks())
+                            .accountId(autoTransferDto.getAccountId())
+                            .password(autoTransferDto.getPassword())
+                            .build();
+                    transferService.makeTransaction(autoTransfer);
+                } catch (Exception e) {
+                    log.error("자동이체 실패: " + e.getMessage());
+                }
             }
         }
-
         return RepeatStatus.FINISHED;
     }
 

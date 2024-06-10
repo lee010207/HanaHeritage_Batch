@@ -48,7 +48,8 @@ public class BatchScheduler {
 
     // 자동이체 스케줄러
     //cron="0/10 * * * * *"
-    @Scheduled(cron = "0 9 0 * * ?")  // 매일 9시 실행
+    //@Scheduled(cron = "0 9 0 * * ?")  // 매일 9시 실행
+    @Scheduled(cron = "0/10 * * * * *")  // 매일 9시 실행
     public void runAutoTranferJob() {
         LocalDate today = LocalDate.now();
         //int day = today.getDayOfMonth();

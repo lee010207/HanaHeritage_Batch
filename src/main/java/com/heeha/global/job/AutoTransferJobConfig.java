@@ -33,7 +33,12 @@ public class AutoTransferJobConfig extends DefaultBatchConfiguration {
     public Job autoTransferJob(JobRepository jobRepository, PlatformTransactionManager transactionManager) throws DuplicateJobException {
         log.info("=== autoTransferJob ===");
         Job job = new JobBuilder("autoTransferJob", jobRepository)
-                .start(autoTransferStep(jobRepository, transactionManager, null))
+                .start(getAutoTransferStep(jobRepository, transactionManager, null))
+                .on("FAILED")
+                .end()
+                .on("*")
+                .to(exeAutoTransferStep(jobRepository, transactionManager, null))
+                .end()
                 .build();
         return job;
     }
@@ -41,15 +46,28 @@ public class AutoTransferJobConfig extends DefaultBatchConfiguration {
 
     @Bean
     @JobScope
-    public Step autoTransferStep(
+    public Step getAutoTransferStep(
             JobRepository jobRepository,
             PlatformTransactionManager transactionManager,
             @Value("#{jobParameters[today]}") LocalDate today
     ) {
-        log.info("== autoTransferStep ==");
+        log.info("== getAutoTransferStep ==");
         //log.info(dealDate.toString());
-        return new StepBuilder("autoTransferStep", jobRepository)
-                .tasklet(new AutoTransferTasklet(autoTransferService, accountService, today), transactionManager)
+        return new StepBuilder("getAutoTransferStep", jobRepository)
+                .tasklet(new GetAutoTransferTasklet(autoTransferService, today), transactionManager)
+                .build();
+    }
+    @Bean
+    @JobScope
+    public Step exeAutoTransferStep(
+            JobRepository jobRepository,
+            PlatformTransactionManager transactionManager,
+            @Value("#{jobParameters[today]}") LocalDate today
+    ) {
+        log.info("== exeAutoTransferStep ==");
+        //log.info(dealDate.toString());
+        return new StepBuilder("exeAutoTransferStep", jobRepository)
+                .tasklet(new ExecutionAutoTransferTasklet(accountService, today), transactionManager)
                 .build();
     }
 
